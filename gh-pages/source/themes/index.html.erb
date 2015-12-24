@@ -1,0 +1,98 @@
+<%
+  class Comment
+    attr_reader :user_name, :avatar_url, :body, :created_at
+    def initialize(user_name, avatar_url, body, created_at)
+      @user_name = user_name
+      @avatar_url = avatar_url
+      @body = body
+      @created_at = created_at
+    end
+  end
+%>
+
+<%
+  comments = []
+  comments << Comment.new("张三", image_tag("boohee.png", title: "张三", class: "avatar"), lorem.paragraphs(2), lorem.date)
+  comments << Comment.new("李四", image_tag("boohee.png", title: "李四", class: "avatar"), lorem.paragraphs(2), lorem.date)
+%>
+
+<style>
+  .comments img.avatar {
+    max-width: 100px;
+  }
+  /* Mobile first queries */
+  /* Larger than mobile */
+  @media (min-width: 400px) {}
+  /* Larger than phablet */
+  @media (min-width: 550px) {
+    .comments img.avatar {
+      max-width: 100%;
+    }
+  }
+  /* Larger than tablet */
+  @media (min-width: 750px) {}
+  /* Larger than desktop */
+  @media (min-width: 1000px) {}
+  /* Larger than Desktop HD */
+  @media (min-width: 1200px) {}
+</style>
+
+<h2>更多主题敬请期待</h2>
+
+<div class="comments">
+  <div class="row">
+    <div class="one column">
+      <%= image_tag "boohee.gif", class: "avatar" %>
+    </div> <!-- 1/12 -->
+
+    <div class="eleven columns status_div" id="status_default">
+      <input type="text" name="body" class="u-full-width" placeholder="你知道为什么小明的爷爷能活到95岁吗?" />
+    </div><!-- 只有一个单一的输入框 -->
+
+    <div class="eleven columns status_div" id="status_login">
+      <button type="button" class="u-full-width button-primary">github 登录</button>
+    </div><!-- 单一输入框变成一个很大的 github 登录按钮 -->
+
+    <div class="eleven columns status_div" id="status_logined">
+      <input type="text" name="body" class="u-full-width" style="width: 65%; display: inline-block; float: left;" placeholder="你知道为什么小明的爷爷能活到95岁吗?" />
+      <button type="button" class="button-primary" style="width: 10%; display: inline-block; float: left;">提交</button>
+    </div><!-- 输入框和一个提交按钮  -->
+
+  </div>
+  <% comments.each do |comment| %>
+    <div class="row">
+      <div class="one column">
+        <%= comment.avatar_url %>
+      </div>
+      <div class="eleven columns">
+        <p class="comment-text"><%= comment.body %></p>
+        <div class="bottom-comment">
+          <div class="comment-date"><%= comment.created_at %></div>
+          <ul class="comment-actions">
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+
+<script type="text/javascript">
+  var statuses = ["default", "login", "logined"];
+  $(function(){
+    $(".status_div").hide();
+    // $("#status_logined").show();
+    var index = 0;
+    setInterval(function(){
+      $(".status_div").hide();
+      var className = statuses[index];
+      $("#status_"+className).show();
+      if(index >= 3){
+        index = 0;
+      }else{
+        index = index + 1;
+      }
+    }, 2000);
+  });
+</script>

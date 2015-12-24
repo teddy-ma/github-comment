@@ -1,0 +1,9 @@
+<h1> Where there is a post, there are many comments </h1>
+
+<ul>
+  <% blog.articles.each do |article| %>
+    <li>
+      <%= link_to article.title, article.url %>
+    </li>
+  <% end %>
+</ul>
