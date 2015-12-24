@@ -1,3 +1,7 @@
+---
+title: 自托管 GitHub Comment
+---
+
 # 自托管 GitHub Comment
 
 GitHub Comment 的账号系统是基于 GitHub 的.
@@ -11,3 +15,9 @@ GitHub Comment 的账号系统是基于 GitHub 的.
 
 GitHub Comment 后端是使用 nodejs + express 实现的, 因此只要有相应地系统环境或者使用 heroku 之类的平台
 就可以启用了.
+
+GitHub Comment 遵循 [12-Factor](http://12factor.net/zh_cn/) 的原则, 将配置与代码分离.
+
+代码根目录下有一个 `.env.example` 文件, 复制该文件为 `.env` 并修改其中内容为自己的配置即可.
+
+如果使用 heroku, 可以使用 heroku 命令行或在 web 端通过配置环境变量达到相同的结果.

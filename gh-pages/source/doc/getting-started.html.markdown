@@ -1,3 +1,7 @@
+---
+title: GitHub Comment 入门教程
+---
+
 # GitHub Comment 入门教程
 
 GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
