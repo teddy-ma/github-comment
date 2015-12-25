@@ -1,0 +1,85 @@
+@import "~susy/sass/susy";
+
+$susy: (
+  columns: 12,
+  gutters: 1/4,
+  container: 71.25rem,
+  global-box-sizing: border-box,
+);
+
+$input_height: 38px;
+$blue: #33C3F0;
+
+// ------------------------- lib over -----------------------------------
+
+:global(.container) {
+  // background-color: grey;
+}
+
+// -------------------------- global -------------------------------------
+
+// 评论表单的 container
+.github_comment_form_wrapper {
+  @include container();
+  height: $input_height;
+  margin-top: 1rem;
+}
+
+// 已有评论列表的 container
+.github_comment_items_wrapper {
+  @include container;
+  margin-top: 1rem;
+}
+
+// 评论人的头像
+.github_comment_avatar {
+  @include span(1 of 12);
+  img {
+    max-width: $input_height;
+    border-radius: 50px;
+  }
+}
+
+// 评论输入框
+.github_comment_input {
+  @include span(11 of 12 last);
+  input {
+    width: 80%;
+    height: $input_height;
+    padding: 6px 10px;
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    &:focus {
+      outline-color: transparent;
+      outline-style: none;
+      outline: none;
+    }
+  }
+  button {
+    display: inline-block;
+    height: $input_height;
+    padding: 0 30px;
+    color: #FFF;
+    background-color: $blue;
+    text-align: center;
+    margin-left: 1rem;
+    line-height: $input_height;
+    border-radius: 4px;
+    border: 1px solid $blue;
+    cursor: pointer;
+  }
+}
+
+// 已有评论内容
+.github_comment_content {
+  @include span(11 of 12 last);
+  p {
+    margin: 0;
+    line-height: $input_height;
+    font-size: 1.5em;
+    font-weight: 400;
+  }
+}
