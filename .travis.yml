@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.2.4
+- 2.3.0
 script:
 - rm -rf .git
 - git config --global user.email "mlc880926@gmail.com"

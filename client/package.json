@@ -4,7 +4,7 @@
   "description": "a collection of simple demos of Webpack",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "babel-core": "~6.3.26",
     "babel-loader": "~6.2.0",
     "babel-preset-es2015": "~6.3.13",
