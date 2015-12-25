@@ -20,11 +20,12 @@ var Form = React.createClass({
   }
 });
 
-// 评论内容组件
+
+
 var Comment = React.createClass({
   render: function() {
     return (
-      <div className={style.github_comment_items_wrapper}>
+      <div className={style.github_comment_item}>
         <div className={style.github_comment_avatar}>
           <img src="https://avatars.githubusercontent.com/u/788486?v=3" className={style.avatar}/>
         </div>
@@ -32,11 +33,25 @@ var Comment = React.createClass({
           <p>{this.props.content}</p>
         </div>
       </div>
+    )
+  }
+});
+
+// 评论内容组件
+var List = React.createClass({
+  render: function() {
+    return (
+      <div className={style.github_comment_items_wrapper}>
+        <Comment content="awesome~" />
+        <Comment content="awesome~" />
+        <Comment content="awesome~" />
+        <Comment content="awesome~" />
+      </div>
     );
   }
 });
 
 ReactDOM.render(
-  <Form name="World"/>, document.getElementById('github-comment-form'));
+  <Form name="World" />, document.getElementById('github-comment-form'));
 ReactDOM.render(
-  <Comment content="awesome!!!!"/>, document.getElementById('github-comments-container'));
+  <List />, document.getElementById('github-comments-container'));

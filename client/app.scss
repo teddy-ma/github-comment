@@ -27,6 +27,11 @@ $blue: #33C3F0;
 
 // 已有评论列表的 container
 .github_comment_items_wrapper {
+
+}
+
+// 单个评论的 wrapper
+.github_comment_item {
   @include container;
   margin-top: 1rem;
 }
