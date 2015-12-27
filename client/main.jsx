@@ -2,9 +2,13 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var style = require('./app.scss');
+var $ = require('jquery');
 
 // 评论表单组件
 var Form = React.createClass({
+  getInitialState: function() {
+    return ({login: "no"});
+  },
   render: function() {
     return (
       <div className={style.github_comment_form_wrapper}>
@@ -12,7 +16,7 @@ var Form = React.createClass({
           <img className={style.avatar} title={this.props.name} src="http://github-comment.herokuapp.com/images/boohee.png"/>
         </div>
         <div className={style.github_comment_input} id="status_default">
-          <input className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+          <input onFocus={this.handleFocus} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
           <button type="button">提交</button>
         </div>
       </div>
@@ -39,13 +43,32 @@ var Comment = React.createClass({
 
 // 评论内容组件
 var List = React.createClass({
+  getInitialState: function() {
+    return (
+      {loaded: false},
+      {comments: []}
+    );
+  },
+  componentDidMount: function() {
+    console.log("did mount");
+    $.get("http://localhost:5000/fake_comments", function(result) {
+      if (this.isMounted()) {
+        this.setState({
+          loaded: true,
+          comments: result
+        });
+        console.log("is mounted");
+      }
+    }.bind(this));
+  },
   render: function() {
     return (
       <div className={style.github_comment_items_wrapper}>
-        <Comment content="awesome~" />
-        <Comment content="awesome~" />
-        <Comment content="awesome~" />
-        <Comment content="awesome~" />
+        {
+          this.state.comments.map(function(item){
+            return <Comment key={item.id} content={item.body} />
+          })
+        }
       </div>
     );
   }

@@ -28,8 +28,16 @@ GitHub Comment 并没有采用 Disqus 那样的 iframe 实现方式.
 
 于是我开始寻找其他的解决方案. webpack
 
-在查看了慕课网http://www.imooc.com/learn/504
+在查看了慕课网
+
+http://www.imooc.com/learn/504
+
 http://zhuanlan.zhihu.com/FrontendMagazine/20397902
+
 https://medium.com/seek-ui-engineering/the-end-of-global-css-90d2a4a06284#.wdxcwws29
 
+http://www.imooc.com/article/2379
+
 最后发现 webpack 的 css module mode 才是王道
+
+另外对于 jq 的依赖，原来的单一 js 根本无法实现，使用 webpack 就可以作为依赖实现了。
