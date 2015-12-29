@@ -9,22 +9,37 @@ var Form = React.createClass({
   getInitialState: function() {
     return ({login: "no"});
   },
+  handleClick: function(){
+    $.post("http://localhost:5000/fake/comments", function(data) {
+      console.log(data);
+    });
+  },
+  handleFocus: function(){
+    $.post("http://localhost:5000/fake/auth", function(data){
+      if(data.auth){
+        this.setState({
+          name: data.login,
+          avatar: data.avatar_url
+        });
+      }else{
+        
+      }
+    })
+  },
   render: function() {
     return (
       <div className={style.github_comment_form_wrapper}>
         <div className={style.github_comment_avatar}>
-          <img className={style.avatar} title={this.props.name} src="http://github-comment.herokuapp.com/images/boohee.png"/>
+          <img className={style.avatar} title={this.props.name} src={this.props.avatar} />
         </div>
         <div className={style.github_comment_input} id="status_default">
           <input onFocus={this.handleFocus} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
-          <button type="button">提交</button>
+          <button onClick={this.handleClick} type="button">提交</button>
         </div>
       </div>
     );
   }
 });
-
-
 
 var Comment = React.createClass({
   render: function() {
@@ -50,14 +65,12 @@ var List = React.createClass({
     );
   },
   componentDidMount: function() {
-    console.log("did mount");
-    $.get("http://localhost:5000/fake_comments", function(result) {
+    $.get("http://localhost:5000/fake/comments", function(result) {
       if (this.isMounted()) {
         this.setState({
           loaded: true,
           comments: result
         });
-        console.log("is mounted");
       }
     }.bind(this));
   },
@@ -75,6 +88,6 @@ var List = React.createClass({
 });
 
 ReactDOM.render(
-  <Form name="World" />, document.getElementById('github-comment-form'));
+  <Form name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />, document.getElementById('github-comment-form'));
 ReactDOM.render(
   <List />, document.getElementById('github-comments-container'));

@@ -25,6 +25,7 @@ var sessions = require("client-sessions");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var comments = require('./routes/comments');
+var fake = require('./routes/fake');
 
 var app = express();
 
@@ -69,6 +70,7 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/comments', comments);
+app.use('/fake', fake);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
