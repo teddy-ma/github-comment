@@ -4,11 +4,34 @@ var ReactDOM = require('react-dom');
 var style = require('./app.scss');
 var $ = require('jquery');
 
-// 评论表单组件
-var Form = React.createClass({
+// 评论表单容器组件
+var FormBox = React.createClass({
   getInitialState: function() {
     return ({login: "no"});
   },
+  render: function() {
+    return (
+      <div className={style.github_comment_form_wrapper}>
+        <Avatar title={this.props.name} src={this.props.avatar} />
+        <Form />
+      </div>
+    );
+  }
+});
+
+// 头像组件
+var Avatar = React.createClass({
+  render: function() {
+    return (
+      <div className={style.github_comment_avatar}>
+        <img className={style.avatar} title={this.props.name} src={this.props.avatar} />
+      </div>
+    );
+  }
+});
+
+// 表单组件
+var Form = React.createClass({
   handleClick: function(){
     $.post("http://localhost:5000/fake/comments", function(data) {
       console.log(data);
@@ -22,20 +45,15 @@ var Form = React.createClass({
           avatar: data.avatar_url
         });
       }else{
-        
+
       }
     })
   },
   render: function() {
     return (
-      <div className={style.github_comment_form_wrapper}>
-        <div className={style.github_comment_avatar}>
-          <img className={style.avatar} title={this.props.name} src={this.props.avatar} />
-        </div>
-        <div className={style.github_comment_input} id="status_default">
-          <input onFocus={this.handleFocus} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
-          <button onClick={this.handleClick} type="button">提交</button>
-        </div>
+      <div className={style.github_comment_input} id="status_default">
+        <input onFocus={this.handleFocus} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+        <button onClick={this.handleClick} type="button">提交</button>
       </div>
     );
   }
@@ -88,6 +106,6 @@ var List = React.createClass({
 });
 
 ReactDOM.render(
-  <Form name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />, document.getElementById('github-comment-form'));
+  <FormBox name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />, document.getElementById('github-comment-form'));
 ReactDOM.render(
   <List />, document.getElementById('github-comments-container'));
