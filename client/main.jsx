@@ -44,10 +44,8 @@ var Form = React.createClass({
           name: data.login,
           avatar: data.avatar_url
         });
-      }else{
-
       }
-    })
+    }.bind(this));
   },
   render: function() {
     return (
@@ -106,6 +104,7 @@ var List = React.createClass({
 });
 
 ReactDOM.render(
-  <FormBox name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />, document.getElementById('github-comment-form'));
+  <FormBox name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />,
+    document.getElementById('github-comment-form'));
 ReactDOM.render(
   <List />, document.getElementById('github-comments-container'));
