@@ -75,16 +75,13 @@ var Comment = React.createClass({
 // 评论内容组件
 var List = React.createClass({
   getInitialState: function() {
-    return (
-      {loaded: false},
-      {comments: []}
-    );
+    return { loading: true, comments: [] }
   },
   componentDidMount: function() {
     $.get("http://localhost:5000/fake/comments", function(result) {
       if (this.isMounted()) {
         this.setState({
-          loaded: true,
+          loading: false,
           comments: result
         });
       }
@@ -94,7 +91,7 @@ var List = React.createClass({
     return (
       <div className={style.github_comment_items_wrapper}>
         {
-          this.state.comments.map(function(item){
+          this.state.loading ? <img src="http://localhost:5000/images/boohee.gif" /> : this.state.comments.map(function(item){
             return <Comment key={item.id} content={item.body} />
           })
         }

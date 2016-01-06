@@ -4,6 +4,10 @@ var router = express.Router();
 
 /* 测试用的假数据 */
 router.get('/comments', function(req, res, next) {
+  var i = 0
+  while(i < 1000000000){
+    i++;
+  }
   res.json(
     [
       {
