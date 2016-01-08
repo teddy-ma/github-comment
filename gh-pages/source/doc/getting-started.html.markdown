@@ -27,8 +27,9 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 + 容器 div 的 id `github-comments`, 必须且不可修改
 + script 的 id `github-comment`, 必须且不可修改
 + data-username 你的 github 用户名
-+ data-username 你的 github 仓库地址
-+ data-username 你的仓库的 issue 的编号
++ data-repo 你的 github 仓库地址
++ data-page-id 你的仓库的 issue 的编号
++ data-server-url 你自己的服务器的url（self-host时使用）
 
 可参考[示例](http://songofcode.com/reading/)
 

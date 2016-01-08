@@ -1,4 +1,4 @@
-SERVER_URL = "github-comment.herokuapp.com"; // 服务端的域名
+// SERVER_URL = "github-comment.herokuapp.com"; // 服务端的域名
 CONTAINER_DIV = "github-comments-container";
 FORM_DIV = "github-comment-form";
 
@@ -11,13 +11,14 @@ function load_github_comment_config(){
   repo = script_tag.dataset.repo;
   page_id = script_tag.dataset.pageId;
   // wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
+  server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
   wrapper_id = 'github-comments';
 }
 
 // 加载已有的评论框
 function load_comments(){
   var xhr = new XMLHttpRequest();
-  var url = "http://" + SERVER_URL + "/comments?page_id=" + page_id + "&user_name=" + user_name + "&repo=" + repo;
+  var url = "http://" + server_url + "/comments?page_id=" + page_id + "&user_name=" + user_name + "&repo=" + repo;
   xhr.open('GET', encodeURI(url));
   xhr.onload = function() {
     if (xhr.status === 200) {
@@ -38,7 +39,7 @@ function create_comment_form(){
 function create_comment(content){
   var params = "body="+content+"&page_id="+page_id+"&repo="+repo+"&user_name="+user_name;
   var xhr = new XMLHttpRequest();
-  var url = "http://" + SERVER_URL + "/comments";
+  var url = "http://" + server_url + "/comments";
   xhr.withCredentials = true;
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -57,7 +58,7 @@ function create_comment(content){
 
 function load_css_and_basic_html(){
   var link = document.createElement( "link" );
-  link.href = "http://" + SERVER_URL + "/stylesheets/style.css";
+  link.href = "http://" + server_url + "/stylesheets/style.css";
   link.type = "text/css";link.rel = "stylesheet";link.media = "screen,print";
   document.getElementsByTagName( "head" )[0].appendChild( link );
 
@@ -85,7 +86,7 @@ function load_css_and_basic_html(){
 function render_default_form(){
   if(document.getElementById('status_default')){ return; }
   var html = '<div class="row"><div class="one column">'+
-               '<img title="" class="avatar" src="http://'+SERVER_URL+'/images/boohee.png">'+
+               '<img title="" class="avatar" src="http://'+server_url+'/images/boohee.png">'+
              '</div>';
   html += '<div class="eleven columns status_div" id="status_default">'+
             '<input type="text" name="body" class="u-full-width" id="github-comment-default-input" placeholder="TODO: " />'+
@@ -94,7 +95,7 @@ function render_default_form(){
   wrapper_div.innerHTML = html;
   document.getElementById('github-comment-default-input').onfocus = function(){
     var xhr = new XMLHttpRequest();
-    var url = "http://" + SERVER_URL + "/users/auth";
+    var url = "http://" + server_url + "/users/auth";
     xhr.withCredentials = true;
     xhr.open('POST', encodeURI(url));
     xhr.onload = function() {
@@ -136,7 +137,7 @@ function render_logined_form(avatar_url, user_name){
 function render_to_login_form(login_url){
   if(document.getElementById('status_login')){ return; }
   var html = '<div class="row"><div class="one column">'+
-               '<img title="" class="avatar" src="http://'+SERVER_URL+'/images/boohee.png">'+
+               '<img title="" class="avatar" src="http://'+server_url+'/images/boohee.png">'+
              '</div>';
   html += '<div class="eleven columns status_div" id="status_login">'+
     '<button id="github-comment-login" type="button" class="u-full-width button-primary">github 登录</button>'+
