@@ -17,12 +17,12 @@ var FormBox = React.createClass({
       async: false
     }).done(function(data) {
       if(data.auth){
-        ret = {name: data.user_name, avatar: data.avatar_url};
+        ret = {name: data.user_name, avatar: data.avatar_url, auth: true};
       }else{
-        ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png"};
+        ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png", auth: false};
       }
     }).fail(function(xhr)  {
-       ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png"};
+       ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png", auth: false};
     });
     return ret;
   },
@@ -30,7 +30,7 @@ var FormBox = React.createClass({
     return (
       <div className={style.github_comment_form_wrapper}>
         <Avatar name={this.state.name} avatar={this.state.avatar} />
-        <Form />
+        <Form auth={this.state.auth}/>
       </div>
     );
   }
@@ -62,8 +62,15 @@ var Form = React.createClass({
   render: function() {
     return (
       <div className={style.github_comment_input} id="status_default">
-        <input className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
-        <button disabled={this.state.submited} onClick={this.handleClick} type="button">提交</button>
+        {
+          this.props.auth ?
+            <div>
+              <input className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+              <button disabled={this.state.submited} onClick={this.handleClick} type="button">提交</button>
+            </div>
+            :
+            <button>Login via GitHub</button>
+        }
       </div>
     );
   }
@@ -74,7 +81,7 @@ var Comment = React.createClass({
     return (
       <div className={style.github_comment_item}>
         <div className={style.github_comment_avatar}>
-          <img src="https://avatars.githubusercontent.com/u/788486?v=3" className={style.avatar}/>
+          <img src={this.props.avatar} title={this.props.name} className={style.avatar}/>
         </div>
         <div className={style.github_comment_content}>
           <p>{this.props.content}</p>
@@ -104,7 +111,7 @@ var List = React.createClass({
       <div className={style.github_comment_items_wrapper}>
         {
           this.state.loading ? <img src="http://localhost:5000/images/boohee.gif" /> : this.state.comments.map(function(item){
-            return <Comment key={item.id} content={item.body} />
+            return <Comment key={item.id} content={item.body} avatar={item.avatar_url} name={item.user_name}/>
           })
         }
       </div>
