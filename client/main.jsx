@@ -7,12 +7,29 @@ var $ = require('jquery');
 // 评论表单容器组件
 var FormBox = React.createClass({
   getInitialState: function() {
-    return ({login: "no"});
+    var ret = null;
+    // 初始化登录状态
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      url: "http://localhost:5000/fake/auth",
+      async: false
+    }).done(function(data) {
+      if(data.auth){
+        ret = {name: data.user_name, avatar: data.avatar_url};
+      }else{
+        ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png"};
+      }
+    }).fail(function(xhr)  {
+       ret = {name: "请登录", avatar: "http://github-comment.herokuapp.com/images/boohee.png"};
+    });
+    return ret;
   },
   render: function() {
     return (
       <div className={style.github_comment_form_wrapper}>
-        <Avatar title={this.props.name} src={this.props.avatar} />
+        <Avatar name={this.state.name} avatar={this.state.avatar} />
         <Form />
       </div>
     );
@@ -32,26 +49,21 @@ var Avatar = React.createClass({
 
 // 表单组件
 var Form = React.createClass({
-  handleClick: function(){
-    $.post("http://localhost:5000/fake/comments", function(data) {
-      console.log(data);
-    });
+  getInitialState: function() {
+    return({submited: false});
   },
-  handleFocus: function(){
-    $.post("http://localhost:5000/fake/auth", function(data){
-      if(data.auth){
-        this.setState({
-          name: data.login,
-          avatar: data.avatar_url
-        });
-      }
+  handleClick: function(){
+    $.post("http://localhost:5000/fake/comments", function(data){
+      this.setState({
+        submited: true
+      });
     }.bind(this));
   },
   render: function() {
     return (
       <div className={style.github_comment_input} id="status_default">
-        <input onFocus={this.handleFocus} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
-        <button onClick={this.handleClick} type="button">提交</button>
+        <input className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+        <button disabled={this.state.submited} onClick={this.handleClick} type="button">提交</button>
       </div>
     );
   }
@@ -101,7 +113,7 @@ var List = React.createClass({
 });
 
 ReactDOM.render(
-  <FormBox name="zhangsan" avatar="http://github-comment.herokuapp.com/images/boohee.png" />,
+  <FormBox />,
     document.getElementById('github-comment-form'));
 ReactDOM.render(
   <List />, document.getElementById('github-comments-container'));
