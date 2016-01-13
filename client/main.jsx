@@ -4,6 +4,11 @@ var ReactDOM = require('react-dom');
 var style = require('./app.scss');
 var $ = require('jquery');
 
+var auth_url = "http://localhost:5000/fake/auth";
+var comment_url = "http://localhost:5000/fake/comments";
+var comments_url = "http://localhost:5000/fake/comments";
+var loading_img = "http://localhost:5000/images/boohee.gif";
+
 // 评论表单容器组件
 var FormBox = React.createClass({
   getInitialState: function() {
@@ -13,7 +18,7 @@ var FormBox = React.createClass({
       type: "POST",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
-      url: "http://localhost:5000/fake/auth",
+      url: auth_url,
       async: false
     }).done(function(data) {
       if(data.auth){
@@ -53,7 +58,7 @@ var Form = React.createClass({
     return({submited: false});
   },
   handleClick: function(){
-    $.post("http://localhost:5000/fake/comments", function(data){
+    $.post(comment_url, function(data){
       this.setState({
         submited: true
       });
@@ -97,7 +102,7 @@ var List = React.createClass({
     return { loading: true, comments: [] }
   },
   componentDidMount: function() {
-    $.get("http://localhost:5000/fake/comments", function(result) {
+    $.get(comments_url, function(result) {
       if (this.isMounted()) {
         this.setState({
           loading: false,
@@ -110,7 +115,7 @@ var List = React.createClass({
     return (
       <div className={style.github_comment_items_wrapper}>
         {
-          this.state.loading ? <img src="http://localhost:5000/images/boohee.gif" /> : this.state.comments.map(function(item){
+          this.state.loading ? <img src={loading_img} /> : this.state.comments.map(function(item){
             return <Comment key={item.id} content={item.body} avatar={item.avatar_url} name={item.user_name}/>
           })
         }
