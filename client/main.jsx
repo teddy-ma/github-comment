@@ -24,6 +24,9 @@ var FormBox = React.createClass({
       type: "POST",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
+      xhrFields: {
+        withCredentials: true
+      },
       url: auth_url,
       async: false
     }).done(function(data) {
