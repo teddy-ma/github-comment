@@ -9,13 +9,23 @@ var comment_url = "http://localhost:5000/fake/comments";
 var comments_url = "http://localhost:5000/fake/comments";
 var loading_img = "http://localhost:5000/images/boohee.gif";
 
+// 用于引用的 js script tag
+var script_tag = document.getElementById("github-comment");
+// 读取 scrpit tag 中设定的 data 属性
+var user_name = script_tag.dataset.username;
+var repo = script_tag.dataset.repo;
+var page_id = script_tag.dataset.pageId;
+var wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
+var server_url = script_tag.dataset.serverUrl || "github-comment.herokuapp.com"; // 服务端的域名
+
 var default_avatar_url = "http://github-comment.herokuapp.com/images/boohee.png";
 
-comments_url = "http://github-comment.herokuapp.com/comments?page_id=4&user_name=teddy-ma&repo=teddy-ma.github.io";
-auth_url = "http://github-comment.herokuapp.com/users/auth";
+comments_url = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
+auth_url = "http://"+server_url+"/users/auth";
+comment_url = "http://"+server_url+"/comments";
+loading_img = "http://"+server_url+"/images/boohee.gif";
 
 // 评论表单容器组件
-//{"auth":false,"login_url":"https://github.com/login/oauth/authorize?scope=public_repo&client_id=c518ebe97832f22e306a"}
 var FormBox = React.createClass({
   getInitialState: function() {
     var ret = null;
@@ -64,14 +74,32 @@ var Avatar = React.createClass({
 // 表单组件
 var Form = React.createClass({
   getInitialState: function() {
-    return({submited: false});
+    return(
+      {
+        submited: false,
+        body: ''
+      }
+    );
   },
-  handleClick: function(){
-    $.post(comment_url, function(data){
-      this.setState({
-        submited: true
-      });
-    }.bind(this));
+  handleSubmit: function(e){
+    var body = this.state.body;
+    // 发起创建评论的请求
+    $.ajax({
+      type: "POST",
+      contentType: 'application/x-www-form-urlencoded',
+      xhrFields: {
+        withCredentials: true
+      },
+      data: { body: body, page_id: page_id, repo: repo, user_name: user_name },
+      url: comment_url
+    }).done(function(data) {
+      alert("re render comments list");
+    }).fail(function(xhr) {
+       alert('评论失败');
+    });
+  },
+  handleChange: function(e){
+    this.setState({body: e.target.value});
   },
   render: function() {
     return (
@@ -79,8 +107,8 @@ var Form = React.createClass({
         {
           this.props.auth ?
             <div>
-              <input className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
-              <button disabled={this.state.submited} onClick={this.handleClick} type="button">提交</button>
+              <input onChange={this.handleChange} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+              <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
             </div>
             :
             <a className="button" target="_blank" href={this.props.login_url}>Login via GitHub</a>
@@ -133,8 +161,17 @@ var List = React.createClass({
   }
 });
 
+var App = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <FormBox />
+        <List />
+      </div>
+    )
+  }
+});
+
 ReactDOM.render(
-  <FormBox />,
-    document.getElementById('github-comment-form'));
-ReactDOM.render(
-  <List />, document.getElementById('github-comments-container'));
+  <App />, document.getElementById("github-comments")
+);

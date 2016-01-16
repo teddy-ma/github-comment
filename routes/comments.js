@@ -9,7 +9,6 @@ router.post('/', function(req, res, next){
   var page_id = req.body.page_id;
   var user_name = req.body.user_name;
   var url = 'https://api.github.com/repos/'+user_name+'/'+repo+'/issues/'+page_id+'/comments';
-
   request.post({
     headers: {
       "Authorization": "token " + req.session.token,
