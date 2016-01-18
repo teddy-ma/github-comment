@@ -27,34 +27,22 @@ loading_img = "http://"+server_url+"/images/boohee.gif";
 
 // 评论表单容器组件
 var FormBox = React.createClass({
-  getInitialState: function() {
-    var ret = null;
-    // 初始化登录状态
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      xhrFields: {
-        withCredentials: true
-      },
-      url: auth_url,
-      async: false
-    }).done(function(data) {
-      if(data.auth){
-        ret = {name: data.user_name, avatar: data.avatar_url, auth: true};
-      }else{
-        ret = {name: "请登录", avatar: default_avatar_url, auth: false, login_url: data.login_url};
-      }
-    }).fail(function(xhr)  {
-       ret = {name: "请登录", avatar: default_avatar_url, auth: false};
-    });
-    return ret;
+  handleFocus: function(){
+    $(document).trigger("github:auth:check");
   },
   render: function() {
     return (
       <div className={style.github_comment_form_wrapper}>
-        <Avatar name={this.state.name} avatar={this.state.avatar} />
-        <Form auth={this.state.auth} login_url={this.state.login_url}/>
+        <Avatar name={this.props.name} avatar={this.props.avatar} />
+        {
+          this.props.detect_login ?
+          <div>
+            <input onFocus={this.handleFocus} />
+          </div>
+          :
+          <Form auth={this.props.auth} login_url={this.props.login_url}/>
+        }
+
       </div>
     );
   }
@@ -94,12 +82,16 @@ var Form = React.createClass({
       url: comment_url
     }).done(function(data) {
       alert("re render comments list");
+      $(document).trigger("github:comment:create");
     }).fail(function(xhr) {
        alert('评论失败');
     });
   },
   handleChange: function(e){
     this.setState({body: e.target.value});
+  },
+  handleLogin: function(){
+    $(document).trigger("github:auth:detect");
   },
   render: function() {
     return (
@@ -111,7 +103,7 @@ var Form = React.createClass({
               <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
             </div>
             :
-            <a className="button" target="_blank" href={this.props.login_url}>Login via GitHub</a>
+            <a className="button" target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
         }
       </div>
     );
@@ -135,8 +127,26 @@ var Comment = React.createClass({
 
 // 评论内容组件
 var List = React.createClass({
+  render: function() {
+    return (
+      <div className={style.github_comment_items_wrapper}>
+        {
+          this.props.comments.map(function(item){
+            return <Comment key={item.id} content={item.body} avatar={item.user.avatar_url} name={item.user.login}/>
+          })
+        }
+      </div>
+    );
+  }
+});
+
+var App = React.createClass({
+  // 创始状态：加载中，评论是空, 是否登录未知
   getInitialState: function() {
-    return { loading: true, comments: [] }
+    return {
+      loading: true, comments: [], detect_login: true,
+      auth: false, avatar: default_avatar_url
+    }
   },
   componentDidMount: function() {
     $.get(comments_url, function(result) {
@@ -147,26 +157,73 @@ var List = React.createClass({
         });
       }
     }.bind(this));
+    var ret = null;
+    // 初始化登录状态
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      xhrFields: {
+        withCredentials: true
+      },
+      url: auth_url,
+    }).done(function(data) {
+      if (this.isMounted()) {
+        this.setState({
+          name: data.user_name, avatar: data.avatar_url,
+          auth: data.auth , login_url: data.login_url,
+          detect_login: false
+        });
+      }
+    }.bind(this)).fail(function(xhr) {
+       alert('用户验证失败！');
+    });
+    $(document).on("github:comment:create", this.after_create_comment);
+    $(document).on("github:auth:detect", this.detect_login);
+    $(document).on("github:auth:check", this.check_login);
+  },
+  detect_login: function(){
+    if (this.isMounted()) {
+      this.setState({
+        detect_login: true
+      });
+    }
+  },
+  check_login: function(){
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      xhrFields: {
+        withCredentials: true
+      },
+      url: auth_url,
+    }).done(function(data) {
+      if (this.isMounted()) {
+        this.setState({
+          name: data.user_name, avatar: data.avatar_url,
+          auth: data.auth , login_url: data.login_url,
+          detect_login: false
+        });
+      }
+    }.bind(this))
+  },
+  after_create_comment: function(){
+    alert('receive');
+    this.setState({
+      loading: true
+    });
   },
   render: function() {
     return (
-      <div className={style.github_comment_items_wrapper}>
-        {
-          this.state.loading ? <img src={loading_img} /> : this.state.comments.map(function(item){
-            return <Comment key={item.id} content={item.body} avatar={item.user.avatar_url} name={item.user.login}/>
-          })
-        }
-      </div>
-    );
-  }
-});
-
-var App = React.createClass({
-  render: function() {
-    return (
       <div>
-        <FormBox />
-        <List />
+        <FormBox name={this.state.name} avatar={this.state.avatar}
+          auth={this.state.auth} login_url={this.state.login_url}
+          detect_login={this.state.detect_login}
+        />
+        {
+          this.state.loading ? <img src={loading_img} /> : <List comments={this.state.comments} />
+        }
       </div>
     )
   }
