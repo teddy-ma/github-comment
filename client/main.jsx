@@ -37,7 +37,7 @@ var FormBox = React.createClass({
         {
           this.props.detect_login ?
           <div>
-            <input onFocus={this.handleFocus} />
+            <input className={style.detect_lgoin_input} onFocus={this.handleFocus} />
           </div>
           :
           <Form auth={this.props.auth} login_url={this.props.login_url}/>
@@ -103,7 +103,7 @@ var Form = React.createClass({
               <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
             </div>
             :
-            <a className="button" target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
+            <a className={style.github_login_button} target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
         }
       </div>
     );
@@ -125,7 +125,7 @@ var Comment = React.createClass({
   }
 });
 
-// 评论内容组件
+// 评论列表组件
 var List = React.createClass({
   render: function() {
     return (
@@ -139,6 +139,18 @@ var List = React.createClass({
     );
   }
 });
+
+// 评论列表加载动画
+var Loading = React.createClass({
+  render: function() {
+    return (
+      <div className={style.github_comment_items_wrapper}>
+        <img src={this.props.img} />
+      </div>
+    );
+  }
+});
+
 
 var App = React.createClass({
   // 创始状态：加载中，评论是空, 是否登录未知
@@ -222,7 +234,7 @@ var App = React.createClass({
           detect_login={this.state.detect_login}
         />
         {
-          this.state.loading ? <img src={loading_img} /> : <List comments={this.state.comments} />
+          this.state.loading ? <Loading img={loading_img} /> : <List comments={this.state.comments} />
         }
       </div>
     )

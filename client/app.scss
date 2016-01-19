@@ -1,3 +1,4 @@
+// 栅格系统
 @import "~susy/sass/susy";
 
 $susy: (
@@ -27,7 +28,9 @@ $blue: #33C3F0;
 
 // 已有评论列表的 container
 .github_comment_items_wrapper {
-
+  @include container();
+  height: $input_height;
+  margin-top: 1rem;
 }
 
 // 单个评论的 wrapper
@@ -36,12 +39,12 @@ $blue: #33C3F0;
   margin-top: 1rem;
 }
 
-// 评论人的头像
+// 头像
 .github_comment_avatar {
   @include span(1 of 12);
   img {
     max-width: $input_height;
-    border-radius: 50px;
+    border-radius: 50px; // 圆角
   }
 }
 
@@ -86,5 +89,36 @@ $blue: #33C3F0;
     line-height: $input_height;
     font-size: 1.5em;
     font-weight: 400;
+  }
+}
+
+// 登录 github 的按钮
+.github_login_button {
+  display: inline-block;
+  height: $input_height;
+  padding: 0 50px;
+  color: #FFF;
+  background-color: $blue;
+  text-align: center;
+  margin-left: 1rem;
+  line-height: $input_height;
+  border-radius: 4px;
+  border: 1px solid $blue;
+  cursor: pointer;
+}
+
+.detect_lgoin_input {
+  width: 80%;
+  height: $input_height;
+  padding: 6px 10px;
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+  &:focus {
+    outline-color: transparent;
+    outline-style: none;
+    outline: none;
   }
 }
