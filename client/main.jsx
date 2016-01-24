@@ -37,7 +37,7 @@ var FormBox = React.createClass({
         {
           this.props.detect_login ?
           <div>
-            <input className={style.detect_lgoin_input} onFocus={this.handleFocus} />
+            <input className={style.detect_input} onFocus={this.handleFocus} />
           </div>
           :
           <Form auth={this.props.auth} login_url={this.props.login_url}/>
@@ -62,15 +62,14 @@ var Avatar = React.createClass({
 // 表单组件
 var Form = React.createClass({
   getInitialState: function() {
-    return(
-      {
-        submited: false,
-        body: ''
-      }
-    );
+    return({
+      submited: false,
+      body: ''
+    });
   },
   handleSubmit: function(e){
     var body = this.state.body;
+    this.setState({submited: true});
     // 发起创建评论的请求
     $.ajax({
       type: "POST",
@@ -81,7 +80,6 @@ var Form = React.createClass({
       data: { body: body, page_id: page_id, repo: repo, user_name: user_name },
       url: comment_url
     }).done(function(data) {
-      alert("re render comments list");
       $(document).trigger("github:comment:create");
     }).fail(function(xhr) {
        alert('评论失败');
@@ -103,7 +101,7 @@ var Form = React.createClass({
               <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
             </div>
             :
-            <a className={style.github_login_button} target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
+            <a className={style.login_via_github} target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
         }
       </div>
     );
@@ -221,18 +219,20 @@ var App = React.createClass({
     }.bind(this))
   },
   after_create_comment: function(){
-    alert('receive');
-    this.setState({
-      loading: true
-    });
+    $.get(comments_url, function(result) {
+      if (this.isMounted()) {
+        this.setState({
+          comments: result
+        });
+      }
+    }.bind(this));
   },
   render: function() {
     return (
       <div>
         <FormBox name={this.state.name} avatar={this.state.avatar}
           auth={this.state.auth} login_url={this.state.login_url}
-          detect_login={this.state.detect_login}
-        />
+          detect_login={this.state.detect_login} />
         {
           this.state.loading ? <Loading img={loading_img} /> : <List comments={this.state.comments} />
         }

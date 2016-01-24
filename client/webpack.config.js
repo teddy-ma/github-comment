@@ -1,7 +1,7 @@
 module.exports = {
   entry: './main.jsx',
   output: {
-    filename: '../public/bundle.js'
+    filename: '../public/javascripts/github-comment-react.js'
   },
   module: {
     loaders:[
