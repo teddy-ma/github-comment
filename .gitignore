@@ -4,3 +4,5 @@ Dockerfile
 docker-compose.yml
 bundle.js
 bundle.js.map
+github-comment-react.js
+github-comment-react.js.map
