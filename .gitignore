@@ -1,7 +1,5 @@
 node_modules
 .env
-Dockerfile
-docker-compose.yml
 bundle.js
 bundle.js.map
 github-comment-react.js
