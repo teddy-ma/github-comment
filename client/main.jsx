@@ -4,11 +4,6 @@ var ReactDOM = require('react-dom');
 var style = require('./app.scss');
 var $ = require('jquery');
 
-var auth_url = "http://localhost:5000/fake/auth";
-var comment_url = "http://localhost:5000/fake/comments";
-var comments_url = "http://localhost:5000/fake/comments";
-var loading_img = "http://localhost:5000/images/boohee.gif";
-
 // 用于引用的 js script tag
 var script_tag = document.getElementById("github-comment");
 // 读取 scrpit tag 中设定的 data 属性
@@ -18,12 +13,12 @@ var page_id = script_tag.dataset.pageId;
 var wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
 var server_url = script_tag.dataset.serverUrl || "github-comment.herokuapp.com"; // 服务端的域名
 
+// TODO use cdn for img and js
 var default_avatar_url = "http://github-comment.herokuapp.com/images/boohee.png";
-
-comments_url = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
-auth_url = "http://"+server_url+"/users/auth";
-comment_url = "http://"+server_url+"/comments";
-loading_img = "http://"+server_url+"/images/boohee.gif";
+var comments_url = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
+var auth_url = "http://"+server_url+"/users/auth";
+var comment_url = "http://"+server_url+"/comments";
+var loading_img = "http://"+server_url+"/images/boohee.gif";
 
 // 评论表单容器组件
 var FormBox = React.createClass({
@@ -42,7 +37,6 @@ var FormBox = React.createClass({
           :
           <Form auth={this.props.auth} login_url={this.props.login_url}/>
         }
-
       </div>
     );
   }
@@ -97,7 +91,7 @@ var Form = React.createClass({
         {
           this.props.auth ?
             <div>
-              <input onChange={this.handleChange} className={style.input} type="text" name="body" id="github-comment-default-input" placeholder="TODO: "/>
+              <input onChange={this.handleChange} className={style.input} type="text" name="body" placeholder="TODO: "/>
               <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
             </div>
             :
@@ -219,10 +213,14 @@ var App = React.createClass({
     }.bind(this))
   },
   after_create_comment: function(){
+    this.setState({
+      loading: true
+    });
     $.get(comments_url, function(result) {
       if (this.isMounted()) {
         this.setState({
-          comments: result
+          comments: result,
+          loading: false
         });
       }
     }.bind(this));

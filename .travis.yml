@@ -6,9 +6,12 @@ script:
 - git config --global user.email "mlc880926@gmail.com"
 - git config --global user.name "Ma Lucheng"
 - git config --global push.default simple
+- cd client && npm install && npm install webpack -g && webpack
+- cp bundle.js ../gh-pages/source && cd ..
 - cd gh-pages && bundle install && bundle exec middleman build && cd build && git init .
 - git remote add upstream "https://$GH_TOKEN@github.com/teddy-ma/github-comment.git" && git fetch upstream
 - git reset upstream/gh-pages && git add -A . && git commit -am "update from travis" && git push -q upstream HEAD:gh-pages -f
+- echo 'gh pages updated'
 env:
   global:
     secure: I/629j1pIVjKOHJWczk436WWvfxFDr/2PlNFSmv5rdp785sepqK+ps+S3TT0oY8eO/168iYsDdn2cKZqLeV3e/20meUI+CQJY1XTCguL/6MZbyCapdgHjkIVYoNmCFIkwjPCCIWrfJeg7NyUi236U5cqCjYc7WPbMVdtBOGRJNBRwSbyugrFJlU9uBEeH2KabKQh04PgJbL02wmD1IDD0ObbqrDlO5mFW6O57m5SbSGwG88g99G/lCZnham7t6Va+7JOMdHxJ5hm3zpbowTbHeJc9GGk/f8rKIa18csfHB3TjDHW5rxjj73jUEDxqV2B9DQzzpc9ZByvB/Bp52WtgqT6LuVwLY9qw6qaF4cmkoS3UN2iP0V/nk6Q4RAuZtTRgY/AYfC/XX6OzQLhhpp36ZNX28AcaTiW4fEEoAez3FXc7Gezc0giwp5s1F4/iULK9lliwe80UlX6TrwFl42okG4tf9t+u6UWSkifYjS4Nghi2PFFnxpXrKWa9cNlAQ42uXfwcvV0Z6jlliIbIL78QU9bH911wzG932GcRRE6YIM6RBz9CyOOcX46BGBDr+LVaNAtu5JgDSdtZmikptXn1JW5gsX60rCMfRadmzc7I9DLhKUgMCBkSUr8WkFRAHT7y3/032ixCdfUH0dsVOqbzL8t4h5L1OmTyG/aoftvBfo=
