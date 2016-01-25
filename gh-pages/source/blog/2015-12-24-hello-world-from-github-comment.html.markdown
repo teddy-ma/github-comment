@@ -24,7 +24,7 @@ title: github-comment 正式发布了!
 
 
 <div id="github-comments"></div>
-<script src="http://github-comment.herokuapp.com/javascripts/github-comment.js"
+<script src="http://github-comment.songofcode.com/javascripts/github-comment-react.js"
   id="github-comment" data-username="teddy-ma"
   data-repo="github-comment" data-page-id="1">
 </script>

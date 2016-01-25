@@ -1,4 +1,4 @@
-// SERVER_URL = "github-comment.herokuapp.com"; // 服务端的域名
+SERVER_URL = "github-comment.songofcode.com"; // 服务端的域名
 CONTAINER_DIV = "github-comments-container";
 FORM_DIV = "github-comment-form";
 

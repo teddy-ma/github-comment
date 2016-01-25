@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 /* 授权后的回调 */
 router.get('/callback', function(req, res, next) {
-  var session_code = req.query.code;  
+  var session_code = req.query.code;
   request.post({
     url: 'https://github.com/login/oauth/access_token',
     json: true,

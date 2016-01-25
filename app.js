@@ -1,9 +1,19 @@
 // github application 的 CLIENT_ID 和 CLIENT_SECRET，应该从环境变量中读取
 require('dotenv').load();
-CLIENT_ID = process.env.CLIENT_ID
-CLIENT_SECRET = process.env.CLIENT_SECRET
-PERSON_TOKEN = process.env.PERSON_TOKEN
-OAUTH_URL = "https://github.com/login/oauth/authorize?scope=public_repo&client_id=" + CLIENT_ID
+CLIENT_ID = process.env.CLIENT_ID;
+CLIENT_SECRET = process.env.CLIENT_SECRET;
+PERSON_TOKEN = process.env.PERSON_TOKEN;
+OAUTH_URL = "https://github.com/login/oauth/authorize?scope=public_repo&client_id=" + CLIENT_ID;
+
+if(CLIENT_ID == undefined){
+  console.log("WARNING: CLIENT_ID is undefined!");
+}
+if(CLIENT_SECRET == undefined){
+  console.log("WARNING: CLIENT_SECRET is undefined!");
+}
+if(PERSON_TOKEN == undefined){
+  console.log("WARNING: PERSON_TOKEN is undefined!");
+}
 
 var express = require('express');
 var path = require('path');
@@ -15,6 +25,7 @@ var sessions = require("client-sessions");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var comments = require('./routes/comments');
+var fake = require('./routes/fake');
 
 var app = express();
 
@@ -59,6 +70,7 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/comments', comments);
+app.use('/fake', fake);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
