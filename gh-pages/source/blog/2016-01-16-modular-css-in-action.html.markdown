@@ -5,7 +5,7 @@ published: false
 
 # 模块化 css 实战
 
-GitHub Comment 上线后不久, 我就发现了一个巨大的 bug: 样式的加载问题.
+GitHub Comment 上线后不久, 我就发现了一个巨大的潜在问题: 样式的加载问题.
 
 因为之前的测试都是放在自己的主页和 GitHub Comment 的项目主页的.
 
@@ -26,18 +26,8 @@ GitHub Comment 并没有采用 Disqus 那样的 iframe 实现方式.
 
 这样的方法并不适合 GitHub Comment 的情况, 因为宿主的样式情况是不确定的.
 
-于是我开始寻找其他的解决方案. webpack
-
-在查看了慕课网
-
-http://www.imooc.com/learn/504
-
-http://zhuanlan.zhihu.com/FrontendMagazine/20397902
-
-https://medium.com/seek-ui-engineering/the-end-of-global-css-90d2a4a06284#.wdxcwws29
-
-http://www.imooc.com/article/2379
+于是我开始寻找其他的解决方案.
 
 最后发现 webpack 的 css module mode 才是王道
 
-另外对于 jq 的依赖，原来的单一 js 根本无法实现，使用 webpack 就可以作为依赖实现了。
+具体配置直接看源码即可, [这里有一个在线的例子](http://www.songofcode.com/how-to-learn-emacs-chinese-edition/), 可以使用浏览器的审查元素来查看实现细节.

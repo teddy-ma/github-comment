@@ -11,7 +11,7 @@ var user_name = script_tag.dataset.username;
 var repo = script_tag.dataset.repo;
 var page_id = script_tag.dataset.pageId;
 var wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
-var server_url = script_tag.dataset.serverUrl || "github-comment.herokuapp.com"; // 服务端的域名
+var server_url = script_tag.dataset.serverUrl || "github-comment.songofcode.com"; // 服务端的域名
 
 // TODO use cdn for img and js
 var default_avatar_url = `http://${server_url}/images/boohee.png`;

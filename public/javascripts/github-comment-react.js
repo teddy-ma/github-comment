@@ -59,10 +59,10 @@
 	var repo = script_tag.dataset.repo;
 	var page_id = script_tag.dataset.pageId;
 	var wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
-	var server_url = script_tag.dataset.serverUrl || "github-comment.herokuapp.com"; // 服务端的域名
+	var server_url = script_tag.dataset.serverUrl || "github-comment.songofcode.com"; // 服务端的域名
 
 	// TODO use cdn for img and js
-	var default_avatar_url = "http://github-comment.herokuapp.com/images/boohee.png";
+	var default_avatar_url = 'http://' + server_url + '/images/boohee.png';
 	var comments_url = 'http://' + server_url + '/comments?page_id=' + page_id + '&user_name=' + user_name + '&repo=' + repo;
 	var auth_url = "http://" + server_url + "/users/auth";
 	var comment_url = "http://" + server_url + "/comments";

@@ -50,6 +50,7 @@ $blue: #33C3F0;
 .github_comment_avatar {
   @include span(2 of 12);
   min-width: 50px;
+  text-align: right;
   img {
     max-width: $input_height;
     border-radius: 50px; // 圆角
