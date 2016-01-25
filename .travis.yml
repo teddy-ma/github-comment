@@ -6,8 +6,6 @@ script:
 - git config --global user.email "mlc880926@gmail.com"
 - git config --global user.name "Ma Lucheng"
 - git config --global push.default simple
-- cd client && npm install && npm install webpack -g && webpack
-- cp bundle.js ../gh-pages/source && cd ..
 - cd gh-pages && bundle install && bundle exec middleman build && cd build && git init .
 - git remote add upstream "https://$GH_TOKEN@github.com/teddy-ma/github-comment.git" && git fetch upstream
 - git reset upstream/gh-pages && git add -A . && git commit -am "update from travis" && git push -q upstream HEAD:gh-pages -f

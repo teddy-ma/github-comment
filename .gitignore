@@ -2,5 +2,3 @@ node_modules
 .env
 bundle.js
 bundle.js.map
-github-comment-react.js
-github-comment-react.js.map

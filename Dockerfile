@@ -10,4 +10,4 @@ RUN cd /src; npm install
 EXPOSE 5000
 
 # 启动项目
-CMD ["node", "/src/index.js"]
+CMD ["node", "/src/app.js"]
