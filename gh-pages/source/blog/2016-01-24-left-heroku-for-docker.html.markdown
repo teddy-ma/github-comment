@@ -73,3 +73,62 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 碰到这种情况，使用 nginx 这样的 http server 来做反代是一个常见的解决方案。
 
 既然已经使用 Docker 了，那干脆送佛送到西，把 nginx 也 docker 化吧。
+
+首先 docker 官方直接提供了 nginx 的容器, 直接运行
+
+    docker run -it -p 80:80 nginx
+
+docker 就会从官方下载 nginx 的容器并启动, 试着访问你的 vps 的域名或 ip 地址,
+
+如果看到 nginx 的字样就说明启动成功了, 下一步就是做反代了.
+
+这里涉及到两个知识点:
+
+1. 挂载文件系统到容器中
+2. 容器之间的通讯
+
+先说第一个, image 是只读的, 相当于 Java 中的类, 而 container 就像一个实例对象,
+
+而把宿主的文件系统挂载到容器中就像新建一个对象时的构造方法一样, 把不同的信息传给每个不同的实例.
+
+对于 nginx 的 image 来说, 我们只要提供一个配置文件既可改变每个 nginx 实例的行为.
+
+命令如下:
+
+    docker run --name nginx -v `pwd`/config/server.conf:/etc/nginx/conf.d/default.conf:ro -d nginx
+
+上面这行命令的意思是, 把当前目录下的 config/server.conf 文件放到容器中的 /etc/nginx/cnof.d/default.conf 位置.
+
+那是 nginx 读取配置文件的路径, 这样一来容器中的 nginx 就会根据我写的配置文件来进行反代了, 内容如下:
+
+    server {
+        listen       80;
+        server_name  github-comment.songofcode.com;
+
+    	location / {
+            	proxy_pass  http://comment:5000;
+            }
+    }
+
+现在这样启动容器是会报错的, 因为容器找不到 comment 这个域名.
+
+我们的目的是让 comment 指向 Github Comment 所在的容器, 那就要把两个容器链接起来, 使用命令:
+
+    docker run -it -d -p 80:80  --link github-comment:comment \
+      -v `pwd`/config/server.conf:/etc/nginx/conf.d/default.conf \
+        nginx
+
+上面的命令中 --link github-comment:comment 就是说在启动 nginx 容器的时候,
+和 github-comment 这个容器 (这个名字是启动 Github Comment 容器时用 --name 指定的)
+连接起来, 并在 nginx 容器中命名为 comment, 成功启动后, 根据配置描述, 只要访问
+github-comment.songofcode.com, 就会被反代到 Github Comment 的服务.
+
+这时输入 `docker ps` 查看 docker 的进程, 会发现有两个:
+
+    12dc30ffffce        nginx                                        "nginx -g 'daemon off"   29 hours ago        Up 29 hours         0.0.0.0:80->80/tcp, 443/tcp   evil_galileo
+    c00847854896        mlc880926/github-comment                     "node /src/app.js"       45 hours ago        Up 45 hours         0.0.0.0:5000->5000/tcp        github-comment
+
+如果现在使用命令 'docker exec -i -t 12dc30ffffce bash' 进入到 nginx 容器内部去查看 hosts 记录,
+会看到类似 `172.17.0.5	comment` 的内容, 这就是容器间通讯的原理了.
+
+至此, 一个原本跑在 Heroku 上的服务就被我迁移 docker 中了.

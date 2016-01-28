@@ -16,7 +16,7 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 
 ```html
 <div id="github-comments"></div>
-<script src="http://github-comment.songofcode.com/javascripts/github-comment-react.js"
+<script src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.1/client/github-comment.js"
   id="github-comment" data-username="your-github-username"
   data-repo="your-github-repo" data-page-id="the issue number">
 </script>
