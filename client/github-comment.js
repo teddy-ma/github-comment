@@ -64,9 +64,9 @@
 	// TODO use cdn for img and js
 	var default_avatar_url = 'http://' + server_url + '/images/boohee.png';
 	var comments_url = 'http://' + server_url + '/comments?page_id=' + page_id + '&user_name=' + user_name + '&repo=' + repo;
-	var auth_url = "http://" + server_url + "/users/auth";
-	var comment_url = "http://" + server_url + "/comments";
-	var loading_img = "http://" + server_url + "/images/boohee.gif";
+	var auth_url = 'http://' + server_url + '/users/auth';
+	var comment_url = 'http://' + server_url + '/comments';
+	var loading_img = 'http://' + server_url + '/images/boohee.gif';
 
 	// 评论表单容器组件
 	var FormBox = React.createClass({
@@ -79,25 +79,12 @@
 	    return React.createElement(
 	      'div',
 	      { className: style.github_comment_form_wrapper },
-	      React.createElement(Avatar, { name: this.props.name, avatar: this.props.avatar }),
 	      this.props.detect_login ? React.createElement(
 	        'div',
-	        null,
-	        React.createElement('input', { className: style.detect_input, onFocus: this.handleFocus })
-	      ) : React.createElement(Form, { auth: this.props.auth, login_url: this.props.login_url })
-	    );
-	  }
-	});
-
-	// 头像组件
-	var Avatar = React.createClass({
-	  displayName: 'Avatar',
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: style.github_comment_avatar },
-	      React.createElement('img', { className: style.avatar, title: this.props.name, src: this.props.avatar })
+	        { className: style.detect_input },
+	        React.createElement('img', { className: style.current_avatar, src: 'http://github-comment.songofcode.com/images/boohee.png' }),
+	        React.createElement('input', { type: 'text', className: style.detect_input_control, onFocus: this.handleFocus })
+	      ) : React.createElement(Form, { auth: this.props.auth, avatar: this.props.avatar, login_url: this.props.login_url })
 	    );
 	  }
 	});
@@ -139,20 +126,25 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: style.github_comment_input, id: 'status_default' },
+	      { className: style.github_comment_input },
 	      this.props.auth ? React.createElement(
 	        'div',
-	        null,
-	        React.createElement('input', { onChange: this.handleChange, className: style.input, type: 'text', name: 'body', placeholder: 'TODO: ' }),
+	        { className: style.ready_input },
+	        React.createElement('img', { className: style.current_avatar, src: this.props.avatar }),
+	        React.createElement('input', { onChange: this.handleChange, name: 'body', placeholder: 'TODO: ', type: 'text', className: style.ready_input_control }),
 	        React.createElement(
 	          'button',
-	          { disabled: this.state.submited, onClick: this.handleSubmit, type: 'button' },
-	          '提交'
+	          { type: 'button', disabled: this.state.submited, onClick: this.handleSubmit, className: style.submit_comment },
+	          'Comment'
 	        )
 	      ) : React.createElement(
-	        'a',
-	        { className: style.login_via_github, target: '_blank', onClick: this.handleLogin, href: this.props.login_url },
-	        'Login via GitHub'
+	        'div',
+	        { className: style.login_input },
+	        React.createElement(
+	          'a',
+	          { href: this.props.login_url, className: style.login_via_github, target: '_blank', onClick: this.handleLogin, href: this.props.login_url },
+	          'Login via github'
+	        )
 	      )
 	    );
 	  }
@@ -167,12 +159,12 @@
 	      { className: style.github_comment_item },
 	      React.createElement(
 	        'div',
-	        { className: style.github_comment_avatar },
-	        React.createElement('img', { src: this.props.avatar, title: this.props.name, className: style.avatar })
+	        { className: style.avatar },
+	        React.createElement('img', { className: style.comment_avatar, src: this.props.avatar, title: this.props.name })
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: style.github_comment_content },
+	        { className: style.comment_content },
 	        React.createElement(
 	          'p',
 	          null,
@@ -190,7 +182,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: style.github_comment_items_wrapper },
+	      { className: style.github_comment_items },
 	      this.props.comments.map(function (item) {
 	        return React.createElement(Comment, { key: item.id, content: item.body, avatar: item.user.avatar_url, name: item.user.login });
 	      })
@@ -205,8 +197,8 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: style.github_comment_items_wrapper },
-	      React.createElement('img', { src: this.props.img })
+	      { className: style.github_comment_loading },
+	      React.createElement('img', { className: style.github_comment_loading, src: this.props.img })
 	    );
 	  }
 	});
@@ -300,7 +292,7 @@
 	      null,
 	      React.createElement(FormBox, { name: this.state.name, avatar: this.state.avatar,
 	        auth: this.state.auth, login_url: this.state.login_url,
-	        detect_login: this.state.detect_login }),
+	        avatar: this.state.avatar, detect_login: this.state.detect_login }),
 	      this.state.loading ? React.createElement(Loading, { img: loading_img }) : React.createElement(List, { comments: this.state.comments })
 	    );
 	  }
@@ -19932,19 +19924,23 @@
 
 
 	// module
-	exports.push([module.id, "._16UQAqvrR3-lfAxoMaMxpZ {\n  max-width: 71.25rem;\n  margin-left: auto;\n  margin-right: auto;\n  height: 38px;\n  margin-top: 1rem;\n}\n\n._16UQAqvrR3-lfAxoMaMxpZ:after {\n  content: \" \";\n  display: block;\n  clear: both;\n}\n\n.ARySJkRUKE02KEWydiGeE {\n  display: inline-block;\n  height: 38px;\n  padding: 0 30px;\n  color: #FFF;\n  background-color: #33C3F0;\n  text-align: center;\n  margin-left: 1rem;\n  line-height: 38px;\n  border-radius: 4px;\n  border: 1px solid #33C3F0;\n  cursor: pointer;\n}\n\n.DiIHU-dFOfuBm8sofTzHZ {\n  max-width: 71.25rem;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 1rem;\n}\n\n.DiIHU-dFOfuBm8sofTzHZ:after {\n  content: \" \";\n  display: block;\n  clear: both;\n}\n\n._1RUWboZzWDmgbt47kwR1N9 {\n  width: 15.25424%;\n  float: left;\n  margin-right: 1.69492%;\n  min-width: 50px;\n  text-align: right;\n}\n\n._1RUWboZzWDmgbt47kwR1N9 img {\n  max-width: 38px;\n  border-radius: 50px;\n}\n\n.xXoCrdmPkRlsjbkKTo2iW {\n  width: 80%;\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n}\n\n.xXoCrdmPkRlsjbkKTo2iW:focus {\n  outline-color: transparent;\n  outline-style: none;\n  outline: none;\n}\n\n._1_ia1p5sI1kqsALxCRmiPt {\n  width: 83.05085%;\n  float: right;\n  margin-right: 0;\n}\n\n._1_ia1p5sI1kqsALxCRmiPt input {\n  width: 60%;\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n}\n\n._1_ia1p5sI1kqsALxCRmiPt input:focus {\n  outline-color: transparent;\n  outline-style: none;\n  outline: none;\n}\n\n._1_ia1p5sI1kqsALxCRmiPt button {\n  max-width: 20%;\n  display: inline-block;\n  height: 38px;\n  padding: 0 1rem;\n  color: #FFF;\n  background-color: #33C3F0;\n  text-align: center;\n  margin-left: 1rem;\n  line-height: 38px;\n  border-radius: 4px;\n  border: 1px solid #33C3F0;\n  cursor: pointer;\n}\n\n._1_ia1p5sI1kqsALxCRmiPt button:disabled {\n  background-color: grey;\n  border: 1px solid grey;\n}\n\n._3zyb8Sy6RJeIbjy-4SMLKn {\n  width: 83.05085%;\n  float: right;\n  margin-right: 0;\n}\n\n._3zyb8Sy6RJeIbjy-4SMLKn p {\n  margin: 0;\n  line-height: 38px;\n  font-size: 1.5em;\n  font-weight: 400;\n}\n\n._1KRZ6aqdkqM4xEScIXKw-V {\n  display: inline-block;\n  height: 38px;\n  padding: 0 50px;\n  color: #FFF;\n  background-color: #33C3F0;\n  text-align: center;\n  margin-left: 1rem;\n  line-height: 38px;\n  border-radius: 4px;\n  border: 1px solid #33C3F0;\n  cursor: pointer;\n}\n\n._280AEeopxX_YMIflGQvQ65 {\n  width: 80%;\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n}\n\n._280AEeopxX_YMIflGQvQ65:focus {\n  outline-color: transparent;\n  outline-style: none;\n  outline: none;\n}\n", ""]);
+	exports.push([module.id, ".iI_I3f21U5KsJkAFwq5Jt {\n  max-width: 71.25rem;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.iI_I3f21U5KsJkAFwq5Jt:after {\n  content: \" \";\n  display: block;\n  clear: both;\n}\n\n._1WmSPc3HyLC7m35QJEsAHC {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._3Z_shKn1EGqsjb37bczaC7 {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._2dg5ovkB9kyPkQ2lXfNILK {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  padding-bottom: 1rem;\n}\n\n.xXoCrdmPkRlsjbkKTo2iW {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n._393-YHlEdbCGUubP2IUFkf {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.uSquAExEhTXRTD4P_l0y_ {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  width: 60%;\n}\n\n._1_Y70FptXDJqaOjr9SBWuz {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  width: 80%;\n}\n\n.DiIHU-dFOfuBm8sofTzHZ {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  margin-top: 1rem;\n}\n\n.ARySJkRUKE02KEWydiGeE {\n  display: inline-block;\n  height: 38px;\n  padding: 0 30px;\n  color: #FFF;\n  background-color: #33C3F0;\n  text-align: center;\n  line-height: 38px;\n  border-radius: 15px;\n  text-decoration: none;\n}\n\n.TupRPyyjMkwtc7aX3WxqV {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._1WrmzhOWLwlVNG-DBrnX0W p {\n  margin-bottom: 0;\n  line-height: 38px;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3 {\n  box-shadow: none;\n  transition-property: all;\n  transition-duration: .3s;\n  color: #33C3F0;\n  border: 2px solid #33C3F0;\n  background: 0 0;\n  text-shadow: none;\n  height: 38px;\n  padding: 0 15px;\n  cursor: pointer;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3:disabled {\n  color: #808080;\n  border: 2px solid #808080;\n}\n", ""]);
 
 	// exports
 	exports.locals = {
-		"github_comment_form_wrapper": "_16UQAqvrR3-lfAxoMaMxpZ",
-		"login_via_github": "ARySJkRUKE02KEWydiGeE",
-		"github_comment_item": "DiIHU-dFOfuBm8sofTzHZ",
-		"github_comment_avatar": "_1RUWboZzWDmgbt47kwR1N9",
+		"github-comment-wrapper": "iI_I3f21U5KsJkAFwq5Jt",
+		"comment_avatar": "_1WmSPc3HyLC7m35QJEsAHC",
+		"current_avatar": "_3Z_shKn1EGqsjb37bczaC7",
+		"login_input": "_2dg5ovkB9kyPkQ2lXfNILK",
 		"detect_input": "xXoCrdmPkRlsjbkKTo2iW",
-		"github_comment_input": "_1_ia1p5sI1kqsALxCRmiPt",
-		"github_comment_content": "_3zyb8Sy6RJeIbjy-4SMLKn",
-		"github_login_button": "_1KRZ6aqdkqM4xEScIXKw-V",
-		"detect_lgoin_input": "_280AEeopxX_YMIflGQvQ65"
+		"ready_input": "_393-YHlEdbCGUubP2IUFkf",
+		"detect_input_control": "uSquAExEhTXRTD4P_l0y_",
+		"ready_input_control": "_1_Y70FptXDJqaOjr9SBWuz",
+		"github_comment_item": "DiIHU-dFOfuBm8sofTzHZ",
+		"login_via_github": "ARySJkRUKE02KEWydiGeE",
+		"avatar": "TupRPyyjMkwtc7aX3WxqV",
+		"comment_content": "_1WrmzhOWLwlVNG-DBrnX0W",
+		"submit_comment": "_2CBq2M4gtDtPEA4AhWcvD3"
 	};
 
 /***/ },

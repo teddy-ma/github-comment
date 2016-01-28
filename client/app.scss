@@ -1,4 +1,3 @@
-// 栅格系统
 @import "~susy/sass/susy";
 
 $susy: (
@@ -8,21 +7,73 @@ $susy: (
   global-box-sizing: border-box,
 );
 
-$input_height: 38px;
+// 变量定义
+$input-height: 38px;
+$avatar-size: 54px;
 $blue: #33C3F0;
+$grey: #808080;
 
-// ------------------------- lib over -----------------------------------
-
-:global(.container) {
-  // background-color: grey;
+// mixin
+@mixin input-control {
+  height: $input-height;
+  padding: 6px 10px;
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
 }
 
-// -------------------------- global -------------------------------------
+@mixin avatar-control {
+  max-width: $avatar-size;
+  float: left;
+  padding-right: 1rem;
+}
 
-// 评论表单的 container
-.github_comment_form_wrapper {
+.github-comment-wrapper {
   @include container();
-  height: $input_height;
+}
+
+.github-comment-input {
+
+}
+
+.github-comment-output {
+
+}
+
+.comment_avatar {
+  @include avatar-control;
+}
+.current_avatar {
+  @include avatar-control;
+}
+
+.login_input {
+  @include full;
+  padding-bottom: 1rem;
+}
+
+.detect_input {
+  @include full;
+}
+
+.ready_input {
+  @include full;
+}
+
+.detect_input_control {
+  @include input-control;
+  width: 60%;
+}
+
+.ready_input_control {
+  @include input-control;
+  width: 80%;
+}
+
+.github_comment_item {
+  @include full;
   margin-top: 1rem;
 }
 
@@ -33,122 +84,35 @@ $blue: #33C3F0;
   color: #FFF;
   background-color: $blue;
   text-align: center;
-  margin-left: 1rem;
   line-height: $input_height;
-  border-radius: 4px;
-  border: 1px solid $blue;
-  cursor: pointer;
+  border-radius: 15px;
+  text-decoration: none;
 }
 
-// 单个评论的 wrapper
-.github_comment_item {
-  @include container;
-  margin-top: 1rem;
+.avatar {
+  @include avatar-control;
 }
 
-// 头像
-.github_comment_avatar {
-  @include span(2 of 12);
-  min-width: 50px;
-  text-align: right;
-  img {
-    max-width: $input_height;
-    border-radius: 50px; // 圆角
-  }
-}
-
-.detect_input {
-  width: 80%;
-  height: $input_height;
-  padding: 6px 10px;
-  background-color: #fff;
-  border: 1px solid #D1D1D1;
-  border-radius: 4px;
-  box-shadow: none;
-  box-sizing: border-box;
-  &:focus {
-    outline-color: transparent;
-    outline-style: none;
-    outline: none;
-  }
-}
-
-// 评论输入框
-.github_comment_input {
-  @include span(10 of 12 last);
-  input {
-    width: 60%;
-    height: $input_height;
-    padding: 6px 10px;
-    background-color: #fff;
-    border: 1px solid #D1D1D1;
-    border-radius: 4px;
-    box-shadow: none;
-    box-sizing: border-box;
-    &:focus {
-      outline-color: transparent;
-      outline-style: none;
-      outline: none;
-    }
-  }
-  button {
-    max-width: 20%;
-    display: inline-block;
-    height: $input_height;
-    padding: 0 1rem;
-    color: #FFF;
-    background-color: $blue;
-    text-align: center;
-    margin-left: 1rem;
-    line-height: $input_height;
-    border-radius: 4px;
-    border: 1px solid $blue;
-    cursor: pointer;
-    &:disabled {
-      background-color: grey;
-      border: 1px solid grey;
-    }
-  }
-}
-
-// 已有评论内容
-.github_comment_content {
-  @include span(10 of 12 last);
+.comment_content {
   p {
-    margin: 0;
-    line-height: $input_height;
-    font-size: 1.5em;
-    font-weight: 400;
+    margin-bottom: 0;
+    line-height: $input-height;
   }
 }
 
-// 登录 github 的按钮
-.github_login_button {
-  display: inline-block;
-  height: $input_height;
-  padding: 0 50px;
-  color: #FFF;
-  background-color: $blue;
-  text-align: center;
-  margin-left: 1rem;
-  line-height: $input_height;
-  border-radius: 4px;
-  border: 1px solid $blue;
-  cursor: pointer;
-}
-
-.detect_lgoin_input {
-  width: 80%;
-  height: $input_height;
-  padding: 6px 10px;
-  background-color: #fff;
-  border: 1px solid #D1D1D1;
-  border-radius: 4px;
+.submit_comment {
   box-shadow: none;
-  box-sizing: border-box;
-  &:focus {
-    outline-color: transparent;
-    outline-style: none;
-    outline: none;
+  transition-property: all;
+  transition-duration: .3s;
+  color: $blue;
+  border: 2px solid $blue;
+  background: 0 0;
+  text-shadow: none;
+  height: $input-height;
+  padding: 0 15px;
+  cursor: pointer;
+  &:disabled {
+    color: $grey;
+    border: 2px solid $grey;
   }
 }

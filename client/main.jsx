@@ -7,18 +7,18 @@ var $ = require('jquery');
 // 用于引用的 js script tag
 var script_tag = document.getElementById("github-comment");
 // 读取 scrpit tag 中设定的 data 属性
-var user_name = script_tag.dataset.username;
-var repo = script_tag.dataset.repo;
-var page_id = script_tag.dataset.pageId;
+var user_name  = script_tag.dataset.username;
+var repo       = script_tag.dataset.repo;
+var page_id    = script_tag.dataset.pageId;
 var wrapper_id = script_tag.dataset.wrapperId || 'github-comments';
 var server_url = script_tag.dataset.serverUrl || "github-comment.songofcode.com"; // 服务端的域名
 
 // TODO use cdn for img and js
 var default_avatar_url = `http://${server_url}/images/boohee.png`;
-var comments_url = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
-var auth_url = "http://"+server_url+"/users/auth";
-var comment_url = "http://"+server_url+"/comments";
-var loading_img = "http://"+server_url+"/images/boohee.gif";
+var comments_url       = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
+var auth_url           = `http://${server_url}/users/auth`;
+var comment_url        = `http://${server_url}/comments`;
+var loading_img        = `http://${server_url}/images/boohee.gif`;
 
 // 评论表单容器组件
 var FormBox = React.createClass({
@@ -28,26 +28,15 @@ var FormBox = React.createClass({
   render: function() {
     return (
       <div className={style.github_comment_form_wrapper}>
-        <Avatar name={this.props.name} avatar={this.props.avatar} />
         {
           this.props.detect_login ?
-          <div>
-            <input className={style.detect_input} onFocus={this.handleFocus} />
+          <div className={style.detect_input}>
+            <img className={style.current_avatar} src="http://github-comment.songofcode.com/images/boohee.png" />
+            <input type="text" className={style.detect_input_control} onFocus={this.handleFocus} />
           </div>
           :
-          <Form auth={this.props.auth} login_url={this.props.login_url}/>
+          <Form auth={this.props.auth} avatar={this.props.avatar} login_url={this.props.login_url}/>
         }
-      </div>
-    );
-  }
-});
-
-// 头像组件
-var Avatar = React.createClass({
-  render: function() {
-    return (
-      <div className={style.github_comment_avatar}>
-        <img className={style.avatar} title={this.props.name} src={this.props.avatar} />
       </div>
     );
   }
@@ -87,15 +76,18 @@ var Form = React.createClass({
   },
   render: function() {
     return (
-      <div className={style.github_comment_input} id="status_default">
+      <div className={style.github_comment_input}>
         {
           this.props.auth ?
-            <div>
-              <input onChange={this.handleChange} className={style.input} type="text" name="body" placeholder="TODO: "/>
-              <button disabled={this.state.submited} onClick={this.handleSubmit} type="button">提交</button>
+            <div className={style.ready_input}>
+              <img className={style.current_avatar} src={this.props.avatar} />
+              <input onChange={this.handleChange} name="body" placeholder="TODO: " type="text" className={style.ready_input_control} />
+              <button type="button" disabled={this.state.submited} onClick={this.handleSubmit} className={style.submit_comment}>Comment</button>
             </div>
             :
-            <a className={style.login_via_github} target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via GitHub</a>
+            <div className={style.login_input}>
+              <a href={this.props.login_url} className={style.login_via_github} target="_blank" onClick={this.handleLogin} href={this.props.login_url}>Login via github</a>
+            </div>
         }
       </div>
     );
@@ -106,10 +98,10 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className={style.github_comment_item}>
-        <div className={style.github_comment_avatar}>
-          <img src={this.props.avatar} title={this.props.name} className={style.avatar}/>
+        <div className={style.avatar}>
+          <img className={style.comment_avatar} src={this.props.avatar} title={this.props.name} />
         </div>
-        <div className={style.github_comment_content}>
+        <div className={style.comment_content}>
           <p>{this.props.content}</p>
         </div>
       </div>
@@ -121,7 +113,7 @@ var Comment = React.createClass({
 var List = React.createClass({
   render: function() {
     return (
-      <div className={style.github_comment_items_wrapper}>
+      <div className={style.github_comment_items}>
         {
           this.props.comments.map(function(item){
             return <Comment key={item.id} content={item.body} avatar={item.user.avatar_url} name={item.user.login}/>
@@ -136,8 +128,8 @@ var List = React.createClass({
 var Loading = React.createClass({
   render: function() {
     return (
-      <div className={style.github_comment_items_wrapper}>
-        <img src={this.props.img} />
+      <div className={style.github_comment_loading}>
+        <img className={style.github_comment_loading} src={this.props.img} />
       </div>
     );
   }
@@ -228,9 +220,9 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <FormBox name={this.state.name} avatar={this.state.avatar}
+        <FormBox name={this.state.name} avatar={this.state.avatar} 
           auth={this.state.auth} login_url={this.state.login_url}
-          detect_login={this.state.detect_login} />
+          avatar={this.state.avatar} detect_login={this.state.detect_login} />
         {
           this.state.loading ? <Loading img={loading_img} /> : <List comments={this.state.comments} />
         }
