@@ -27,6 +27,47 @@ GitHub Comment 并没有采用 Disqus 那样的 iframe 实现方式.
 
 于是我开始寻找其他的解决方案.
 
-最后发现 webpack 的 css module mode 才是王道
+我找到了很多模块化 css 的思想：
 
-具体配置直接看源码即可, [这里有一个在线的例子](http://www.songofcode.com/how-to-learn-emacs-chinese-edition/), 可以使用浏览器的审查元素来查看实现细节.
+- https://github.com/grvcoelho/css
+- https://smacss.com/
+- http://oocss.org/
+- https://en.bem.info/
+
+上述思路共同点是：
+
+- 所有的 css 都由同一人(团队)把控
+- 通过人为的规定来组织代码
+- (可能)需要依赖外部工具(人工编写费时费力)
+
+这和我的适用场景不符。
+
+最后发现 webpack 的 css module mode 才是王道。
+
+- sass 的定义
+
+        @import "~susy/sass/susy";
+        .github_comment_form_wrapper {
+          @include container();
+          height: $input_height;
+          margin-top: 1rem;
+        }
+
+- react 的引用
+
+        var style = require('./app.scss');
+        var Avatar = React.createClass({
+          render: function() {
+            return (
+              <div className={style.github_comment_avatar}>
+                <img className={style.avatar} title={this.props.name} src={this.props.avatar} />
+              </div>
+            );
+          }
+        });
+
+最后结果：
+
+![](http://www.songofcode.com/sliders/assets/images/opensource-times/react-modular-css.png)
+
+[这里有一个在线的例子](http://www.songofcode.com/how-to-learn-emacs-chinese-edition/), 可以使用浏览器的审查元素来查看实现细节.
