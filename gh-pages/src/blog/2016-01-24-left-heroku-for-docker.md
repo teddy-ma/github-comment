@@ -138,3 +138,10 @@ github-comment.songofcode.com, 就会被反代到 Github Comment 的服务.
 至此, 一个原本跑在 Heroku 上的服务就被我迁移 docker 中了。
 
 如果 vps 上有其他 web 服务，都可以用这样的方式来进行反代。所有的服务都可以 docker 化，非常方便做迁移和部署。
+
+
+<div id="github-comments"></div>
+<script src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.1/client/github-comment.js"
+  id="github-comment" data-username="teddy-ma"
+  data-repo="github-comment" data-page-id="4">
+</script>

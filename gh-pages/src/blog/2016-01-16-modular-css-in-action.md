@@ -71,3 +71,10 @@ GitHub Comment 并没有采用 Disqus 那样的 iframe 实现方式.
 ![](http://www.songofcode.com/sliders/assets/images/opensource-times/react-modular-css.png)
 
 [这里有一个在线的例子](http://www.songofcode.com/how-to-learn-emacs-chinese-edition/), 可以使用浏览器的审查元素来查看实现细节.
+
+
+<div id="github-comments"></div>
+<script src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.1/client/github-comment.js"
+  id="github-comment" data-username="teddy-ma"
+  data-repo="github-comment" data-page-id="3">
+</script>
