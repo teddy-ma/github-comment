@@ -9,6 +9,7 @@ import htmlMinifier from 'metalsmith-html-minifier';
 import serve from 'metalsmith-serve';
 import watch from 'metalsmith-watch';
 import prefix from 'metalsmith-prefix';
+import date from 'metalsmith-build-date';
 
 Metalsmith(__dirname)
   .use(collections({
@@ -47,6 +48,7 @@ Metalsmith(__dirname)
       selector: 'a, img, link, script'
   }))
   .use(htmlMinifier())
+  .use(date())
   .build(function () {
     console.log('Cheers!');
   });
