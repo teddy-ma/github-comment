@@ -8,6 +8,7 @@ import sass from 'metalsmith-sass';
 import htmlMinifier from 'metalsmith-html-minifier';
 import serve from 'metalsmith-serve';
 import watch from 'metalsmith-watch';
+import prefix from 'metalsmith-prefix';
 
 Metalsmith(__dirname)
   .use(collections({
@@ -40,6 +41,10 @@ Metalsmith(__dirname)
     engine: 'liquid',
     pattern: '**/*.html',
     includeDir: 'layouts/includes'
+  }))
+  .use(prefix({
+      prefix: 'github-comment',
+      selector: 'a, img, link, script'
   }))
   .use(htmlMinifier())
   .build(function () {
