@@ -1,0 +1,24 @@
+{% extends base %}
+
+{% block content %}
+<main>
+  <div class="docs-section examples">
+    <div class="row example">
+      <img class="eight columns" src="../assets/demo-site.png" />
+      <div class="four columns">
+        <h6 class="example-header">示例评论页面</h6>
+        <p class="example-description">
+          只需引入一行 javascript 文件, 立刻拥有你的 GitHub 专属评论区。
+
+          利用全球最大的同性交友网站畅所欲言。
+
+          配合 GitHub 的邮件通知系统，随时掌握最新的评论信息。
+        </p>
+        <a class="button" href="http://songofcode.com/reading/" target="_blank">Demo</a>
+        <a class="button" href="https://github.com/teddy-ma/teddy-ma.github.io/blob/master/reading/index.html" target="_blank">Source</a>
+      </div>
+    </div>
+  </div>
+  {{ contents }}
+</main>
+{% endblock %}

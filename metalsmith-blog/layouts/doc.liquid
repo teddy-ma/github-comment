@@ -1,0 +1,13 @@
+{% extends base %}
+
+{% block content %}
+<div class="posts">
+  <ul class="posts__list">
+    {% for doc in collections.docs %}
+      <li class="doc">
+        <a href="/doc/{{ doc.title | downcase | split: ' ' | join: '-'}}">{{ doc.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

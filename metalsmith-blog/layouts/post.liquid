@@ -1,0 +1,11 @@
+{% extends base %}
+
+{% block content %}
+<div class="post">
+  <h3 class="post-title">{{ title }}</h3>
+  <p class="post-date">{{ date | date: "%b %d, %Y" }}</p>
+  <div class="post-content">
+    {{ contents }}
+  </div>
+</div>
+{% endblock %}
