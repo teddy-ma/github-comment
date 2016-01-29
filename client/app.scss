@@ -12,16 +12,18 @@ $input-height: 38px;
 $avatar-size: 54px;
 $blue: #33C3F0;
 $grey: #808080;
+$white: #fff;
 
 // mixin
 @mixin input-control {
   height: $input-height;
   padding: 6px 10px;
-  background-color: #fff;
-  border: 1px solid #D1D1D1;
+  background-color: $white;
+  border: 1px solid $grey;
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
+  display: inline-block;
 }
 
 @mixin avatar-control {
@@ -81,7 +83,7 @@ $grey: #808080;
   display: inline-block;
   height: $input_height;
   padding: 0 30px;
-  color: #FFF;
+  color: $white;
   background-color: $blue;
   text-align: center;
   line-height: $input_height;
