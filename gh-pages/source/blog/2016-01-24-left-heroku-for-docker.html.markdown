@@ -14,6 +14,8 @@ title: 放弃 Heroku, 拥抱 Docker
 
 这样也方便使用自定义域名和其他基础设施（以后可能要用到的数据库，缓存等），这些东西在 Heroku 上都是要钱的。
 
+好了让我们开始吧。
+
 Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 
 要把一个 nodejs 应用部署到 Heroku 上需要两个关键点：
@@ -26,7 +28,7 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 
 首先我们先把整个 Github Comment 程序放入一个 image 中。这步很简单，因为整个程序没有硬编码的外部依赖。
 
-先来创建一个 Dockerfile，它定义了一个 image 会被如何构建出来：
+先在项目的根目录下创建一个 Dockerfile，它定义了一个 image 会被如何构建出来：
 
     # 这个 image 的父 image 是 docker 官方的 node image
     # 因为 Github Comment 没有 nodejs 以外的任何依赖，所以不需要其他的构建脚本
@@ -38,7 +40,7 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
     # 安装需要的 npm 包
     RUN cd /src; npm install
 
-    # 在容易内容暴露 5000 端口
+    # 暴露 5000 端口
     EXPOSE 5000
 
     # 启动项目
@@ -46,13 +48,18 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 
 编写 Dockerfile 的难度比想象中容易的多，只要想想：我平时是怎么构建项目的？
 
-这里很简单，无非就是使用 npm 安装所需的依赖。
+在这个例子中很简单，无非就是使用 npm 安装所需的依赖。所以在整个 `Dockerfile` 中只有 RUN 关键字那一句。
 
-然后 `EXPOSE` 关键字指定了容器在内部暴露的端口号，这是用于和宿主或其他容易交互时的端口。
+然后 `EXPOSE` 关键字指定了容器在内部暴露的端口号，这是用于和宿主或其他容器交互时的端口。
 
 最后的 `CMD` 命令就起到了 `Procfile` 的作用，就是刚才提到的启动脚本。
 
 之后使用命令 `docker build -t mlc880926/github-comment .` 来构建出自己的 image。
+
+构建成功后执行 `docker images` ，就能看到刚才构建好的镜像了：
+    
+    REPOSITORY                                   TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+    mlc880926/github-comment                     latest              e7b657ad5ce1        3 days ago          655.4 MB
 
 这样一来第一点就搞定了，下面就是环境变量的注入，Docker 中每个容器都有自己的上下文，
 
@@ -66,9 +73,7 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 
 这样一来一个 Github Comment 的容器就正式启动了。
 
-大家可以看到我把容器的 5000 端口映射到了宿主机的 5000 端口上，这样的话，客户端在调用的时候，
-
-也要写上 5000 端口，这样显得很不专业。可是我的 vps 上还有其他服务要跑，而 80 端口只有一个。
+大家可以看到我把容器的 5000 端口映射到了宿主机的 5000 端口上，这样的话，客户端在调用的时候也要写上 5000 端口，这样显得很不专业。可是我的 vps 上还有其他服务要跑，而 80 端口只有一个。
 
 碰到这种情况，使用 nginx 这样的 http server 来做反代是一个常见的解决方案。
 
@@ -118,9 +123,8 @@ docker 就会从官方下载 nginx 的容器并启动, 试着访问你的 vps �
       -v `pwd`/config/server.conf:/etc/nginx/conf.d/default.conf \
         nginx
 
-上面的命令中 --link github-comment:comment 就是说在启动 nginx 容器的时候,
-和 github-comment 这个容器 (这个名字是启动 Github Comment 容器时用 --name 指定的)
-连接起来, 并在 nginx 容器中命名为 comment, 成功启动后, 根据配置描述, 只要访问
+上面的命令中 `--link github-comment:comment` 就是说在启动 nginx 容器的时候,
+和 `github-comment` 这个容器 (这个名字是启动 Github Comment 容器时用 `--name` 指定的) 连接起来, 并在 nginx 容器中命名为 comment, 成功启动后, 根据配置描述, 只要访问
 github-comment.songofcode.com, 就会被反代到 Github Comment 的服务.
 
 这时输入 `docker ps` 查看 docker 的进程, 会发现有两个:
@@ -128,7 +132,9 @@ github-comment.songofcode.com, 就会被反代到 Github Comment 的服务.
     12dc30ffffce        nginx                                        "nginx -g 'daemon off"   29 hours ago        Up 29 hours         0.0.0.0:80->80/tcp, 443/tcp   evil_galileo
     c00847854896        mlc880926/github-comment                     "node /src/app.js"       45 hours ago        Up 45 hours         0.0.0.0:5000->5000/tcp        github-comment
 
-如果现在使用命令 'docker exec -i -t 12dc30ffffce bash' 进入到 nginx 容器内部去查看 hosts 记录,
+如果现在使用命令 `docker exec -i -t 12dc30ffffce bash` 进入到 nginx 容器内部去查看 hosts 记录,
 会看到类似 `172.17.0.5	comment` 的内容, 这就是容器间通讯的原理了.
 
-至此, 一个原本跑在 Heroku 上的服务就被我迁移 docker 中了.
+至此, 一个原本跑在 Heroku 上的服务就被我迁移 docker 中了。
+
+如果 vps 上有其他 web 服务，都可以用这样的方式来进行反代。所有的服务都可以 docker 化，非常方便做迁移和部署。
