@@ -4,36 +4,53 @@
     <title>Github Comment</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+<![endif]-->
   </head>
   <body>
-    <header class="header">
-      <div class="navbar">
-        <a class="navbar-brand" href="/">Github Comment</a>
-        <ul class="nav navbar-nav">
-          <li>
+
+    <!-- TOP RIGHT RIBBON: START COPYING HERE -->
+     <div class="github-fork-ribbon-wrapper right">
+         <div class="github-fork-ribbon">
+             <a href="https://github.com/teddy-ma/github-comment">Fork me on GitHub</a>
+         </div>
+     </div>
+
+    <div class="row">
+      <div class="top-bar-left">
+        <ul class="menu" >
+          <li role="menuitem" tabindex="0">
             <a href="/">Home</a>
           </li>
-          <li>
+          <li role="menuitem" tabindex="0">
             <a href="/doc/getting-started">Document</a>
           </li>
-          <li>
+          <li role="menuitem" tabindex="0">
             <a href="/blog">Blog</a>
           </li>
         </ul>
       </div>
-    </header>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="content">
-            {% block content %}
+    </div>
 
-            {% endblock %}
-          </div>
+    <div class="container">
+
+      <div class="row">
+        <div class="content">
+          {% block content %}
+
+          {% endblock %}
         </div>
       </div>
+
     </div>
+
+    <!-- Compressed JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.js"></script> -->
   </body>
 </html>

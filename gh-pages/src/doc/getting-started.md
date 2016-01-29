@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: getting-started
+title: GitHub Comment 入门教程
 date: 2015-12-24
 ---
-
-# GitHub Comment 入门教程
 
 GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 
@@ -39,4 +37,4 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 
 如果你不喜欢使用第三方的服务想要自己托管 GitHub Comment.
 
-可以查阅[相关文档](self-host)
+可以查阅[相关文档](../self-host)

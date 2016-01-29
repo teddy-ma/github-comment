@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: self-host
+title: 自托管 GitHub Comment
 date: 2015-12-25
 ---
-
-# 自托管 GitHub Comment
 
 GitHub Comment 的账号系统是基于 GitHub 的.
 

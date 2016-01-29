@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: hello-world-from-github-comment
+title: github-comment 正式发布了!
 date: 2015-12-24
 ---
-
-# github-comment 正式发布了!
 
 随着 GitHub Pages 和 Jekyll 的流行, 静态网页(博客)的复古风开始复苏.
 
@@ -21,9 +19,6 @@ date: 2015-12-24
 目前 github-comment 算是发布了 v0.1.0 版, 只有最最基本的评论功能和半自动化的初始化方式.
 
 不过一切的功能都会慢慢地变得更强大的.
-
-于圣诞夜
-
 
 <div id="github-comments"></div>
 <script src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.1/client/github-comment.js"

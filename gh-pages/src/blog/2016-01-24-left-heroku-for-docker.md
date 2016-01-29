@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: left-heroku-for-docker
+title: 放弃 Heroku, 拥抱 Docker
 date: 2016-01-24
 ---
-
-# 放弃 Heroku, 拥抱 Docker
 
 在 Github Comment v0.1.0 版中, 我使用了 Heroku 作为部署平台。
 

@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: modular-css-in-action
+title: 模块化 css 实战
 date: 2016-01-16
 ---
-
-# 模块化 css 实战
 
 GitHub Comment 上线后不久, 我就发现了一个巨大的潜在问题: 样式的加载问题.
 

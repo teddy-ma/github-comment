@@ -1,10 +1,8 @@
 ---
 layout: post.liquid
-title: github-comment-1-0-0-relase
+title: Github Comment 发布 1.0.0
 date: 2016-01-25
 ---
-
-# Github Comment 发布 1.0.0
 
 Github Comment 正式宣告进入 1.0.0 时代.
 
