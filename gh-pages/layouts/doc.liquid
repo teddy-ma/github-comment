@@ -5,7 +5,7 @@
   <ul>
     {% for doc in collections.docs %}
       <li class="doc">
-        <a href="/{{ doc.path }}">{{ doc.title }}</a>
+        <a href="{{rootPath}}/{{ doc.path }}">{{ doc.title }}</a>
       </li>
     {% endfor %}
   </ul>

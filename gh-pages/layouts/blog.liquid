@@ -5,7 +5,7 @@
   <ul>
     {% for post in collections.posts %}
       <li class="post">
-        <a href="/{{post.path}}">{{ post.title }}</a>
+        <a href="{{rootPath}}/{{post.path}}">{{ post.title }}</a>
       </li>
     {% endfor %}
   </ul>
