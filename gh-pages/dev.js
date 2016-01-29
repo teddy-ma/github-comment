@@ -41,7 +41,19 @@ Metalsmith(__dirname)
     pattern: '**/*.html',
     includeDir: 'layouts/includes'
   }))
-  .use(htmlMinifier())
+  .use(serve({
+    port: 8080,
+    verbose: true
+  }))
+  .use(
+    watch({
+      paths: {
+        "${source}/**/*": true, // every changed files will trigger a rebuild of themselves
+        "layouts/**/*": "**/*" // every templates changed will trigger a rebuild of all files
+      },
+      livereload: true,
+    })
+  )
   .build(function () {
     console.log('Cheers!');
   });

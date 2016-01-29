@@ -4,6 +4,7 @@
   "description": "offical website of Github Comment",
   "main": "index.js",
   "scripts": {
+    "dev": "babel-node dev.js",
     "build": "babel-node build.js"
   },
   "author": "Ma Lucheng <mlc880926@gmail.com> (http://songofcode.com/)",
