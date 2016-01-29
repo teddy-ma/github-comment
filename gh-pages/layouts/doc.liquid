@@ -1,0 +1,13 @@
+{% extends base %}
+
+{% block content %}
+<div class="medium-12 columns">
+  <ul>
+    {% for doc in collections.docs %}
+      <li class="doc">
+        <a href="/{{ doc.path }}">{{ doc.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: 'Helvetica';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+a {
+  color: #053580;
+  font-weight: 400;
+  text-shadow: 0px 0px 0px #fff;
+}
+
+.content {
+  padding: 20px;
+}
+
+.navbar {
+  padding: 20px;
+}
+
+.header {
+  background-image: url("../assets/header.jpeg");
+  background-size: cover;
+  min-height: 300px;
+  background-position: center -95%;
+}

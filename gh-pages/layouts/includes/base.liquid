@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Github Comment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+<![endif]-->
+  </head>
+  <body>
+
+    <!-- TOP RIGHT RIBBON: START COPYING HERE -->
+    <div class="github-fork-ribbon-wrapper right">
+      <div class="github-fork-ribbon">
+        <a href="https://github.com/teddy-ma/github-comment">Fork me on GitHub</a>
+      </div>
+    </div> <!-- fork me on github -->
+
+    <div class="row">
+      <div class="top-bar-left">
+        <ul class="menu" >
+          <li role="menuitem" tabindex="0">
+            <a href="/">Home</a>
+          </li>
+          <li role="menuitem" tabindex="0">
+            <a href="/doc/getting-started">Document</a>
+          </li>
+          <li role="menuitem" tabindex="0">
+            <a href="/blog">Blog</a>
+          </li>
+        </ul>
+      </div>
+    </div> <!-- 菜单 -->
+
+    <div class="container">
+
+      <div class="row">
+        <div class="content">
+          {% block content %}
+
+          {% endblock %}
+        </div>
+      </div>
+
+    </div> <!-- main body -->
+
+    <!-- Compressed JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.js"></script> -->
+  </body>
+</html>
