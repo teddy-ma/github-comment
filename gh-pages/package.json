@@ -19,9 +19,11 @@
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.4.0",
     "metalsmith-prefix": "^1.0.3",
+    "metalsmith-prism": "^2.1.1",
     "metalsmith-sass": "^1.3.0",
     "metalsmith-serve": "^0.0.6",
     "metalsmith-watch": "^1.0.1",
+    "moment": "^2.11.1",
     "tinyliquid": "^0.2.30"
   },
   "devDependencies": {

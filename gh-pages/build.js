@@ -6,10 +6,9 @@ import markdown from 'metalsmith-markdown';
 import permalinks from 'metalsmith-permalinks';
 import sass from 'metalsmith-sass';
 import htmlMinifier from 'metalsmith-html-minifier';
-import serve from 'metalsmith-serve';
-import watch from 'metalsmith-watch';
 import prefix from 'metalsmith-prefix';
 import date from 'metalsmith-build-date';
+import metalsmithPrism from 'metalsmith-prism';
 
 Metalsmith(__dirname)
   .use(collections({
@@ -28,10 +27,19 @@ Metalsmith(__dirname)
     outputDir: 'css'
   }))
   .use(markdown({
-    gfm: true
+    gfm: true,
+    langPrefix: 'language-'
   }))
+  .use(metalsmithPrism())
   .use(permalinks({
-
+    pattern: ':title',
+    linksets: [{
+       match: { collection: 'posts' },
+       pattern: 'blog/:date/:title',
+    },{
+       match: { collection: 'docs' },
+       pattern: 'doc/:title'
+    }]
   }))
   .use(layouts({
     engine: 'liquid',

@@ -1,6 +1,7 @@
 ---
 layout: post.liquid
 title: 自托管 GitHub Comment
+permalink: self-host
 date: 2015-12-25
 ---
 

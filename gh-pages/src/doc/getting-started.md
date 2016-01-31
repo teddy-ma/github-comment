@@ -1,6 +1,7 @@
 ---
 layout: post.liquid
 title: GitHub Comment 入门教程
+permalink: getting-started
 date: 2015-12-24
 ---
 
@@ -16,7 +17,7 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 
 ```html
 <div id="github-comments"></div>
-<script src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.1/client/github-comment.js"
+<script defer="true" src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.2/client/github-comment.js"
   id="github-comment" data-username="your-github-username"
   data-repo="your-github-repo" data-page-id="the issue number">
 </script>

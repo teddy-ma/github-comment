@@ -4,14 +4,13 @@
     <title>Github Comment</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Compressed CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.css">
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="/css/style.css"> <!-- custom css -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/simonwhitaker/github-fork-ribbon-css/gh-pages/gh-fork-ribbon.css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css" />
   </head>
   <body>
 
-    <!-- TOP RIGHT RIBBON: START COPYING HERE -->
     <div class="github-fork-ribbon-wrapper right">
       <div class="github-fork-ribbon">
         <a href="https://github.com/teddy-ma/github-comment">Fork me on GitHub</a>
@@ -32,7 +31,7 @@
           </li>
         </ul>
       </div>
-    </div> <!-- 菜单 -->
+    </div> <!-- 导航 -->
 
     <div class="container">
 
@@ -48,7 +47,9 @@
 
     <div class="row">
       <div class="medium-6 columns">
-        <p> {{ date }} </p>
+        <ul class="menu">
+          <li style="float: left" class="menu-text">build on {{ date  | date: "%a, %b %d, %y" }}</li>
+        </ul>
       </div>
       <div class="medium-6 columns">
         <ul class="menu align-right">
@@ -57,7 +58,5 @@
       </div>
     </div><!-- footer -->
 
-    <!-- Compressed JavaScript -->
-    <!-- <script src="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.js"></script> -->
   </body>
 </html>

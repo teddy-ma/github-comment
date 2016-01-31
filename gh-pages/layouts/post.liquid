@@ -1,11 +1,20 @@
 {% extends base %}
 
 {% block content %}
-<div class="post">
+<div class="post markdown-body medium-12 columns">
   <h3 class="post-title">{{ title }}</h3>
   <p class="post-date">{{ date | date: "%b %d, %Y" }}</p>
   <div class="post-content">
     {{ contents }}
   </div>
 </div>
+
+{% if github-comment-id %}
+<div id="github-comments" class="medium-12 columns"></div>
+<script defer="true" src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.2/client/github-comment.js"
+  id="github-comment" data-username="teddy-ma"
+  data-repo="github-comment" data-page-id="{{github-comment-id}}">
+</script>
+{% endif %}
+
 {% endblock %}
