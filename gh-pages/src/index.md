@@ -4,8 +4,6 @@ title: Github Comment
 permalink: false
 ---
 
-A site about my travels...
-
 ## 示例评论页面
 
   只需引入一行 javascript 文件, 立刻拥有你的 GitHub 专属评论区。

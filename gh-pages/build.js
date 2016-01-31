@@ -6,10 +6,9 @@ import markdown from 'metalsmith-markdown';
 import permalinks from 'metalsmith-permalinks';
 import sass from 'metalsmith-sass';
 import htmlMinifier from 'metalsmith-html-minifier';
-import serve from 'metalsmith-serve';
-import watch from 'metalsmith-watch';
 import prefix from 'metalsmith-prefix';
 import date from 'metalsmith-build-date';
+import metallic from 'metalsmith-metallic';
 
 Metalsmith(__dirname)
   .use(collections({
@@ -30,6 +29,7 @@ Metalsmith(__dirname)
   .use(markdown({
     gfm: true
   }))
+  .use(metallic())
   .use(permalinks({
 
   }))

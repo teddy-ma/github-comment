@@ -1315,7 +1315,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	function invariant(condition, format, a, b, c, d, e, f) {
+	var invariant = function (condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -1329,16 +1329,15 @@
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
-	      error.name = 'Invariant Violation';
 	    }
 
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	}
+	};
 
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
@@ -10765,8 +10764,8 @@
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: MUST_USE_ATTRIBUTE,
-	    autoCorrect: MUST_USE_ATTRIBUTE,
+	    autoCapitalize: null,
+	    autoCorrect: null,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -10797,7 +10796,9 @@
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
+	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
+	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -13876,7 +13877,7 @@
 	    var value = LinkedValueUtils.getValue(props);
 
 	    if (value != null) {
-	      updateOptions(this, Boolean(props.multiple), value);
+	      updateOptions(this, props, value);
 	    }
 	  }
 	}
@@ -16915,11 +16916,15 @@
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not yet defined.
 	 */
-	"use strict";
+	'use strict';
 
 	function getActiveElement() /*?DOMElement*/{
+	  if (typeof document === 'undefined') {
+	    return null;
+	  }
+
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -18659,9 +18664,7 @@
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'setValueForStyles': 'update styles',
-	  'replaceNodeWithMarkup': 'replace',
-	  'updateTextContent': 'set textContent'
+	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
 	};
 
 	function getTotalTime(measurements) {
@@ -18853,23 +18856,18 @@
 	'use strict';
 
 	var performance = __webpack_require__(145);
-
-	var performanceNow;
+	var curPerformance = performance;
 
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (performance.now) {
-	  performanceNow = function () {
-	    return performance.now();
-	  };
-	} else {
-	  performanceNow = function () {
-	    return Date.now();
-	  };
+	if (!curPerformance || !curPerformance.now) {
+	  curPerformance = Date;
 	}
+
+	var performanceNow = curPerformance.now.bind(curPerformance);
 
 	module.exports = performanceNow;
 
@@ -18918,7 +18916,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.5';
+	module.exports = '0.14.3';
 
 /***/ },
 /* 147 */
@@ -19924,7 +19922,7 @@
 
 
 	// module
-	exports.push([module.id, ".iI_I3f21U5KsJkAFwq5Jt {\n  max-width: 71.25rem;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.iI_I3f21U5KsJkAFwq5Jt:after {\n  content: \" \";\n  display: block;\n  clear: both;\n}\n\n._1WmSPc3HyLC7m35QJEsAHC {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._3Z_shKn1EGqsjb37bczaC7 {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._2dg5ovkB9kyPkQ2lXfNILK {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  padding-bottom: 1rem;\n}\n\n.xXoCrdmPkRlsjbkKTo2iW {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n._393-YHlEdbCGUubP2IUFkf {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.uSquAExEhTXRTD4P_l0y_ {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  width: 60%;\n}\n\n._1_Y70FptXDJqaOjr9SBWuz {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #D1D1D1;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  width: 80%;\n}\n\n.DiIHU-dFOfuBm8sofTzHZ {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  margin-top: 1rem;\n}\n\n.ARySJkRUKE02KEWydiGeE {\n  display: inline-block;\n  height: 38px;\n  padding: 0 30px;\n  color: #FFF;\n  background-color: #33C3F0;\n  text-align: center;\n  line-height: 38px;\n  border-radius: 15px;\n  text-decoration: none;\n}\n\n.TupRPyyjMkwtc7aX3WxqV {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._1WrmzhOWLwlVNG-DBrnX0W p {\n  margin-bottom: 0;\n  line-height: 38px;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3 {\n  box-shadow: none;\n  transition-property: all;\n  transition-duration: .3s;\n  color: #33C3F0;\n  border: 2px solid #33C3F0;\n  background: 0 0;\n  text-shadow: none;\n  height: 38px;\n  padding: 0 15px;\n  cursor: pointer;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3:disabled {\n  color: #808080;\n  border: 2px solid #808080;\n}\n", ""]);
+	exports.push([module.id, ".iI_I3f21U5KsJkAFwq5Jt {\n  max-width: 71.25rem;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.iI_I3f21U5KsJkAFwq5Jt:after {\n  content: \" \";\n  display: block;\n  clear: both;\n}\n\n._1WmSPc3HyLC7m35QJEsAHC {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._3Z_shKn1EGqsjb37bczaC7 {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._2dg5ovkB9kyPkQ2lXfNILK {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  padding-bottom: 1rem;\n}\n\n.xXoCrdmPkRlsjbkKTo2iW {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n._393-YHlEdbCGUubP2IUFkf {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.uSquAExEhTXRTD4P_l0y_ {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  display: inline-block;\n  width: 60%;\n}\n\n._1_Y70FptXDJqaOjr9SBWuz {\n  height: 38px;\n  padding: 6px 10px;\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 4px;\n  box-shadow: none;\n  box-sizing: border-box;\n  display: inline-block;\n  width: 80%;\n}\n\n.DiIHU-dFOfuBm8sofTzHZ {\n  clear: both;\n  width: 100%;\n  float: left;\n  margin-left: 0;\n  margin-right: 0;\n  margin-top: 1rem;\n}\n\n.ARySJkRUKE02KEWydiGeE {\n  display: inline-block;\n  height: 38px;\n  padding: 0 30px;\n  color: #fff;\n  background-color: #33C3F0;\n  text-align: center;\n  line-height: 38px;\n  border-radius: 15px;\n  text-decoration: none;\n}\n\n.ARySJkRUKE02KEWydiGeE:visited {\n  color: #fff;\n}\n\n.TupRPyyjMkwtc7aX3WxqV {\n  max-width: 54px;\n  float: left;\n  padding-right: 1rem;\n}\n\n._1WrmzhOWLwlVNG-DBrnX0W p {\n  margin-bottom: 0;\n  line-height: 38px;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3 {\n  box-shadow: none;\n  transition-property: all;\n  transition-duration: .3s;\n  color: #33C3F0;\n  border: 2px solid #33C3F0;\n  background: 0 0;\n  text-shadow: none;\n  height: 38px;\n  padding: 0 15px;\n  cursor: pointer;\n}\n\n._2CBq2M4gtDtPEA4AhWcvD3:disabled {\n  color: #808080;\n  border: 2px solid #808080;\n}\n", ""]);
 
 	// exports
 	exports.locals = {

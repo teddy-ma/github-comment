@@ -89,6 +89,9 @@ $white: #fff;
   line-height: $input_height;
   border-radius: 15px;
   text-decoration: none;
+  &:visited {
+    color: $white;
+  }
 }
 
 .avatar {
