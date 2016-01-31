@@ -32,13 +32,12 @@ Metalsmith(__dirname)
   }))
   .use(metalsmithPrism())
   .use(permalinks({
-    pattern: ':title',
     linksets: [{
        match: { collection: 'posts' },
-       pattern: 'blog/:date/:title',
+       pattern: 'blog/:date/:permalink',
     },{
        match: { collection: 'docs' },
-       pattern: 'doc/:title'
+       pattern: 'doc/:permalink'
     }]
   }))
   .use(layouts({
