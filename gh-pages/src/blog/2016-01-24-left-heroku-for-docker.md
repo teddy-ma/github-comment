@@ -6,7 +6,7 @@ date: 2016-01-24
 github-comment-id: 4
 ---
 
-在 Github Comment 的 v0.1.0 版中, 我使用了 Heroku 作为部署平台，因为它方便部署，
+在 [GitHub Comment](http://www.songofcode.com/github-comment/) 的 v0.1.0 版中, 我使用了 Heroku 作为部署平台，因为它方便部署，
 通过开发人员把精力集中到代码上从而解放生产力。
 
 不过在学习 Docker 的过程中, 我发现这个工具真的能非常大的提升部署的效率，同时又没有 PaaS 平台的功能限制。
@@ -19,7 +19,7 @@ github-comment-id: 4
 
 好了让我们开始吧。
 
-Github Comment 的 Server 端就是一个简单的 nodejs 应用。
+[GitHub Comment](http://www.songofcode.com/github-comment/) 的 Server 端就是一个简单的 nodejs 应用。
 
 部署一个 nodejs 应用到 Heroku 上需要两个关键点：
 
@@ -29,13 +29,13 @@ Github Comment 的 Server 端就是一个简单的 nodejs 应用。
 
 那么要把一个 nodejs 应用 Docker 化原理也类似，无非就是提供环境变量和指定启动脚本。
 
-首先我们先把整个 Github Comment 的 codebase 放入一个 image 中。这步很简单，因为整个程序没有硬编码的外部依赖。
+首先我们先把整个 [GitHub Comment](http://www.songofcode.com/github-comment/) 的 codebase 放入一个 image 中。这步很简单，因为整个程序没有硬编码的外部依赖。
 
 先在项目的根目录下创建一个 Dockerfile，它定义了一个 image 会被如何构建出来：
 
 ```bash
 # 这个 image 的父 image 是 docker 官方的 node image
-# 因为 Github Comment 没有 nodejs 以外的任何依赖，所以不需要其他的构建脚本
+# 因为 [GitHub Comment](http://www.songofcode.com/github-comment/) 没有 nodejs 以外的任何依赖，所以不需要其他的构建脚本
 FROM node:latest
 
 # 把当前路径下的文件都拷贝到镜像中的 /src 目录
@@ -80,7 +80,7 @@ docker run -d -p 5000:5000 --name github-comment \
   mlc880926/github-comment
 ```
 
-这样一来一个 Github Comment 的容器就正式启动了。
+这样一来一个 [GitHub Comment](http://www.songofcode.com/github-comment/) 的容器就正式启动了。
 
 大家可以看到我把容器的 5000 端口映射到了宿主机的 5000 端口上，这样的话，客户端在调用的时候也要写上 5000 端口，这样显得很不专业。可是我的 vps 上还有其他服务要跑，而 80 端口只有一个。
 
@@ -130,7 +130,7 @@ server {
 
 现在这样启动容器是会报错的, 因为容器找不到 comment 这个域名.
 
-我们的目的是让 comment 指向 Github Comment 所在的容器, 其实就是要把两个容器链接起来, 使用命令:
+我们的目的是让 comment 指向 [GitHub Comment](http://www.songofcode.com/github-comment/) 所在的容器, 其实就是要把两个容器链接起来, 使用命令:
 
 ```bash
 docker run -it -d -p 80:80  --link github-comment:comment \
@@ -139,8 +139,8 @@ docker run -it -d -p 80:80  --link github-comment:comment \
 ```
 
 上面的命令中 `--link github-comment:comment` 就是说在启动 nginx 容器的时候,
-和 `github-comment` 这个容器 (这个名字是启动 Github Comment 容器时用 `--name` 指定的) 连接起来, 并在 nginx 容器中命名为 comment, 成功启动后, 根据配置描述, 只要访问
-github-comment.songofcode.com, 就会被反代到 Github Comment 的服务.
+和 `github-comment` 这个容器 (这个名字是启动 [GitHub Comment](http://www.songofcode.com/github-comment/) 容器时用 `--name` 指定的) 连接起来, 并在 nginx 容器中命名为 comment, 成功启动后, 根据配置描述, 只要访问
+github-comment.songofcode.com, 就会被反代到 [GitHub Comment](http://www.songofcode.com/github-comment/) 的服务.
 
 这时输入 `docker ps` 查看 docker 的进程, 会发现有两个:
 
