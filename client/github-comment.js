@@ -62,11 +62,11 @@
 	var server_url = script_tag.dataset.serverUrl || "github-comment.songofcode.com"; // 服务端的域名
 
 	// TODO use cdn for img and js
-	var default_avatar_url = 'http://' + server_url + '/images/boohee.png';
-	var comments_url = 'http://' + server_url + '/comments?page_id=' + page_id + '&user_name=' + user_name + '&repo=' + repo;
-	var auth_url = 'http://' + server_url + '/users/auth';
-	var comment_url = 'http://' + server_url + '/comments';
-	var loading_img = 'http://' + server_url + '/images/boohee.gif';
+	var default_avatar_url = 'https://' + server_url + '/images/boohee.png';
+	var comments_url = 'https://' + server_url + '/comments?page_id=' + page_id + '&user_name=' + user_name + '&repo=' + repo;
+	var auth_url = 'https://' + server_url + '/users/auth';
+	var comment_url = 'https://' + server_url + '/comments';
+	var loading_img = 'https://' + server_url + '/images/boohee.gif';
 
 	// 评论表单容器组件
 	var FormBox = React.createClass({
@@ -82,7 +82,7 @@
 	      this.props.detect_login ? React.createElement(
 	        'div',
 	        { className: style.detect_input },
-	        React.createElement('img', { className: style.current_avatar, src: 'http://github-comment.songofcode.com/images/boohee.png' }),
+	        React.createElement('img', { className: style.current_avatar, src: 'https://github-comment.songofcode.com/images/boohee.png' }),
 	        React.createElement('input', { type: 'text', className: style.detect_input_control, onFocus: this.handleFocus })
 	      ) : React.createElement(Form, { auth: this.props.auth, avatar: this.props.avatar, login_url: this.props.login_url })
 	    );

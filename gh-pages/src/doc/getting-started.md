@@ -17,7 +17,7 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 
 ```html
 <div id="github-comments"></div>
-<script defer="true" src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.2/client/github-comment.js"
+<script defer="true" src="https://cdn.rawgit.com/teddy-ma/github-comment/v1.0.3/client/github-comment.js"
   id="github-comment" data-username="your-github-username"
   data-repo="your-github-repo" data-page-id="the issue number">
 </script>
@@ -32,7 +32,7 @@ GitHub Comment 是一款基于 Github 账号的第三方社会化评论系统.
 + data-page-id 你的仓库的 issue 的编号
 + data-server-url 你自己的服务器的url（self-host时使用）
 
-可参考[示例](http://songofcode.com/reading/)
+可参考[示例](https://songofcode.com/reading/)
 
 ## 自托管
 
