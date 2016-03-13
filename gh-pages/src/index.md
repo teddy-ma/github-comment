@@ -12,5 +12,5 @@ permalink: false
 
   配合 GitHub 的邮件通知系统，随时掌握最新的评论信息。
 
-[Demo](http://songofcode.com/reading/)
+[Demo](https://songofcode.com/reading/)
 [Source](https://github.com/teddy-ma/teddy-ma.github.io/blob/master/reading/index.html)
