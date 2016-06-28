@@ -1,23 +1,34 @@
+var webpack = require('webpack');
+
 module.exports = {
-  entry: './main.jsx',
-  output: {
-    // filename: '../public/javascripts/github-comment-react.js'
-    filename: 'github-comment.js'
-  },
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './src/index.jsx'
+  ],
   module: {
-    loaders:[
-      {
-        test: /\.js[x]?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react']
-        }
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style-loader!css-loader?modules!sass-loader?outputStyle=expanded'
-      }
-    ]
-  }
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'react-hot!babel'
+    },{
+      test: /\.css$/,
+      loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+    }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin() // Wire in the hot loading plugin
+  ]
 };
