@@ -2,9 +2,9 @@ import {List, Map, fromJS} from 'immutable';
 import $ from 'jquery';
 
 // 初始化应用元数据
-function initApp(state, user_name, repo, page_id, server_url) {
+function initApp(state, user_name, repo, page_id, server_url, ssl) {
   return state.mergeDeep(
-    fromJS({meta: {user_name: user_name, repo: repo, page_id: page_id, server_url: server_url}})
+    fromJS({meta: {user_name: user_name, repo: repo, page_id: page_id, server_url: server_url, ssl: ssl}})
   );
 }
 
@@ -45,6 +45,7 @@ export default function(state, action) {
           repo: '',
           page_id: '',
           server_url: '',
+          ssl: false
         },
         comments: [],
         message: '留下你的评论吧。。。',
@@ -66,7 +67,7 @@ export default function(state, action) {
   }
   switch (action.type) {
     case 'INIT_APP':
-      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url);
+      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl);
     case 'LOAD_COMMENTS':
       var ret = {};
       $.ajax({
@@ -77,7 +78,7 @@ export default function(state, action) {
          xhrFields: {
            withCredentials: true
          },
-         url: `http://${state.get('meta').get('server_url')}/comments?page_id=${action.page_id}&user_name=${action.user_name}&repo=${action.repo}`,
+         url: `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments?page_id=${action.page_id}&user_name=${action.user_name}&repo=${action.repo}`,
        }).done(function(data) {
          ret = loadComments(state, data);
        }.bind(this)).fail(function(xhr) {
@@ -94,7 +95,7 @@ export default function(state, action) {
         xhrFields: {
           withCredentials: true
         },
-        url: `http://${state.get('meta').get('server_url')}/users/auth`,
+        url: `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/users/auth`,
       }).done(function(data) {
         ret = authRequest(state, data);
       }.bind(this)).fail(function(xhr) {
@@ -113,7 +114,7 @@ export default function(state, action) {
            withCredentials: true
          },
          data: JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') }),
-         url: `http://${state.get('meta').get('server_url')}/comments`,
+         url: `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments`,
       }).done(function(data) {
         ret = createComment(state, data);
       }.bind(this)).fail(function(xhr) {
