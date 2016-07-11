@@ -16,8 +16,8 @@ const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com
 const wrapper_id = 'github-comments';
 
 // 定义 url 接口地址
-const COMMENTS_URL = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`; //http://localhost:5000/fake/comments
-const AUTH_URL = `http://${server_url}/users/auth`; //http://localhost:5000/fake/user
+const COMMENTS_URL = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
+const AUTH_URL = `http://${server_url}/users/auth`;
 
 // 创建 store
 const createStoreDevTools = compose(window.devToolsExtension

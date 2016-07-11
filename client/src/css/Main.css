@@ -1,8 +1,3 @@
-
-.github_comment_app {
-
-}
-
 .github_comment_list {
   text-align: left;
   margin-top: 20px;
@@ -11,7 +6,6 @@
 
 .github_comment_item {
   clear: both;
-  /*background-color: #fafbfb;*/
   border: 0;
   margin: 1px 0 0;
   padding: 6px;

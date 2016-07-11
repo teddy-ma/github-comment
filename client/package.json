@@ -4,7 +4,8 @@
   "description": "GitHub Comment client",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js",
+    "build": "node_modules/webpack/bin/webpack.js",
+    "dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/setup.js 'test/**/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch --watch-extensions jsx"
   },
