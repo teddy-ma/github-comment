@@ -13,20 +13,14 @@ const user_name = script_tag.dataset.username;
 const repo = script_tag.dataset.repo;
 const page_id = script_tag.dataset.pageId;
 const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
+const ssl = script_tag.dataset.ssl || false;
 const wrapper_id = 'github-comments';
 
-// 定义 url 接口地址
-const COMMENTS_URL = `http://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
-const AUTH_URL = `http://${server_url}/users/auth`;
-
 // 创建 store
-const createStoreDevTools = compose(window.devToolsExtension
-  ? window.devToolsExtension()
-  : f => f)(createStore);
-const store = createStoreDevTools(reducer);
+const store = createStore(reducer);
 
 // 初始化基础信息
-store.dispatch({ type: 'INIT_APP', user_name, repo, page_id, server_url });
+store.dispatch({ type: 'INIT_APP', user_name, repo, page_id, server_url, ssl });
 // 初始化评论列表
 store.dispatch({ type: 'LOAD_COMMENTS', user_name, repo, page_id });
 // 初始化登录状态

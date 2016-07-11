@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "96b469f4d4d522ce41fb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c4f276629b4d7785763a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8213,20 +8213,14 @@
 	var repo = script_tag.dataset.repo;
 	var page_id = script_tag.dataset.pageId;
 	var server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
+	var ssl = script_tag.dataset.ssl || false;
 	var wrapper_id = 'github-comments';
 
-	// 定义 url 接口地址
-	var COMMENTS_URL = 'http://' + server_url + '/comments?page_id=' + page_id + '&user_name=' + user_name + '&repo=' + repo;
-	var AUTH_URL = 'http://' + server_url + '/users/auth';
-
 	// 创建 store
-	var createStoreDevTools = (0, _redux.compose)(window.devToolsExtension ? window.devToolsExtension() : function (f) {
-	  return f;
-	})(_redux.createStore);
-	var store = createStoreDevTools(_reducer2.default);
+	var store = (0, _redux.createStore)(_reducer2.default);
 
 	// 初始化基础信息
-	store.dispatch({ type: 'INIT_APP', user_name: user_name, repo: repo, page_id: page_id, server_url: server_url });
+	store.dispatch({ type: 'INIT_APP', user_name: user_name, repo: repo, page_id: page_id, server_url: server_url, ssl: ssl });
 	// 初始化评论列表
 	store.dispatch({ type: 'LOAD_COMMENTS', user_name: user_name, repo: repo, page_id: page_id });
 	// 初始化登录状态
@@ -35379,7 +35373,8 @@
 	        user_name: '',
 	        repo: '',
 	        page_id: '',
-	        server_url: ''
+	        server_url: '',
+	        ssl: false
 	      },
 	      comments: [],
 	      message: '留下你的评论吧。。。',
@@ -35400,7 +35395,7 @@
 	  }
 	  switch (action.type) {
 	    case 'INIT_APP':
-	      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url);
+	      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl);
 	    case 'LOAD_COMMENTS':
 	      var ret = {};
 	      _jquery2.default.ajax({
@@ -35411,7 +35406,7 @@
 	        xhrFields: {
 	          withCredentials: true
 	        },
-	        url: 'http://' + state.get('meta').get('server_url') + '/comments?page_id=' + action.page_id + '&user_name=' + action.user_name + '&repo=' + action.repo
+	        url: (state.get('meta').get('ssl') ? "https" : "http") + '://' + state.get('meta').get('server_url') + '/comments?page_id=' + action.page_id + '&user_name=' + action.user_name + '&repo=' + action.repo
 	      }).done(function (data) {
 	        ret = loadComments(state, data);
 	      }.bind(this)).fail(function (xhr) {
@@ -35428,7 +35423,7 @@
 	        xhrFields: {
 	          withCredentials: true
 	        },
-	        url: 'http://' + state.get('meta').get('server_url') + '/users/auth'
+	        url: (state.get('meta').get('ssl') ? "https" : "http") + '://' + state.get('meta').get('server_url') + '/users/auth'
 	      }).done(function (data) {
 	        ret = authRequest(state, data);
 	      }.bind(this)).fail(function (xhr) {
@@ -35447,7 +35442,7 @@
 	          withCredentials: true
 	        },
 	        data: JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') }),
-	        url: 'http://' + state.get('meta').get('server_url') + '/comments'
+	        url: (state.get('meta').get('ssl') ? "https" : "http") + '://' + state.get('meta').get('server_url') + '/comments'
 	      }).done(function (data) {
 	        ret = createComment(state, data);
 	      }.bind(this)).fail(function (xhr) {
@@ -35467,8 +35462,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// 初始化应用元数据
-	function initApp(state, user_name, repo, page_id, server_url) {
-	  return state.mergeDeep((0, _immutable.fromJS)({ meta: { user_name: user_name, repo: repo, page_id: page_id, server_url: server_url } }));
+	function initApp(state, user_name, repo, page_id, server_url, ssl) {
+	  return state.mergeDeep((0, _immutable.fromJS)({ meta: { user_name: user_name, repo: repo, page_id: page_id, server_url: server_url, ssl: ssl } }));
 	}
 
 	// 加载评论列表
