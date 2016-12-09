@@ -2,7 +2,7 @@
 layout: home
 ---
 
-<a href="https://github.com/teddy-ma/">
+<a href="https://github.com/teddy-ma/github-comment">
   <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
 </a> <!-- fork me -->
 
@@ -10,9 +10,11 @@ layout: home
 
   <div class="download">
     <a href="https://github.com/teddy-ma/github-comment/zipball/master">
-      <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
+      <img border="0" width="90" src="https://github.com/images/modules/download/zip.png">
+    </a>
     <a href="https://github.com/teddy-ma/github-comment/tarball/master">
-      <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
+      <img border="0" width="90" src="https://github.com/images/modules/download/tar.png">
+    </a>
   </div>
 
   <h1>
@@ -25,7 +27,7 @@ layout: home
   </div>
 
   <p class="bigger">
-    <a href="./demo">Try it out</a>
+    <a href="./demo">试试这个 DEMO</a>
   </p>
   <p>
     或者
@@ -41,26 +43,14 @@ layout: home
   </p>
 
   <h2>Documents</h2>
-  <!-- <ul>
-    <li>
-      <a href="https://medium.com/github-comment/github-comment-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-44fe57e0739c#.8i7rfx2s7">
-        GitHub Comment 入门教程
-      </a>
-    </li>
-    <li>
-      <a href="https://medium.com/github-comment/%E8%87%AA%E6%89%98%E7%AE%A1-github-comment-788c2ea6bbe7#.whorw2w73">
-        自托管 GitHub Comment
-      </a>
-    </li>
-  </ul> -->
-  <ul>
-  {% for document in site.documents %}
-    <li>
-      <a class="post-link" href="{{ document.url | prepend: site.baseurl }}">{{ document.title }}</a>
-    </li>
-  {% endfor %}
-  </ul>
 
+  <ul>
+    {% for document in site.documents %}
+      <li>
+        <a class="post-link" href="{{ document.url | prepend: site.baseurl }}">{{ document.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
 
   <h2>License</h2>
   <p>MIT</p>
