@@ -16,10 +16,11 @@ GitHub Comment 是一款基于 GitHub 账号的第三方社会化评论系统。
 在你的 html 中加入下面的内容：
 
 
-    <div id=”github-comments”></div> <!-- 评论组件的容器 -->
-    <script defer=”true” src=”https://cdn.rawgit.com/teddy-ma/github-comment/v2.0.0/client/dist/bundle.js"
-     id=”github-comment” data-username=”your-github-username”
-     data-repo=”your-github-repo” data-page-id=”the issue number”>
+    <div id="github-comments"></div> <!-- 评论组件的容器 -->
+    <script defer="true"
+      src="https://cdn.rawgit.com/teddy-ma/github-comment/v2.0.0/client/dist/bundle.js"
+      id="github-comment" data-username="your-github-username"
+      data-repo="your-github-repo" data-page-id="the issue number">
     </script>
 
 
