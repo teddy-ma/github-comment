@@ -70,6 +70,6 @@ date:   2016-05-27 16:27:49
 
 最后结果：
 
-![css-module]({{ site.baseurl }}images/modular-css.png)
+![css-module]({{ site.baseurl }}/images/modular-css.png)
 
 [这里有一个在线的例子](https://www.songofcode.com/how-to-learn-emacs-chinese-edition/), 可以使用浏览器的审查元素来查看实现细节.
