@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>GitHub Comment - {{ page.title }}</title>
+    <title>GitHub Comment - </title>
 
     <style>
       body {
@@ -64,11 +64,34 @@
         font-size: 120%;
       }
 
+      .markdown-body {
+         box-sizing: border-box;
+         min-width: 200px;
+         max-width: 980px;
+         margin: 0 auto;
+         padding: 45px;
+       }
     </style>
+    <link href="https://raw.githubusercontent.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css" rel="stylesheet" />
   </head>
   <body>
-    <article class="post-content">
-      {{ content }}
+    <article class="post-content markdown-body">
+      <div class="post">
+
+  <ul class="post-list">
+      
+        <li>
+          <span class="post-meta">Dec 9, 2016</span>
+
+          <h2>
+            <a class="post-link" href="/2016/12/09/welcome-to-jekyll.html">Welcome to Jekyll!</a>
+          </h2>
+        </li>
+      
+    </ul>
+
+</div>
+
     </article>
   </body>
 </div>
