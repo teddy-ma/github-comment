@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LoginButton from './LoginButton';
+import SubmitButton from './SubmitButton';
 
 
-export default class CommentInput extends React.Component {
+export default class CommentFooter extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -26,9 +28,9 @@ export default class CommentInput extends React.Component {
                type="text" />
         {
           this.props.login.get('auth') ?
-          <button  onClick={ this._handleOnClick.bind(this) }>comment</button>
+          <SubmitButton callback={ this._handleOnClick(this) } />
           :
-          <a href={this.props.login.get('url')} target="_blank">login with github</a>
+          <LoginButton url={this.props.login.get('url')} />
         }
       </footer>
     )
