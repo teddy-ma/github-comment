@@ -14,9 +14,6 @@ function initApp(state, user_name, repo, page_id, server_url, ssl) {
 function renderComments(state = Map(), data) {
   const comments = fromJS(data);
   const ret = state.set('comments', comments);
-  console.log('render comments ............');
-  console.log(ret);
-  console.log(ret.get('comments'));
   return ret;
 }
 

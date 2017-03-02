@@ -17,8 +17,6 @@ export function loadComments(url){
     }.bind(this)).fail(function(xhr) {
         ret = [false, null];
     });
-    console.log('ajax load comments ...');
-   // console.log(ret);
     return ret;
 }
 
