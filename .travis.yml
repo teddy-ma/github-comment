@@ -1,6 +1,7 @@
+cache:
+  yarn: true
 language: node_js
 node_js:
   - "6.2.2"
 script:
-  - cd client && npm install && npm run test
-TODO yarn
+  - cd client && yarn test

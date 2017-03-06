@@ -1,4 +1,5 @@
 import React from 'react';
+import LoginButton from '../styles/LoginButton';
 
 export default class CommentLogin extends React.Component {
   constructor(props) {
@@ -7,9 +8,7 @@ export default class CommentLogin extends React.Component {
 
   render() {
     return (
-      <div>
-        <a href={this.props.url} target="_blank">login with GitHub</a>
-      </div>
+      <LoginButton href={this.props.url} target="_blank">login with GitHub</LoginButton>
     )
   }
 };
