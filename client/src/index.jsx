@@ -19,10 +19,10 @@ if(script_tag) {
     const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
     const ssl = script_tag.dataset.ssl || false;
     const wrapper_id = 'github-comments';
-    // TODO support themes
+    const theme = script_tag.dataset.theme;
 
     // 初始化基础信息
-    store.dispatch({ type: 'INIT_APP', user_name, repo, page_id, server_url, ssl });
+    store.dispatch({ type: 'INIT_APP', user_name, repo, page_id, server_url, ssl, theme });
     // 初始化评论列表
     store.dispatch({ type: 'LOAD_COMMENTS', user_name, repo, page_id });
     // 初始化登录状态

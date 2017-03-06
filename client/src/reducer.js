@@ -2,12 +2,23 @@ import {List, Map, fromJS} from 'immutable';
 import $ from 'jquery';
 import {loadComments, authRequest, createComment} from './api'
 
-
 // 初始化应用元数据
-function initApp(state, user_name, repo, page_id, server_url, ssl) {
-    return state.mergeDeep(
-        fromJS({meta: {user_name: user_name, repo: repo, page_id: page_id, server_url: server_url, ssl: ssl}})
-    );
+function initApp(state, user_name, repo, page_id, server_url, ssl, theme) {
+  const init_state = state.mergeDeep(
+      fromJS(
+        {
+          meta: {
+            user_name: user_name,
+            repo: repo,
+            page_id: page_id,
+            server_url: server_url,
+            ssl: ssl,
+            theme: theme
+          }
+        }
+      )
+  );
+  return init_state;
 }
 
 // 加载评论列表
@@ -70,7 +81,7 @@ export default function(state, action) {
     case 'INIT_APP_FAIL':
         return state.set('message', "额，应用初始化失败~");
     case 'INIT_APP':
-      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl);
+      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl, action.theme);
       case 'LOAD_COMMENTS':
           var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments?page_id=${action.page_id}&user_name=${action.user_name}&repo=${action.repo}`;
           var ret = loadComments(url);
