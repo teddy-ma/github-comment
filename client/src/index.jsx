@@ -19,6 +19,7 @@ if(script_tag) {
     const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
     const ssl = script_tag.dataset.ssl || false;
     const wrapper_id = 'github-comments';
+    // TODO support themes
 
     // 初始化基础信息
     store.dispatch({ type: 'INIT_APP', user_name, repo, page_id, server_url, ssl });

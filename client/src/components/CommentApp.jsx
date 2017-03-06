@@ -21,8 +21,6 @@ export class CommentApp extends React.Component {
 };
 
 function mapStateToProps(state) {
-  console.log('map ..........');
-  console.log(state.get('comments'));
   return {
     comments: state.get('comments'),
     login: state.get('login'),
