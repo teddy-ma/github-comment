@@ -1,5 +1,7 @@
 import React from 'react';
-import styles from '../css/Main.css';
+import Avatar from '../styles/Avatar';
+import Item from '../styles/Item';
+import Paragraph from '../styles/Paragraph';
 
 export default class CommentItem extends React.Component {
   constructor(props) {
@@ -7,16 +9,15 @@ export default class CommentItem extends React.Component {
   }
   render() {
     return (
-      <li className={ styles.github_comment_item }>
+      <Item>
         <div>
-          <div className={ styles.github_comment_item_avatar }>
-           <img title={this.props.name} src={this.props.avatar} width="100%" />
-          </div>
-          <div className={ styles.github_comment_item_content}>
-            <p>{this.props.text}</p>
-          </div>
+           <Avatar title={this.props.name} src={this.props.avatar}>
+           </Avatar>
+
+            <Paragraph>{this.props.text}</Paragraph>
+
         </div>
-      </li>
+      </Item>
     )
   }
 };

@@ -1,1 +1,5 @@
-# Github Comment 客户端
+# GitHub Comment Client
+
+## Develop
+
+`yarn start`
