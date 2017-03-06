@@ -5,18 +5,18 @@ import {loadComments, authRequest, createComment} from './api'
 // 初始化应用元数据
 function initApp(state, user_name, repo, page_id, server_url, ssl, theme) {
   const init_state = state.mergeDeep(
-      fromJS(
-        {
-          meta: {
-            user_name: user_name,
-            repo: repo,
-            page_id: page_id,
-            server_url: server_url,
-            ssl: ssl,
-            theme: theme
-          }
+    fromJS(
+      {
+        meta: {
+          user_name: user_name,
+          repo: repo,
+          page_id: page_id,
+          server_url: server_url,
+          ssl: ssl,
+          theme: theme
         }
-      )
+      }
+    )
   );
   return init_state;
 }
@@ -38,8 +38,12 @@ function appendComment(state, data) {
 function freshAuth(state, data) {
   var ret = {};
   if(data.auth){ // 已登录
-    ret = state.mergeDeep({login: {auth: data.auth},
-            user: {name: data.user_name, avatar: data.avatar_url}});
+    ret = state.mergeDeep(
+            {
+              login: {auth: data.auth},
+              user: {name: data.user_name, avatar: data.avatar_url}
+            }
+          );
   }else{ // 未登录
     ret = state.mergeDeep({login: {auth: data.auth, url: data.login_url}});
   }
@@ -79,34 +83,34 @@ export default function(state, action) {
   } // init data
   switch (action.type) {
     case 'INIT_APP_FAIL':
-        return state.set('message', "额，应用初始化失败~");
+      return state.set('message', "额，应用初始化失败~");
     case 'INIT_APP':
       return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl, action.theme);
-      case 'LOAD_COMMENTS':
-          var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments?page_id=${action.page_id}&user_name=${action.user_name}&repo=${action.repo}`;
-          var ret = loadComments(url);
-          if (ret[0]){
-              return renderComments(state, ret[1])
-          }else{
-              return state.set('message', "糟糕，评论加载失败了~");
-          }
-      case 'AUTH_REQUEST':
-          var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/users/auth`;
-          var ret = authRequest(url);
-          if (ret[0]){
-              return freshAuth(state, ret[1]);
-          }else{
-              return state
-          }
-      case 'CREATE_COMMENT':
-          var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments`;
-          var data = JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') });
-          var ret = createComment(url, data);
-          if (ret[0]){
-             return appendComment(state, ret[1])
-          }else {
-             return state
-          }
+    case 'LOAD_COMMENTS':
+      var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments?page_id=${action.page_id}&user_name=${action.user_name}&repo=${action.repo}`;
+      var ret = loadComments(url);
+      if (ret[0]){
+        return renderComments(state, ret[1])
+      }else{
+        return state.set('message', "糟糕，评论加载失败了~");
+      }
+    case 'AUTH_REQUEST':
+      var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/users/auth`;
+      var ret = authRequest(url);
+      if (ret[0]){
+        return freshAuth(state, ret[1]);
+      }else{
+        return state
+      }
+    case 'CREATE_COMMENT':
+      var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments`;
+      var data = JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') });
+      var ret = createComment(url, data);
+      if (ret[0]){
+       return appendComment(state, ret[1])
+      }else {
+         return state
+      }
   }
   return state;
 }
