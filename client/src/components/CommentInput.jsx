@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import Footer from '../styles/Footer';
+import LoginButton from '../styles/LoginButton';
+import SubmitButton from '../styles/SubmitButton';
 
 export default class CommentInput extends React.Component {
   constructor(props) {
@@ -19,18 +21,18 @@ export default class CommentInput extends React.Component {
   }
   render() {
     return (
-      <footer>
+      <Footer>
         <input className="new-comment"
                onChange={ this._handleOnChange.bind(this) }
                onFocus={ this._handleOnFocus.bind(this) }
                type="text" />
         {
           this.props.login.get('auth') ?
-          <button  onClick={ this._handleOnClick.bind(this) }>comment</button>
+          <SubmitButton onClick={ this._handleOnClick.bind(this) }>comment</SubmitButton>
           :
-          <a href={this.props.login.get('url')} target="_blank">login with github</a>
+          <LoginButton href={this.props.login.get('url')} target="_blank">login with github</LoginButton>
         }
-      </footer>
+      </Footer>
     )
   }
 };

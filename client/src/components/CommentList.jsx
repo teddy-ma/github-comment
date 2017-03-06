@@ -7,8 +7,6 @@ export default class CommentList extends React.Component {
     super(props);
   }
   getItems() {
-    console.log('get items....');
-    console.log(this.props.comments.size);
     return this.props.comments;
   }
   render() {
