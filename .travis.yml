@@ -1,7 +1,6 @@
-cache:
-  yarn: true
 language: node_js
 node_js:
-  - "6.2.2"
+  - "7.0.0"
 script:
+  - npm i -g yarn
   - cd client && yarn test
