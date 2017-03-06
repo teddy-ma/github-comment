@@ -25,13 +25,14 @@ describe('reducer', () => {
            repo: 'dummy-repo',
            page_id: 123,
            server_url: 'github-comment.herokuapp.com',
-           ssl: false
+           ssl: false,
+           theme: 'blue'
        };
 
        const nextState = reducer(initialState, action);
 
        expect(nextState).to.equal(
-           fromJS({meta: {user_name: 'teddy-ma', repo: 'dummy-repo', page_id: 123, server_url: 'github-comment.herokuapp.com', ssl: false}})
+           fromJS({meta: {user_name: 'teddy-ma', repo: 'dummy-repo', page_id: 123, server_url: 'github-comment.herokuapp.com', ssl: false, theme: 'blue'}})
        );
    });
 });

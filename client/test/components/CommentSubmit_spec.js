@@ -1,15 +1,15 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import SubmitButton from '../../src/components/SubmitButton';
+import CommentSubmit from '../../src/components/CommentSubmit';
 import {expect} from 'chai';
 
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} = TestUtils;
 
-describe('SubmitButton', () => {
+describe('CommentSubmit', () => {
     it('show submit button', () => {
         const url = "url to login";
         const component = renderIntoDocument(
-            <SubmitButton />
+            <CommentSubmit />
         );
         const button = scryRenderedDOMComponentsWithTag(component, 'button');
         expect(button.length).to.equal(1);
@@ -20,7 +20,7 @@ describe('SubmitButton', () => {
         const fake_click_function = () => test_value = true;
 
         const component = renderIntoDocument(
-            <SubmitButton click_function={fake_click_function} />
+            <CommentSubmit click_function={fake_click_function} />
         );
         const button = scryRenderedDOMComponentsWithTag(component, 'button');
         Simulate.click(button[0]);

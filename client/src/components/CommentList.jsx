@@ -13,7 +13,7 @@ export default class CommentList extends React.Component {
     return (
       <section className="main">
           {
-              this.getItems().size === 0 ?
+              this.getItems().length === 0 ?
                   <p>no comments at all</p>
               :
                   <ul>
