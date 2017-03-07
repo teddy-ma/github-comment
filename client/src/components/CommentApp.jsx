@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../action_creators';
 import CommentList from './CommentList';
 import CommentAlert from './CommentAlert';
-import CommentInput from './CommentInput';
+import CommentForm from './CommentForm';
 import { ThemeProvider } from 'styled-components';
 import {blue, green} from '../styles/theme';
 
@@ -15,8 +15,13 @@ export class CommentApp extends React.Component {
         <div>
           <main className="github-comment-app">
             <CommentAlert message={this.props.message}/>
-            <CommentList {...this.props}/>
-            <CommentInput {...this.props}/>
+            {
+              this.props.is_loading ?
+              <p>loading ...</p>
+              :
+              <CommentList {...this.props}/>
+            }
+            <CommentForm {...this.props}/>
           </main>
         </div>
       </ThemeProvider>
@@ -30,8 +35,11 @@ function mapStateToProps(state) {
     comments: state.get('comments'),
     login: state.get('login'),
     message: state.get('message'),
+    is_loading: state.get('is_loading'),
+    login_status: state.get('login_status'),
     current_user: state.get('current_user'),
-    theme: theme
+    theme: theme,
+    auth_url: state.get('meta').get('auth_url')
   };
 }
 

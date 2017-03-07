@@ -30,8 +30,8 @@ router.post('/auth', function(req, res, next) {
         });
       }
     }
-    request(options, callback);
-  } else {
+    request(options, callback); // user session exist, use token to get user info
+  } else { // user session not exist
     res.json({
       auth: false,
       login_url: OAUTH_URL
