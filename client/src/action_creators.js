@@ -47,6 +47,7 @@ export function fetch_auth(auth_url) {
     dispatch(requestAuth())
     return fetch(auth_url, {
                   method: "POST",
+                  credentials: 'include'
                 }).then(response => response.json())
                   .then(json => dispatch(receiveAuth(json)))
   }

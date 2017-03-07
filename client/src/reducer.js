@@ -122,6 +122,7 @@ export default function(state, action) {
       return state.set('login_status', 'detect');
 
     case 'CREATE_COMMENT':
+      var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments`;
       var data = JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') });
       var ret = createComment(url, data);
       if (ret[0]){

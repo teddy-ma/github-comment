@@ -9,16 +9,16 @@ export default class CommentFormLogined extends React.Component {
     super(props);
   }
   _handleOnChange(e) {
-    this.props.change_function();
+    this.setState({value: e.target.value});
   }
   _handleOnSubmit(e) {
-    this.props.submit_function();
+    this.props.submit_function(this.state.value);
   }
   render() {
     return (
       <Footer>
         <Input onChange={ this._handleOnChange.bind(this) } type="text" />
-        <SubmitButton onClick={ this.props.click_function }>Comment</SubmitButton>
+        <SubmitButton onClick={ this._handleOnSubmit.bind(this) }>Comment</SubmitButton>
       </Footer>
     )
   }
