@@ -20,11 +20,6 @@ const store = createStore(
   )
 )
 
-// store.dispatch(selectSubreddit('reactjs'))
-// store.dispatch(fetchPosts('reactjs')).then(() =>
-//   console.log(store.getState())
-// )
-
 // 根据引用的参数, 初始化配置
 var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
 if(script_tag) {
@@ -39,11 +34,12 @@ if(script_tag) {
 
     const comments_url = `${ssl ? "https" : "http"}://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
     const auth_url = `${ssl ? "https" : "http"}://${server_url}/users/auth`;
+    const create_comment_url = `${ssl ? "https" : "http"}://${server_url}/comments`;
 
     const login_status = "detect";
 
     // 初始化基础信息
-    store.dispatch(initApp(user_name, repo, page_id, server_url, ssl, theme, login_status, comments_url, auth_url));
+    store.dispatch(initApp(user_name, repo, page_id, server_url, ssl, theme, login_status, comments_url, auth_url, create_comment_url));
     // 开始请求评论列表
     store.dispatch(fetchComments(comments_url));
     // 开始请求登录状态结果

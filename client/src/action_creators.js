@@ -2,9 +2,22 @@
 // 对外提供一致的行为方法，类似于 CQRS 中的 command
 // 整个系统能发生的行为（能接受的命令）都在这里被定义（不限于用户发起的）
 // 异步 action 目前也放在这里，应该有更好的方案 TODO
+import axios from 'axios';
 
-// 创建评论
-export function createComment(text) {
+
+// 发起创建评论的请求
+export function createComment(create_comment_url,text) {
+  return dispatch => {
+    dispatch(requestCreateComment())
+    return fetch(create_comment_url, {
+                  method: "POST",
+                  credentials: 'include',
+                  body: JSON.stringify
+                }).then(response => response.json())
+                  .then(json => dispatch(receiveAuth(json)))
+  }
+
+
   return {
     type: 'CREATE_COMMENT',
     text
@@ -12,7 +25,7 @@ export function createComment(text) {
 }
 
 // 初始化应用
-export function initApp(user_name, repo, page_id, server_url, ssl, theme, login_status, comments_url, auth_url){
+export function initApp(user_name, repo, page_id, server_url, ssl, theme, login_status, comments_url, auth_url, create_comment_url){
   return {
     type: 'INIT_APP',
     user_name,
@@ -23,7 +36,8 @@ export function initApp(user_name, repo, page_id, server_url, ssl, theme, login_
     theme,
     login_status,
     comments_url,
-    auth_url
+    auth_url,
+    create_comment_url
   }
 }
 
@@ -34,9 +48,9 @@ export function fetchComments(comments_url) {
     dispatch(requestComments())
     return fetch(comments_url)
       .then(response => response.json())
-      .then(json => dispatch(receiveComments(json)))
+      .then(json => dispatch(fetchCommentsSuccess(json)))
       .catch(function(error) {
-        dispatch(failToReceiveComments())
+        dispatch(fetchCommentsFailure())
       });
   }
 }
@@ -53,6 +67,7 @@ export function fetch_auth(auth_url) {
   }
 }
 
+
 // 跳转到授权页面
 export function jumpToAuthPage(){
   return {
@@ -60,7 +75,6 @@ export function jumpToAuthPage(){
   }
 }
 
-// private
 
 function requestComments(){
   return {
@@ -68,16 +82,22 @@ function requestComments(){
   }
 }
 
-function receiveComments(json){
+function requestCreateComment(){
   return {
-    type:  "LOAD_COMMENTS_SUCCESS",
+    type: "REQUEST_CREATE_COMMENT"
+  }
+}
+
+export function fetchCommentsSuccess(json){
+  return {
+    type:  "FETCH_COMMENTS_SUCCESS",
     comments: json
   }
 }
 
-function failToReceiveComments(){
+export function fetchCommentsFailure(){
   return {
-    type:  "LOAD_COMMENTS_FAILED"
+    type:  "FETCH_COMMENTS_FAILURE"
   }
 }
 

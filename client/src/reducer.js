@@ -2,10 +2,9 @@
 // 用于对已经发生的 command 采取对应的响应（更改 state 的状态，ui 渲染是 React 自动处理的）
 
 import {List, Map, fromJS} from 'immutable';
-import {loadComments, authRequest, createComment, loadCommentsRequest} from './api'
 
 // 初始化应用元数据
-function initApp(state, user_name, repo, page_id, server_url, ssl, theme, comments_url, auth_url) {
+function initApp(state, user_name, repo, page_id, server_url, ssl, theme, comments_url, auth_url, create_comment_url) {
   const init_state = state.mergeDeep(
     fromJS(
       {
@@ -17,10 +16,10 @@ function initApp(state, user_name, repo, page_id, server_url, ssl, theme, commen
           ssl: ssl,
           theme: theme,
           comments_url: comments_url,
-          auth_url: auth_url
+          auth_url: auth_url,
+          create_comment_url: create_comment_url
         },
         is_loading: false,
-        // is_authenticating: false
         login_status: 'detect'
       }
     )
@@ -98,15 +97,15 @@ export default function(state, action) {
       return state.set('message', "额，应用初始化失败~");
 
     case 'INIT_APP':
-      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl, action.theme, action.comments_url, action.auth_url);
+      return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl, action.theme, action.comments_url, action.auth_url, action.create_comment_url);
 
-    case 'LOAD_COMMENTS_REQUEST':
+    case 'FETCH_COMMENTS':
       return state.set('is_loading', true);
 
-    case 'LOAD_COMMENTS_SUCCESS':
+    case 'FETCH_COMMENTS_SUCCESS':
       return renderComments(state, action.comments);
 
-    case 'LOAD_COMMENTS_FAILED':
+    case 'FETCH_COMMENTS_FAILURE':
       return state.set('message', "糟糕，评论加载失败了~");
 
     case 'USER_AUTH_REQUEST':
@@ -121,15 +120,12 @@ export default function(state, action) {
     case 'JUMP_TO_AUTH_PAGE':
       return state.set('login_status', 'detect');
 
-    case 'CREATE_COMMENT':
-      var url = `${state.get('meta').get('ssl') ? "https" : "http"}://${state.get('meta').get('server_url')}/comments`;
+    case 'CREATE_COMMENT_REQUEST':
       var data = JSON.stringify({ body: action.text, page_id: state.get('meta').get('page_id'), repo: state.get('meta').get('repo'), user_name: state.get('meta').get('user_name') });
-      var ret = createComment(url, data);
-      if (ret[0]){
-       return appendComment(state, ret[1])
-      }else {
-         return state
-      }
+      return state
+
+    case 'CREATE_COMMENT_SUCCESS':
+      return appendComment(state, action.comment)
   }
   return state;
 }

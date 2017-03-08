@@ -6,6 +6,7 @@ import CommentAlert from './CommentAlert';
 import CommentForm from './CommentForm';
 import { ThemeProvider } from 'styled-components';
 import {blue, green} from '../styles/theme';
+import axios from 'axios';
 
 // 应用容器
 export class CommentApp extends React.Component {
@@ -41,6 +42,7 @@ function mapStateToProps(state) {
     theme: theme,
     auth_url: state.get('meta').get('auth_url')
   };
-}
+};
+
 
 export const CommentAppContainer = connect(mapStateToProps, actionCreators)(CommentApp);
