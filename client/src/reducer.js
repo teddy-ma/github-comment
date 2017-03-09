@@ -2,9 +2,12 @@
 // 用于对已经发生的 command 采取对应的响应（更改 state 的状态，ui 渲染是 React 自动处理的）
 
 import {List, Map, fromJS} from 'immutable';
+import {blue, green} from './styles/theme';
 
-// 初始化应用元数据
+// 初始化应用数据
+// 按照模块将数据进行划分
 function initApp(state, user_name, repo, page_id, server_url, ssl, theme, comments_url, auth_url, create_comment_url) {
+  const theme_obj = (theme == "green" ? green : blue);
   const init_state = state.mergeDeep(
     fromJS(
       {
@@ -14,13 +17,26 @@ function initApp(state, user_name, repo, page_id, server_url, ssl, theme, commen
           page_id: page_id,
           server_url: server_url,
           ssl: ssl,
-          theme: theme,
-          comments_url: comments_url,
-          auth_url: auth_url,
-          create_comment_url: create_comment_url
+          theme: theme_obj
         },
-        is_loading: false,
-        login_status: 'detect'
+        message: {
+          content: ''
+        },
+        comment: {
+          create_params: {
+            repo: repo,
+            page_id: page_id,
+            user_name: user_name
+          },
+          create_comment_url: create_comment_url,
+          fetch_comments_url: comments_url,
+          comments: [],
+          is_loading: false
+        },
+        form: {
+          login_status: 'detect',
+          auth_url: auth_url
+        }
       }
     )
   );

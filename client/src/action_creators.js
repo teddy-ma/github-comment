@@ -7,21 +7,26 @@ import axios from 'axios';
 
 // 发起创建评论的请求
 export function createComment(create_comment_url,text) {
+
+  const data = JSON.stringify({ body: text, page_id: 1, repo: 'how-to-learn-emacs-chinese-edition', user_name: 'teddy-ma' });
+
   return dispatch => {
     dispatch(requestCreateComment())
     return fetch(create_comment_url, {
                   method: "POST",
                   credentials: 'include',
-                  body: JSON.stringify
+                  body: data
                 }).then(response => response.json())
                   .then(json => dispatch(receiveAuth(json)))
   }
+}
 
+function createCommentSuccess(){
 
-  return {
-    type: 'CREATE_COMMENT',
-    text
-  }
+}
+
+function createCommentFailure(){
+
 }
 
 // 初始化应用

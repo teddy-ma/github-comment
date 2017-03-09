@@ -5,17 +5,17 @@ import CommentList from './CommentList';
 import CommentAlert from './CommentAlert';
 import CommentForm from './CommentForm';
 import { ThemeProvider } from 'styled-components';
-import {blue, green} from '../styles/theme';
 import axios from 'axios';
 
 // 应用容器
 export class CommentApp extends React.Component {
   render() {
+    const abc = "abc"
     return (
-      <ThemeProvider theme={this.props.theme}>
+      <ThemeProvider theme={this.props.get('meta').get('theme')}>
         <div>
           <main className="github-comment-app">
-            <CommentAlert message={this.props.message}/>
+            <CommentAlert message={this.props.message.get('content')}/>
             {
               this.props.is_loading ?
               <p>loading ...</p>
@@ -31,17 +31,12 @@ export class CommentApp extends React.Component {
 };
 
 function mapStateToProps(state) {
-  const theme = state.get('meta').get('theme') == "green" ? green : blue;
   return {
-    comments: state.get('comments'),
-    login: state.get('login'),
+    meta: state.get('meta'),
     message: state.get('message'),
-    is_loading: state.get('is_loading'),
-    login_status: state.get('login_status'),
-    current_user: state.get('current_user'),
-    theme: theme,
-    auth_url: state.get('meta').get('auth_url')
-  };
+    comment: state.get('comment'), //.toJS()
+    form: state.get('form')
+  }
 };
 
 

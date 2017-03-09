@@ -19,7 +19,7 @@ export default class CommentForm extends React.Component {
     if (login_status == "detect") {
       component = <CommentFormDetect auth_url={this.props.auth_url} click_function={this.props.fetch_auth} />;
     } else if(login_status == "logined") {
-      component = <CommentFormLogined submit_function={this.props.createComment} change_function={this.props.insertContent} />;
+      component = <CommentFormLogined submit_function={this.props.createComment} create_comment_url={this.props.create_comment_url} />;
     } else {
       component = <CommentFormUnLogined login_url={this.props.login.get('url')} click_function={this.props.jumpToAuthPage} />;
     }

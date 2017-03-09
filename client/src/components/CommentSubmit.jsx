@@ -8,7 +8,7 @@ export default class CommentSubmit extends React.Component {
 
   render() {
     return (
-      <SubmitButton onClick={ this.props.click_function }>comment</SubmitButton>
+      <SubmitButton>comment</SubmitButton>
     )
   }
 };
