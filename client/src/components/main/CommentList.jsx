@@ -1,8 +1,11 @@
 import React from 'react';
 import CommentItem from './CommentItem';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as commentActions from '../../actions/commentActions';
 
 
-export default class CommentList extends React.Component {
+class CommentList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,7 +16,10 @@ export default class CommentList extends React.Component {
     return (
       <section className="main">
           {
-              this.getItems().length === 0 ?
+            this.props.is_loading ? <p> loading ... </p> : <p></p>
+          }
+          {
+              this.getItems().size === 0 ?
                   <p>no comments at all</p>
               :
                   <ul>
@@ -31,3 +37,18 @@ export default class CommentList extends React.Component {
     )
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    comments: [],
+    is_loading: true
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(commentActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentList);

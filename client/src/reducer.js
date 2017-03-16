@@ -35,7 +35,8 @@ function initApp(state, user_name, repo, page_id, server_url, ssl, theme, commen
         },
         form: {
           login_status: 'detect',
-          auth_url: auth_url
+          auth_url: auth_url,
+          login_url: ''
         }
       }
     )
@@ -45,6 +46,7 @@ function initApp(state, user_name, repo, page_id, server_url, ssl, theme, commen
 
 // 加载评论列表
 function renderComments(state = Map(), data) {
+  console.log('render comments:' + data);
   const comments = fromJS(data);
   return state.set('comments', comments).set('is_loading', false);
 }

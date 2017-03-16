@@ -1,43 +1,37 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../action_creators';
-import CommentList from './CommentList';
-import CommentAlert from './CommentAlert';
-import CommentForm from './CommentForm';
+// import * as actionCreators from '../action_creators';
+import CommentList from './main/CommentList';
+import CommentAlert from './header/CommentAlert';
+import CommentForm from './footer/CommentForm';
 import { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
 // 应用容器
-export class CommentApp extends React.Component {
+export default class CommentApp extends React.Component {
   render() {
-    const abc = "abc"
+    // const theme = this.props.meta.get('theme').toJS();
     return (
-      <ThemeProvider theme={this.props.get('meta').get('theme')}>
+      // <ThemeProvider theme={theme}>
         <div>
           <main className="github-comment-app">
-            <CommentAlert message={this.props.message.get('content')}/>
-            {
-              this.props.is_loading ?
-              <p>loading ...</p>
-              :
-              <CommentList {...this.props}/>
-            }
-            <CommentForm {...this.props}/>
+            <CommentAlert />
+            // <CommentList />
+            // <CommentForm />
           </main>
         </div>
-      </ThemeProvider>
+      // </ThemeProvider>
     )
   }
 };
-
-function mapStateToProps(state) {
-  return {
-    meta: state.get('meta'),
-    message: state.get('message'),
-    comment: state.get('comment'), //.toJS()
-    form: state.get('form')
-  }
-};
-
-
-export const CommentAppContainer = connect(mapStateToProps, actionCreators)(CommentApp);
+//
+// function mapStateToProps(state) {
+//   return {
+//     meta: state.get('meta'),
+//     message: state.get('message'),
+//     comment: state.get('comment'), //.toJS()
+//     form: state.get('form')
+//   }
+// };
+//
+// export const CommentAppContainer = connect(mapStateToProps, actionCreators)(CommentApp);

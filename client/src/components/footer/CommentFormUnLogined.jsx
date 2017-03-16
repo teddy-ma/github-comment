@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Footer from '../styles/Footer';
-import Input from '../styles/Input';
-import LoginLink from '../styles/LoginLink';
+import Footer from '../../styles/Footer';
+import Input from '../../styles/Input';
+import LoginLink from '../../styles/LoginLink';
 
 export default class CommentFormUnLogined extends React.Component {
   constructor(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Footer from '../styles/Footer';
-import Input from '../styles/Input';
-import SubmitButton from '../styles/SubmitButton';
+import Footer from '../../styles/Footer';
+import Input from '../../styles/Input';
+import SubmitButton from '../../styles/SubmitButton';
 
 export default class CommentFormLogined extends React.Component {
   constructor(props) {

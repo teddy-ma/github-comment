@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Footer from '../styles/Footer';
-import Input from '../styles/Input';
+import Footer from '../../styles/Footer';
+import Input from '../../styles/Input';
 
 
 export default class CommentFormDetect extends React.Component {

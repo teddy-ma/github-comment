@@ -6,8 +6,11 @@ import createLogger from 'redux-logger';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
-import {CommentAppContainer} from './components/CommentApp';
-import {initApp, fetchComments, fetch_auth} from './action_creators'
+import CommentApp from './components/CommentApp';
+
+import {initApp} from './actions/initAction';
+import {loadComments} from './actions/CommentActions';
+import {fetchAuth} from './action_creators2';
 
 const loggerMiddleware = createLogger()
 
@@ -41,9 +44,9 @@ if(script_tag) {
     // 初始化基础信息
     store.dispatch(initApp(user_name, repo, page_id, server_url, ssl, theme, login_status, comments_url, auth_url, create_comment_url));
     // 开始请求评论列表
-    store.dispatch(fetchComments(comments_url));
+    store.dispatch(loadComments(comments_url));
     // 开始请求登录状态结果
-    store.dispatch(fetch_auth(auth_url));
+    store.dispatch(fetchAuth(auth_url));
 }else{
     store.dispatch( {type: 'INIT_APP_FAIL'});
 }
@@ -52,7 +55,7 @@ if(script_tag) {
 // 渲染 UI
 ReactDOM.render(
   <Provider store={store}>
-    <CommentAppContainer/>
+    <CommentApp/>
   </Provider>,
   document.getElementById('github-comments')
 );

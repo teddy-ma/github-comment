@@ -34,7 +34,7 @@ router.post('/auth', function(req, res, next) {
   } else { // user session not exist
     res.json({
       auth: false,
-      login_url: OAUTH_URL
+      login_url: OAUTH_URL + "&" + "state=" + base64(refer)
     });
   }
 });
