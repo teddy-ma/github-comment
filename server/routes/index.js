@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var encode = require('nodejs-base64-encode');
 var router = express.Router();
 
 /* 首页 */
@@ -11,6 +12,9 @@ router.get('/', function(req, res, next) {
 /* 授权后的回调 */
 // 成功后把 access_token 放到 session 中
 router.get('/callback', function(req, res, next) {
+  console.log('---------------------------------');
+  console.log(req.query.state);
+  console.log(encode.decode(req.query.state, 'base64'))
   var session_code = req.query.code;
   request.post({
     url: 'https://github.com/login/oauth/access_token',

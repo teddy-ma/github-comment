@@ -2,13 +2,18 @@
 // 其中的内容根据 state 的值变化
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Footer from '../../styles/Footer';
 import CommentFormDetect from './CommentFormDetect';
 import CommentFormUnLogined from './CommentFormUnLogined';
 import CommentFormLogined from './CommentFormLogined';
+import * as commentActions from '../../actions/commentActions';
+import * as authActions from '../../actions/authActions';
 
 
-export default class CommentForm extends React.Component {
+
+class CommentForm extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -20,8 +25,10 @@ export default class CommentForm extends React.Component {
       component = <CommentFormDetect auth_url={this.props.auth_url} click_function={this.props.fetch_auth} />;
     } else if(login_status == "logined") {
       component = <CommentFormLogined submit_function={this.props.createComment} create_comment_url={this.props.create_comment_url} />;
+    } else if(login_status == "unlogined"){
+      component = <CommentFormUnLogined login_url={this.props.form.get('login').get('url')} click_function={this.props.authAction.jumpToAuthPage} />;
     } else {
-      component = <CommentFormUnLogined login_url={this.props.form.get('login_url')} click_function={this.props.jumpToAuthPage} />;
+      <p>...</p>
     }
     //TODO 分离 action 为三个部分
     return (
@@ -31,3 +38,18 @@ export default class CommentForm extends React.Component {
     )
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    form: state.form
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    commentAction: bindActionCreators(commentActions, dispatch),
+    authAction: bindActionCreators(authActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

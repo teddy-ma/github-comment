@@ -5,21 +5,21 @@ import {compose, createStore, applyMiddleware} from 'redux';
 import createLogger from 'redux-logger';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import reducer from './reducer';
+import rootReducer from './reducers/index';
 import CommentApp from './components/CommentApp';
 
 import {initApp} from './actions/initAction';
 import {loadComments} from './actions/CommentActions';
-import {fetchAuth} from './action_creators2';
+import {fetchAuth} from './actions/authActions';
+// import {fetchAuth} from './action_creators2';
 
 const loggerMiddleware = createLogger()
 
 // 创建 store
 const store = createStore(
-  reducer,
+  rootReducer,
   applyMiddleware(
-    thunkMiddleware, // 允许我们 dispatch() 函数
-    loggerMiddleware // 一个很便捷的 middleware，用来打印 action 日志
+    thunkMiddleware
   )
 )
 

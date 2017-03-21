@@ -11,18 +11,18 @@ export function loadComments(comments_url) {
     });
   };
 }
-
-
-export function createCat(cat) {
-  return function (dispatch) {
-    return catApi.createCat(cat).then(responseCat => {
-      dispatch(createCatSuccess(responseCat));
-      return responseCat;
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
+//
+//
+// export function createCat(cat) {
+//   return function (dispatch) {
+//     return catApi.createCat(cat).then(responseCat => {
+//       dispatch(createCatSuccess(responseCat));
+//       return responseCat;
+//     }).catch(error => {
+//       throw(error);
+//     });
+//   };
+// }
 
 export function loadCommentsSuccess(cats) {
   return {type: types.FETCH_COMMENTS_SUCCESS, cats};
