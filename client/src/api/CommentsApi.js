@@ -10,19 +10,21 @@ class CommentsApi {
     });
   }
 
-  static createComment(create_comments_url, text) {
+  static createComment(create_comments_url, text, user_name, repo, page_id) {
+    const data = JSON.stringify({ body: text, page_id: page_id, repo: repo, user_name: user_name });
     const request = new Request(create_comments_url, {
-      method: 'POST',
+      method: "POST",
+      credentials: 'include',
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
-      body: JSON.stringify({text: text})
+      body: data
     });
 
     return fetch(request).then(response => {
       return response.json();
     }).catch(error => {
-      return error;
+      return error; //TODO dispatch
     });
   }
 

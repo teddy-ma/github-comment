@@ -4,14 +4,12 @@ var router = express.Router();
 
 // 发起评论
 router.post('/', function(req, res, next) {
-  console.log("------ create comment ---------");
-  console.log(req.body);
   var body = req.body.body;
   var repo = req.body.repo;
   var page_id = req.body.page_id;
   var user_name = req.body.user_name;
   var url = 'https://api.github.com/repos/' + user_name + '/' + repo + '/issues/' + page_id + '/comments';
-  console.log(url);
+  console.log(req.session.token);
   request.post({
     headers: {
       "Authorization": "token " + req.session.token,
@@ -23,8 +21,9 @@ router.post('/', function(req, res, next) {
       body: body
     }
   }, function(error, response, body) {
+    console.log(error);
+    console.log(body)
     res.json({
-      // ret: "success"
       body
     });
   });
@@ -32,7 +31,6 @@ router.post('/', function(req, res, next) {
 
 // 已有评论列表
 router.get('/', function(req, res, next) {
-  console.log("log for getting comments");
   var user_name = req.query.user_name;
   var repo = req.query.repo;
   var page_id = req.query.page_id;
@@ -51,7 +49,6 @@ router.get('/', function(req, res, next) {
       var info = JSON.parse(body);
       res.json(info);
     }
-    // console.log("body is " + body);
   }
   request(options, callback);
 });

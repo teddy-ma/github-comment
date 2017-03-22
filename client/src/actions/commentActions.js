@@ -11,24 +11,22 @@ export function loadComments(comments_url) {
     });
   };
 }
-//
-//
-// export function createCat(cat) {
-//   return function (dispatch) {
-//     return catApi.createCat(cat).then(responseCat => {
-//       dispatch(createCatSuccess(responseCat));
-//       return responseCat;
-//     }).catch(error => {
-//       throw(error);
-//     });
-//   };
-// }
+
+export function createComment(create_comment_url, text, user_name, repo, page_id) {
+  return function (dispatch) {
+    return commentsApi.createComment(create_comment_url, text, user_name, repo, page_id).then(responseComment => {
+      dispatch(createCommentSuccess(responseComment));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
 
 export function loadCommentsSuccess(comments) {
   console.log("types.FETCH_COMMENTS_SUCCESS");
   return {type: types.FETCH_COMMENTS_SUCCESS, comments};
 }
 
-export function createCatSuccess(comment) {
+export function createCommentSuccess(comment) {
   return {type: types.CREATE_COMMENTS_SUCCESS, comment}
 }

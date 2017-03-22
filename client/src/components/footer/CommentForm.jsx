@@ -22,9 +22,15 @@ class CommentForm extends React.Component {
     const login_status = this.props.form.get('login_status');
     let component = null;
     if (login_status == "detect") {
-      component = <CommentFormDetect auth_url={this.props.auth_url} click_function={this.props.fetch_auth} />;
+      component = <CommentFormDetect auth_url={this.props.auth_url} click_function={this.props.authAction.fetch_auth} />;
     } else if(login_status == "logined") {
-      component = <CommentFormLogined submit_function={this.props.createComment} create_comment_url={this.props.create_comment_url} />;
+      component = <CommentFormLogined
+                    submit_function={this.props.commentAction.createComment}
+                    create_comment_url={this.props.meta.get('create_comment_url')}
+                    user_name={this.props.meta.get('user_name')}
+                    repo={this.props.meta.get('repo')}
+                    page_id={this.props.meta.get('page_id')}
+                  />;
     } else if(login_status == "unlogined"){
       component = <CommentFormUnLogined login_url={this.props.form.get('login').get('url')} click_function={this.props.authAction.jumpToAuthPage} />;
     } else {
@@ -41,7 +47,8 @@ class CommentForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    form: state.form
+    form: state.form,
+    meta: state.meta
   };
 }
 

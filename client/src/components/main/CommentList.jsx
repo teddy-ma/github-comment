@@ -13,7 +13,6 @@ class CommentList extends React.Component {
     return this.props.comments;
   }
   isLoading() {
-    console.log('is loading');
     return this.props.is_loading;
   }
   render() {
@@ -43,7 +42,6 @@ class CommentList extends React.Component {
 };
 
 function mapStateToProps(state) {
-  console.log("eeeee");
   return {
     comments: state.comment.get('comments') || [],
     is_loading: state.comment.get('is_loading')

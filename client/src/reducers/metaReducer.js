@@ -30,7 +30,9 @@ function initApp(state, user_name, repo, page_id, server_url, ssl, theme, commen
               page_id: page_id,
               server_url: server_url,
               ssl: ssl,
-              theme: theme_obj
+              theme: theme_obj,
+              auth_url: auth_url,
+              create_comment_url: create_comment_url
             }
           )
   );
