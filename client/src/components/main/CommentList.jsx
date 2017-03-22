@@ -12,11 +12,15 @@ class CommentList extends React.Component {
   getItems() {
     return this.props.comments;
   }
+  isLoading() {
+    console.log('is loading');
+    return this.props.is_loading;
+  }
   render() {
     return (
       <section className="main">
           {
-            this.props.is_loading ? <p> loading ... </p> : <p></p>
+            this.isLoading() ? <p> loading ... </p> : <p></p>
           }
           {
               this.getItems().size === 0 ?
@@ -39,9 +43,10 @@ class CommentList extends React.Component {
 };
 
 function mapStateToProps(state) {
+  console.log("eeeee");
   return {
-    comments: [],
-    is_loading: true
+    comments: state.comment.get('comments') || [],
+    is_loading: state.comment.get('is_loading')
   };
 }
 

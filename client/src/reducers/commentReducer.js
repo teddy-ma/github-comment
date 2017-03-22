@@ -1,8 +1,8 @@
 import * as types from '../actions/actionTypes';
+import {List, Map, fromJS} from 'immutable';
 import initialState from './initialState';
 
 export default function commentReducer(state=initialState.get('comment'), action) {
-  // state variable here reps just an array of courses
   switch(action.type) {
     case types.FETCH_COMMENTS:
       console.log('FETCH_COMMENTS');
@@ -12,17 +12,19 @@ export default function commentReducer(state=initialState.get('comment'), action
       return state;
     case types.FETCH_COMMENTS_SUCCESS:
       console.log('FETCH_COMMENTS_SUCCESS');
-      return state;
+      return renderComments(state, action.comments);
+      // return state;
     default:
       return state;
   }
 }
 
 // 加载评论列表
-function renderComments(state = Map(), data) {
+function renderComments(state, data) {
   console.log('render comments:' + data);
   const comments = fromJS(data);
-  return state.set('comments', comments).set('is_loading', false);
+  const ret = state.set('comments', comments).set('is_loading', false);
+  return ret;
 }
 
 // 创建评论

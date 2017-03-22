@@ -24,10 +24,11 @@ export function loadComments(comments_url) {
 //   };
 // }
 
-export function loadCommentsSuccess(cats) {
-  return {type: types.FETCH_COMMENTS_SUCCESS, cats};
+export function loadCommentsSuccess(comments) {
+  console.log("types.FETCH_COMMENTS_SUCCESS");
+  return {type: types.FETCH_COMMENTS_SUCCESS, comments};
 }
 
-export function createCatSuccess(cat) {
-  return {type: types.CREATE_COMMENTS_SUCCESS, cat}
+export function createCatSuccess(comment) {
+  return {type: types.CREATE_COMMENTS_SUCCESS, comment}
 }
