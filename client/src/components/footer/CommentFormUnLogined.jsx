@@ -10,7 +10,7 @@ export default class CommentFormUnLogined extends React.Component {
   }
   _handleOnClick(e) {
     this.props.click_function(this.props.login_url);
-    window.open(this.props.login_url, '_blank');
+    window.location.href=this.props.login_url;
   }
   render() {
     return (

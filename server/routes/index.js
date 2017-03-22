@@ -12,10 +12,8 @@ router.get('/', function(req, res, next) {
 /* 授权后的回调 */
 // 成功后把 access_token 放到 session 中
 router.get('/callback', function(req, res, next) {
-  console.log('---------------------------------');
-  console.log(req.query.state);
-  console.log(encode.decode(req.query.state, 'base64'))
   var session_code = req.query.code;
+  var return_url = encode.decode(req.query.state, 'base64');
   request.post({
     url: 'https://github.com/login/oauth/access_token',
     json: true,
@@ -28,7 +26,7 @@ router.get('/callback', function(req, res, next) {
     console.log("callback ... " + body.access_token);
     req.session.token = body.access_token;
     console.log("in callback session " + req.session.token);
-    res.render('success');
+    res.render('success', {return_url: return_url});
   });
 });
 
