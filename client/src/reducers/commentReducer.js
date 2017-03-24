@@ -13,7 +13,9 @@ export default function commentReducer(state=initialState.get('comment'), action
     case types.FETCH_COMMENTS_SUCCESS:
       console.log('FETCH_COMMENTS_SUCCESS');
       return renderComments(state, action.comments);
-      // return state;
+    case types.CREATE_COMMENTS_SUCCESS:
+      console.log("CREATE_COMMENTS_SUCCESS");
+      return appendComment(state, action.comment);
     default:
       return state;
   }
