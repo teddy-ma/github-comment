@@ -3,7 +3,9 @@ import {List, Map, fromJS} from 'immutable';
 
 export default fromJS(
   {
-    meta: Map(),
+    meta:fromJS({
+      theme: {}
+    }),
     message: Map(),
     comment: fromJS({
       comments: [],

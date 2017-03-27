@@ -1,5 +1,7 @@
 // 定义了全部的 action type
 export const INIT_APP = 'INIT_APP';
+export const INIT_APP_FAIL = 'INIT_APP_FAIL';
+
 // comment
 export const FETCH_COMMENTS = 'FETCH_COMMENTS';
 export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';

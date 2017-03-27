@@ -11,7 +11,6 @@ import CommentApp from './components/CommentApp';
 import {initApp, initAppFail} from './actions/initActions';
 import {loadComments} from './actions/CommentActions';
 import {fetchAuth} from './actions/authActions';
-// import {fetchAuth} from './action_creators2';
 
 const loggerMiddleware = createLogger()
 
