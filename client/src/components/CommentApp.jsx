@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import * as actionCreators from '../action_creators';
 import CommentList from './main/CommentList';
 import CommentAlert from './header/CommentAlert';
 import CommentForm from './footer/CommentForm';
@@ -26,7 +25,6 @@ class CommentApp extends React.Component {
 };
 
 function mapStateToProps(state) {
-  // console.log('ddddd');
   return {
     theme: state.meta.get('theme').toJS()
   }

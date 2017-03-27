@@ -17,7 +17,7 @@ class CommentForm extends React.Component {
   constructor(props) {
     super(props);
   }
-  // three status, detect logined unlogined
+
   render() {
     const login_status = this.props.form.get('login_status');
     let component = null;
@@ -36,7 +36,7 @@ class CommentForm extends React.Component {
     } else {
       <p>...</p>
     }
-    //TODO 分离 action 为三个部分
+
     return (
       <Footer>
         {component}

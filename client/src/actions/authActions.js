@@ -3,7 +3,6 @@ import * as types from './actionTypes';
 // 初始化应用
 export function fetchAuth(auth_url){
   return dispatch => {
-    // dispatch(requestAuth()) // 这里可以暂时不改变任何 ui
     return fetch(auth_url, {
                   method: "POST",
                   credentials: 'include'

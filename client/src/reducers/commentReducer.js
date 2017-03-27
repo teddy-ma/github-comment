@@ -5,16 +5,14 @@ import initialState from './initialState';
 export default function commentReducer(state=initialState.get('comment'), action) {
   switch(action.type) {
     case types.FETCH_COMMENTS:
-      console.log('FETCH_COMMENTS');
+      // TODO show loading icon
       return state;
     case types.FETCH_COMMENTS_FAILURE:
-      console.log('FETCH_COMMENTS_FAILURE');
+      // TODO show fetch failed message
       return state;
     case types.FETCH_COMMENTS_SUCCESS:
-      console.log('FETCH_COMMENTS_SUCCESS');
       return renderComments(state, action.comments);
     case types.CREATE_COMMENTS_SUCCESS:
-      console.log("CREATE_COMMENTS_SUCCESS");
       return appendComment(state, action.comment);
     default:
       return state;
@@ -23,7 +21,6 @@ export default function commentReducer(state=initialState.get('comment'), action
 
 // 加载评论列表
 function renderComments(state, data) {
-  console.log('render comments:' + data);
   const comments = fromJS(data);
   const ret = state.set('comments', comments).set('is_loading', false);
   return ret;

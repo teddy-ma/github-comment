@@ -51,8 +51,6 @@ if(script_tag) {
     store.dispatch( {type: 'INIT_APP_FAIL'});
 }
 
-
-// 渲染 UI
 ReactDOM.render(
   <Provider store={store}>
     <CommentApp/>

@@ -24,7 +24,7 @@ class CommentsApi {
     return fetch(request).then(response => {
       return response.json();
     }).catch(error => {
-      return error; //TODO dispatch
+      return error; //TODO dispatch some action
     });
   }
 
