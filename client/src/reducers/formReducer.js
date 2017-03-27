@@ -22,7 +22,6 @@ function userLogined(state, user_name, avatar_url) {
                 {
                   login: {auth: true},
                   user: {name: user_name, avatar:avatar_url},
-                  login_status: 'logined'
                 }
               );
   return ret;
@@ -32,7 +31,6 @@ function userUnLogined(state, login_url){
   const ret = state.mergeDeep(
                 {
                   login: {auth: false, url: login_url},
-                  login_status: 'unlogined'
                 }
               );
   return ret;

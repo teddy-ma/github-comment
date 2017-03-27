@@ -5,7 +5,14 @@ export default fromJS(
   {
     meta: Map(),
     message: Map(),
-    comment: Map(),
-    form: Map()
+    comment: fromJS({
+      comments: [],
+      is_loading: true
+    }),
+    form: fromJS({
+      login: {
+        auth: false
+      }
+    })
   }
 )

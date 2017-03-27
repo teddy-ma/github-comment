@@ -10,7 +10,7 @@ import initialState from './initialState';
 export default function messageReducer(state=initialState.get('message'), action) {
   switch (action.type) {
     case types.INIT_APP_FAIL:
-      return state.set('message', "额，应用初始化失败~");
+      return state.set('content', "额，应用初始化失败~");
   }
   return state;
 }

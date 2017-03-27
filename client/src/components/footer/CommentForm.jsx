@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Footer from '../../styles/Footer';
-import CommentFormDetect from './CommentFormDetect';
 import CommentFormUnLogined from './CommentFormUnLogined';
 import CommentFormLogined from './CommentFormLogined';
 import * as commentActions from '../../actions/commentActions';
@@ -19,11 +18,9 @@ class CommentForm extends React.Component {
   }
 
   render() {
-    const login_status = this.props.form.get('login_status');
+    const is_logined = this.props.form.get('login').get('auth');
     let component = null;
-    if (login_status == "detect") {
-      component = <CommentFormDetect auth_url={this.props.auth_url} click_function={this.props.authAction.fetch_auth} />;
-    } else if(login_status == "logined") {
+    if (is_logined){
       component = <CommentFormLogined
                     submit_function={this.props.commentAction.createComment}
                     create_comment_url={this.props.meta.get('create_comment_url')}
@@ -31,10 +28,8 @@ class CommentForm extends React.Component {
                     repo={this.props.meta.get('repo')}
                     page_id={this.props.meta.get('page_id')}
                   />;
-    } else if(login_status == "unlogined"){
-      component = <CommentFormUnLogined login_url={this.props.form.get('login').get('url')} click_function={this.props.authAction.jumpToAuthPage} />;
     } else {
-      <p>...</p>
+      component = <CommentFormUnLogined login_url={this.props.form.get('login').get('url')} click_function={this.props.authAction.jumpToAuthPage} />;
     }
 
     return (

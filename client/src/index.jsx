@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers/index';
 import CommentApp from './components/CommentApp';
 
-import {initApp} from './actions/initAction';
+import {initApp, initAppFail} from './actions/initActions';
 import {loadComments} from './actions/CommentActions';
 import {fetchAuth} from './actions/authActions';
 // import {fetchAuth} from './action_creators2';
@@ -48,7 +48,7 @@ if(script_tag) {
     // 开始请求登录状态结果
     store.dispatch(fetchAuth(auth_url));
 }else{
-    store.dispatch( {type: 'INIT_APP_FAIL'});
+    store.dispatch(initAppFail());
 }
 
 ReactDOM.render(

@@ -8,14 +8,9 @@ import initialState from './initialState';
 
 
 export default function metaReducer(state=initialState.get('meta'), action) {
-  console.log(initialState);
   switch (action.type) {
-    case types.INIT_APP_FAIL:
-      return state.set('message', "额，应用初始化失败~");
-
     case types.INIT_APP:
       return initApp(state, action.user_name, action.repo, action.page_id, action.server_url, action.ssl, action.theme, action.comments_url, action.auth_url, action.create_comment_url);
-
   }
   return state;
 }
