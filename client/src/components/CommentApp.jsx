@@ -1,22 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../action_creators';
-import CommentList from './CommentList';
-import CommentAlert from './CommentAlert';
-import CommentInput from './CommentInput';
+import CommentList from './main/CommentList';
+import CommentAlert from './header/CommentAlert';
+import CommentForm from './footer/CommentForm';
 import { ThemeProvider } from 'styled-components';
-import {blue, green} from '../styles/theme';
+import axios from 'axios';
 
 // 应用容器
-export class CommentApp extends React.Component {
+class CommentApp extends React.Component {
   render() {
+    const theme = this.props.theme;
     return (
-      <ThemeProvider theme={this.props.theme}>
+      <ThemeProvider theme={theme}>
         <div>
           <main className="github-comment-app">
-            <CommentAlert message={this.props.message}/>
-            <CommentList {...this.props}/>
-            <CommentInput {...this.props}/>
+            <CommentAlert />
+            <CommentList />
+            <CommentForm />
           </main>
         </div>
       </ThemeProvider>
@@ -25,14 +25,9 @@ export class CommentApp extends React.Component {
 };
 
 function mapStateToProps(state) {
-  const theme = state.get('meta').get('theme') == "green" ? green : blue;
   return {
-    comments: state.get('comments'),
-    login: state.get('login'),
-    message: state.get('message'),
-    current_user: state.get('current_user'),
-    theme: theme
-  };
-}
+    theme: state.meta.get('theme').toJS()
+  }
+};
 
-export const CommentAppContainer = connect(mapStateToProps, actionCreators)(CommentApp);
+export default connect(mapStateToProps)(CommentApp);

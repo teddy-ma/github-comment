@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var encode = require('nodejs-base64-encode');
 var router = express.Router();
 
 // TODO 获取用户是否处于登录状态的信息
@@ -30,11 +31,12 @@ router.post('/auth', function(req, res, next) {
         });
       }
     }
-    request(options, callback);
-  } else {
+    request(options, callback); // user session exist, use token to get user info
+  } else { // user session not exist
+    var referer = req.header('Referer');
     res.json({
       auth: false,
-      login_url: OAUTH_URL
+      login_url: OAUTH_URL + "&" + "state=" + encode.encode(referer, 'base64')
     });
   }
 });

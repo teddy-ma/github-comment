@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginButton from '../styles/LoginButton';
+import LoginButton from '../../styles/LoginButton';
 
 export default class CommentLogin extends React.Component {
   constructor(props) {

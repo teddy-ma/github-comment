@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const LoginButton = styled.a`
+const LoginLink = styled.button`
   border-radius: 5px;
   padding: 4px 14px;
   text-decoration: none;
@@ -12,4 +12,4 @@ const LoginButton = styled.a`
   border: 1px solid #fff;
 `;
 
-export default LoginButton;
+export default LoginLink;

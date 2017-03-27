@@ -1,5 +1,5 @@
 import React from 'react';
-import SubmitButton from '../styles/SubmitButton';
+import SubmitButton from '../../styles/SubmitButton';
 
 export default class CommentSubmit extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class CommentSubmit extends React.Component {
 
   render() {
     return (
-      <SubmitButton onClick={ this.props.click_function }>comment</SubmitButton>
+      <SubmitButton>comment</SubmitButton>
     )
   }
 };
