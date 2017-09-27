@@ -29,5 +29,6 @@ function renderComments(state, data) {
 // 创建评论
 function appendComment(state, data) {
   const newComment = fromJS(data.body);
-  return state.update('comments', (comments) => comments.push(newComment));
+  const ret = state.update('comments', (comments) => comments.push(newComment));
+  return ret;
 }

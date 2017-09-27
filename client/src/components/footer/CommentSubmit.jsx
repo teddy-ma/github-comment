@@ -8,7 +8,7 @@ export default class CommentSubmit extends React.Component {
 
   render() {
     return (
-      <SubmitButton>comment</SubmitButton>
+      <SubmitButton>Comment</SubmitButton>
     )
   }
 };
