@@ -11,7 +11,6 @@ import * as commentActions from '../../actions/commentActions';
 import * as authActions from '../../actions/authActions';
 
 
-
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
