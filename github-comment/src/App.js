@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Message from './components/Message';
 import CommentList from './components/CommentList';
+import CommentFooter from './components/CommentFooter';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
         </header>
         <Message />
         <CommentList />
+        <CommentFooter />
       </div>
     );
   }

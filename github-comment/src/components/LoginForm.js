@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateCurrent, saveTodo} from '../reducers/todo';
 
 
 class LoginForm extends Component {
@@ -10,13 +9,9 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log('Rendering Login Form')
     const {currentTodo} = this.props
-
     return (
-      <form action={this.props.action_url}>
-        <input type="submit" />
-      </form>
+      <a href={this.props.login_url}>login via GitHub</a>
     )
   }
 

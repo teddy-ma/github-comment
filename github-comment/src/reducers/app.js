@@ -1,4 +1,7 @@
+import {showMessage} from './messages';
+import {getLoginStatus} from '../lib/commentServices';
 
+export const setAuthState = (res) => ({type: 'AUTH_SET', payload: res})
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -14,7 +17,19 @@ export default (state = {}, action) => {
         auth_url:          action.payload.auth_url,
         create_comment_ur: action.payload.create_comment_url
       }
+    case 'AUTH_SET':
+      return {...state,
+        is_login: action.payload.auth,
+        login_url: action.payload.login_url
+      }
     default:
       return state
+  }
+}
+
+export const fetchAuth = (url) => {
+  return (dispatch) => {
+    dispatch(showMessage('Loading Login Status'))
+    getLoginStatus(url).then(res => dispatch(setAuthState(res)))
   }
 }

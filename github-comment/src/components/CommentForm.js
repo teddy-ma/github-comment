@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateCurrent, saveComment} from '../reducers/comment';
+import {updateCurrentInput, saveComment} from '../reducers/comment';
 
 
 class CommentForm extends Component {
   handleInputChange = (evt) => {
     const val = evt.target.value
-    this.props.updateCurrent(val)
+    this.props.updateCurrentInput(val)
   }
 
   handleSubmit = (evt) => {
@@ -20,17 +20,13 @@ class CommentForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text"
-          value={currentComment}
-          onChange={this.handleInputChange}
-        />
+        <input type="text" value={currentComment} />
       </form>
     )
   }
-
 }
 
 export default connect(
-  (state) => ({currentComment: state.todo.currentComment}),
-  {updateCurrent, saveComment}
+  (state) => ({currentComment: state.comment.currentComment}),
+  {updateCurrentInput, saveComment}
 )(CommentForm)

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next){
 
 /* 用户鉴权 */
 router.post('/auth', function(req, res, next) {
-  console.log("in auth session " + req.session.token);
+  console.log("in auth session token is: " + req.session.token);
   if (req.session.token) {
     var options = {
       url: 'https://api.github.com/user',
