@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, toggleComment, deleteComment} from '../reducers/todo';
+import {fetchComments} from '../reducers/comment';
 
-const CommentItem = ({id, name, isComplete, toggleComment, deleteComment}) => (
+const CommentItem = ({comment}) => (
   <li>
-    <span className="delete-item">
-      <button onClick={() => deleteComment(id)}>X</button>
-    </span>
-    <input type="checkbox"
-      checked={isComplete}
-      onChange={() => toggleComment(id)} />
-    {name}
+    <div className="user_avator">
+      <img src={comment.user.avatar_url} />
+    </div>
+    <p className="comment_content">
+      {comment.body}
+    </p>
   </li>
 )
 
-
-
 class CommentList extends Component {
   componentDidMount(){
-    const fetch_comments_url = this.props.meta.server_url
+    const meta = this.props.meta
+    const fetch_comments_url = `${meta.ssl ? "https" : "http"}://${meta.server_url}/comments?page_id=${meta.page_id}&user_name=${meta.user_name}&repo=${meta.repo}`;
     this.props.fetchComments(fetch_comments_url)
   }
   render() {
@@ -27,7 +25,7 @@ class CommentList extends Component {
         <ul>
           {this.props.comments.map(comment => (
             <CommentItem key={comment.id}
-              {...comment}  />
+              comment={comment}  />
           ))}
         </ul>
       </div>

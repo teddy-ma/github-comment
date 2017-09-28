@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Message from './components/Message';
+import CommentList from './components/CommentList';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <Message />
+        <CommentList />
       </div>
     );
   }

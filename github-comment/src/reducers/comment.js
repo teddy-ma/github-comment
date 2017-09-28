@@ -16,10 +16,10 @@ export const loadComments = (comments) => ({type: COMMENTS_LOAD, payload: commen
 export const addComment = (comment) => ({type: COMMENT_ADD, payload: comment})
 
 // async
-export const fetchComments = () => {
+export const fetchComments = (url) => {
   return (dispatch) => {
     dispatch(showMessage('Loading Comments'))
-    getComments().then(comments => dispatch(loadComments(comments)))
+    getComments(url).then(comments => dispatch(loadComments(comments)))
   }
 }
 export const saveComment = (name) => {
