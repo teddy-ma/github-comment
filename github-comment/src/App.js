@@ -4,6 +4,15 @@ import './App.css';
 import Message from './components/Message';
 import CommentList from './components/CommentList';
 import CommentFooter from './components/CommentFooter';
+import {
+  Card,
+  Box,
+  BackgroundImage,
+  Subhead,
+  Small,
+  Input,
+  Button
+} from 'rebass'
 
 class App extends Component {
   render() {
@@ -16,6 +25,19 @@ class App extends Component {
         <Message />
         <CommentList />
         <CommentFooter />
+        <Card width={256}>
+        	<Box p={2}>
+        		<Subhead>Card</Subhead>
+        		<Small>Small meta text</Small>
+        	</Box>
+        </Card>
+        <Input
+        	defaultValue='Hello'
+        	placeholder='Input'
+        />
+        <Button
+        	children='Hello'
+        />
       </div>
     );
   }
