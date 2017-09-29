@@ -8,7 +8,7 @@ const SubmitButton = styled.button`
   text-decoration: none;
   cursor: pointer;
   color: #fff;
-  background-color: #00A6FF;
+  background-color: ${props => props.theme.bgcolor};
   border: 1px solid #fff;
 `;
 

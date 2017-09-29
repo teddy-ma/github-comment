@@ -8,6 +8,8 @@ import store from './store';
 import {ThemeProvider} from 'styled-components';
 import {INIT_APP_FAIL, INIT_APP, MESSAGE_SHOW} from './reducers/actionTypes';
 
+var theme_name = 'blue'
+
 // 根据引用的参数, 初始化配置
 var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
 if(script_tag) {
@@ -19,6 +21,10 @@ if(script_tag) {
     const ssl = script_tag.dataset.ssl || false;
     const wrapper_id = 'github-comments';
     const theme = script_tag.dataset.theme;
+
+    if(theme){
+      theme_name = theme
+    }
 
     const comments_url = `${ssl ? "https" : "http"}://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
     const auth_url = `${ssl ? "https" : "http"}://${server_url}/users/auth`;
@@ -51,10 +57,14 @@ if(script_tag) {
 }else{
     store.dispatch({type: INIT_APP_FAIL});
 }
-
-const theme = {
+console.log(theme);
+const theme = (theme_name === 'green' ? {
 	bgcolor: 'green'
-};
+} : {
+  bgcolor: '#00A6FF'
+})
+
+console.log(theme);
 
 ReactDOM.render(
   <Provider store={store}>

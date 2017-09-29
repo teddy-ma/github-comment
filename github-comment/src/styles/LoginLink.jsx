@@ -7,7 +7,7 @@ const LoginLink = styled.a`
   padding: 4px 14px;
   text-decoration: none;
   cursor: pointer;
-  color: #black;
+  color: #fff;
   background: ${props => props.theme.bgcolor};
   border: 1px solid #fff;
 `;
