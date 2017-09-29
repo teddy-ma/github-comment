@@ -1,15 +1,13 @@
 import {getComments, createComment} from '../lib/commentServices';
 import {showMessage} from './messages';
+import {COMMENT_ADD, COMMENTS_LOAD, CURRENT_INPUT} from './actionTypes';
+
 
 const initState = {
   comments: [],
   is_loading: true,
   currentComment: ''
 }
-
-export const COMMENT_ADD = 'COMMENT_ADD'
-export const COMMENTS_LOAD = 'COMMENTS_LOAD'
-export const CURRENT_INPUT = 'COMMENTS_INPUT'
 
 // sync
 export const updateCurrentInput = (val) => ({type: CURRENT_INPUT, payload: val})

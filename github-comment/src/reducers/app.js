@@ -1,11 +1,12 @@
 import {showMessage} from './messages';
 import {getLoginStatus} from '../lib/commentServices';
+import {INIT_APP, AUTH_SET} from './actionTypes';
 
-export const setAuthState = (res) => ({type: 'AUTH_SET', payload: res})
+export const setAuthState = (res) => ({type: AUTH_SET, payload: res})
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'init':
+    case INIT_APP:
       return {...state,
         user_name:         action.payload.user_name,
         repo:              action.payload.repo,
@@ -17,7 +18,7 @@ export default (state = {}, action) => {
         auth_url:          action.payload.auth_url,
         create_comment_ur: action.payload.create_comment_url
       }
-    case 'AUTH_SET':
+    case AUTH_SET:
       return {...state,
         is_login: action.payload.auth,
         login_url: action.payload.login_url

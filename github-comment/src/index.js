@@ -6,6 +6,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 import {ThemeProvider} from 'styled-components';
+import {INIT_APP_FAIL, INIT_APP, MESSAGE_SHOW} from './reducers/actionTypes';
 
 // 根据引用的参数, 初始化配置
 var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
@@ -28,7 +29,7 @@ if(script_tag) {
     // 初始化基础信息
     store.dispatch(
       {
-        type: 'init',
+        type: INIT_APP,
         payload: {
           user_name,
           repo,
@@ -48,7 +49,7 @@ if(script_tag) {
     // // 开始请求登录状态结果
     // store.dispatch(fetchAuth(auth_url));
 }else{
-    store.dispatch({type: 'init_fail'});
+    store.dispatch({type: INIT_APP_FAIL});
 }
 
 const theme = {
