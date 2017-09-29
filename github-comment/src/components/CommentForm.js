@@ -15,12 +15,11 @@ class CommentForm extends Component {
   }
 
   render() {
-    console.log('Rendering Comment Form')
     const {currentComment} = this.props
-
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" value={currentComment} />
+        <input type="text" value={this.props.currentComment} onChange={this.handleInputChange} />
+        <input type="submit" value="comment" />
       </form>
     )
   }

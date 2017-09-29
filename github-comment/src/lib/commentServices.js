@@ -4,14 +4,14 @@ export const getComments = (url) => {
     .then(res => res.json())
 }
 
-export const createComment = (url, name) => {
+export const createComment = (url, text, user_name, repo, page_id) => {
   return fetch(url, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
-      'Content-type': 'application/json'
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({})
+    credentials: 'include',
+    body: JSON.stringify({ body: text, page_id: page_id, repo: repo, user_name: user_name })
   }).then(res => res.json())
 }
 

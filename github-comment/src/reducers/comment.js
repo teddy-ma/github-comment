@@ -3,7 +3,8 @@ import {showMessage} from './messages';
 
 const initState = {
   comments: [],
-  is_loading: true
+  is_loading: true,
+  currentComment: ''
 }
 
 export const COMMENT_ADD = 'COMMENT_ADD'
@@ -22,10 +23,15 @@ export const fetchComments = (url) => {
     getComments(url).then(comments => dispatch(loadComments(comments)))
   }
 }
-export const saveComment = (name) => {
-  return (dispatch) => {
+export const saveComment = (text) => {
+  return (dispatch, getState) => {
     dispatch(showMessage('Saving Comment'))
-    createComment(name).then(res => dispatch(addComment(res)))
+    const meta = getState().meta
+    const create_comments_url = `${meta.ssl ? "https" : "http"}://${meta.server_url}/comments`
+    const fetch_comments_url  = `${meta.ssl ? "https" : "http"}://${meta.server_url}/comments?page_id=${meta.page_id}&user_name=${meta.user_name}&repo=${meta.repo}`;
+
+    createComment(create_comments_url, text, meta.user_name, meta.repo, meta.page_id)
+      .then(comment_res => dispatch(addComment(comment_res.body)))
   }
 }
 
@@ -35,6 +41,8 @@ export default (state = initState, action) => {
       return {...state, currentComment: '', comments: state.comments.concat(action.payload)}
     case COMMENTS_LOAD:
       return {...state, comments: action.payload}
+    case CURRENT_INPUT:
+      return {...state, currentComment: action.payload}
     default:
       return state
   }
