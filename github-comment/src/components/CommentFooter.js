@@ -3,12 +3,8 @@ import {connect} from 'react-redux';
 import CommentForm from './CommentForm';
 import LoginForm from './LoginForm';
 import {fetchAuth} from '../reducers/app';
+import Footer from '../styles/Footer';
 
-// const CommentFooter = ({is_login}) => (
-//   is_login
-//     ? <CommentForm />
-//     : <LoginForm />
-// )
 
 
 class CommentFooter extends Component {
@@ -20,7 +16,9 @@ class CommentFooter extends Component {
                       ? <CommentForm />
                       : <LoginForm login_url={this.props.login_url}/>
     return (
-      content
+      <Footer>
+        {content}
+      </Footer>
     )
   }
 }

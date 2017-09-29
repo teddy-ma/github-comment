@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import LoginLink from '../styles/LoginLink';
 
 
 class LoginForm extends Component {
@@ -11,7 +12,9 @@ class LoginForm extends Component {
   render() {
     const {currentTodo} = this.props
     return (
-      <a href={this.props.login_url}>login via GitHub</a>
+      <LoginLink href={this.props.login_url}>
+        login via GitHub
+      </LoginLink>
     )
   }
 

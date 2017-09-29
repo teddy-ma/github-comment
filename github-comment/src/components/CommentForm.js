@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {updateCurrentInput, saveComment} from '../reducers/comment';
+import Input from '../styles/Input';
 
 
 class CommentForm extends Component {
@@ -18,7 +19,7 @@ class CommentForm extends Component {
     const {currentComment} = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.props.currentComment} onChange={this.handleInputChange} />
+        <Input type="text" value={this.props.currentComment} onChange={this.handleInputChange} />
         <input type="submit" value="comment" />
       </form>
     )

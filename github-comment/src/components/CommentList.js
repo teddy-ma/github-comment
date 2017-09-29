@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchComments} from '../reducers/comment';
+import Avatar from '../styles/Avatar';
+import Item from '../styles/Item';
+import Paragraph from '../styles/Paragraph';
+
 
 const CommentItem = ({comment}) => (
-  <li>
-    <div className="user_avator">
-      <img src={comment.user.avatar_url} />
-    </div>
-    <p className="comment_content">
+  <Item>
+    <Avatar src={comment.user.avatar_url} />
+    <Paragraph>
       {comment.body}
-    </p>
-  </li>
+    </Paragraph>
+  </Item>
 )
 
 class CommentList extends Component {

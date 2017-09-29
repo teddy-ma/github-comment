@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import './index.css';
+// import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
+import {ThemeProvider} from 'styled-components';
 
 // 根据引用的参数, 初始化配置
 var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
@@ -50,11 +51,15 @@ if(script_tag) {
     store.dispatch({type: 'init_fail'});
 }
 
-
+const theme = {
+	bgcolor: 'green'
+};
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root'));
 
