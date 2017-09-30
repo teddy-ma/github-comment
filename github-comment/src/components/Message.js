@@ -1,9 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Alert from '../styles/Alert';
+
 
 const Message = ({message}) => (
   message
-    ? <span className='message'>{message}</span>
+    ? <Alert>{message}</Alert>
     : null
 )
 
