@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-// import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 import {ThemeProvider} from 'styled-components';
 import {INIT_APP_FAIL, INIT_APP, MESSAGE_SHOW} from './reducers/actionTypes';
@@ -72,7 +70,4 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </Provider>,
-  document.getElementById('root'));
-
-
-registerServiceWorker();
+  document.getElementById('github-comments'));
