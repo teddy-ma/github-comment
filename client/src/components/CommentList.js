@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchComments} from '../reducers/comment';
+import {fetchComments} from '../reducers/comments';
 import Avatar from '../styles/Avatar';
 import Item from '../styles/Item';
 import Paragraph from '../styles/Paragraph';
@@ -16,9 +16,10 @@ const CommentItem = ({comment}) => (
 )
 
 class CommentList extends Component {
-  componentDidMount(){
+  componentDidMount(){ // after mount, invoke fetch comments request
     const meta = this.props.meta
     const fetch_comments_url = `${meta.ssl ? "https" : "http"}://${meta.server_url}/comments?page_id=${meta.page_id}&user_name=${meta.user_name}&repo=${meta.repo}`;
+    // fetch comments list
     this.props.fetchComments(fetch_comments_url)
   }
   render() {
@@ -27,7 +28,7 @@ class CommentList extends Component {
         <ul>
           {this.props.comments.map(comment => (
             <CommentItem key={comment.id}
-              comment={comment}  />
+              comment={comment} />
           ))}
         </ul>
       </div>

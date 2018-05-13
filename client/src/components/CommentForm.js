@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateCurrentInput, saveComment} from '../reducers/comment';
+import {updateCurrentInput, saveComment} from '../reducers/comments';
 import Input from '../styles/Input';
 import SubmitButton from '../styles/SubmitButton';
 

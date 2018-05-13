@@ -1,6 +1,6 @@
 {
   "name": "github-comment",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "engines": {
     "node": "6.2.2"
@@ -11,7 +11,7 @@
     "cz-conventional-changelog": "^1.1.5",
     "debug": "~2.2.0",
     "dotenv": "^2.0.0",
-    "ejs": "~2.3.4",
+    "ejs": "~2.5.4",
     "express": "~4.13.1",
     "express-session": "^1.13.0",
     "morgan": "~1.6.1",

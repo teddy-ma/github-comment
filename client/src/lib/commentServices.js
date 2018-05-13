@@ -1,8 +1,8 @@
 
-export const getComments = (url) => {
-  return fetch(url)
-    .then(res => res.json())
-}
+// export const getComments = (url) => {
+//   return fetch(url)
+//     .then(res => res.json())
+// }
 
 export const createComment = (url, text, user_name, repo, page_id) => {
   return fetch(url, {

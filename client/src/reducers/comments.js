@@ -17,10 +17,22 @@ export const addComment = (comment) => ({type: COMMENT_ADD, payload: comment})
 // async
 export const fetchComments = (url) => {
   return (dispatch) => {
-    dispatch(showMessage('Loading Comments'))
-    getComments(url).then(comments => dispatch(loadComments(comments)))
+    dispatch(showMessage('Loading Comments')) // create an action (object)
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText)          
+        }
+        // load data success
+        dispatch(showMessage('Comments listed'))
+        return response;
+      })  
+      .then((response) => response.json())   
+      .then(comments => dispatch(loadComments(comments))) // create an action (object)
   }
 }
+
 export const saveComment = (text) => {
   return (dispatch, getState) => {
     dispatch(showMessage('Saving Comment'))
@@ -38,7 +50,7 @@ export default (state = initState, action) => {
     case COMMENT_ADD:
       return {...state, currentComment: '', comments: state.comments.concat(action.payload)}
     case COMMENTS_LOAD:
-      return {...state, comments: action.payload}
+      return {...state, comments: action.payload} // return state append comment list
     case CURRENT_INPUT:
       return {...state, currentComment: action.payload}
     default:

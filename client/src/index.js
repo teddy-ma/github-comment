@@ -6,7 +6,7 @@ import store from './store';
 import {ThemeProvider} from 'styled-components';
 import {INIT_APP_FAIL, INIT_APP, MESSAGE_SHOW} from './reducers/actionTypes';
 
-var theme_name = 'blue'
+var theme_name;
 
 // 根据引用的参数, 初始化配置
 var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
@@ -18,11 +18,7 @@ if(script_tag) {
     const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
     const ssl = script_tag.dataset.ssl || false;
     const wrapper_id = 'github-comments';
-    const theme = script_tag.dataset.theme;
-
-    if(theme){
-      theme_name = theme
-    }
+    theme_name = script_tag.dataset.theme || 'blue';
 
     const comments_url = `${ssl ? "https" : "http"}://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
     const auth_url = `${ssl ? "https" : "http"}://${server_url}/users/auth`;
@@ -53,16 +49,14 @@ if(script_tag) {
     // // 开始请求登录状态结果
     // store.dispatch(fetchAuth(auth_url));
 }else{
-    store.dispatch({type: INIT_APP_FAIL});
+    store.dispatch({type: INIT_APP_FAIL}); // -> reducers/messages.js
 }
-console.log(theme);
+
 const theme = (theme_name === 'green' ? {
 	bgcolor: 'green'
 } : {
   bgcolor: '#00A6FF'
 })
-
-console.log(theme);
 
 ReactDOM.render(
   <Provider store={store}>
