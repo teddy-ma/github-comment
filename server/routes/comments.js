@@ -83,8 +83,8 @@ router.get('/', function(req, res, next) {
     } else {
       create_issue(isssues_url, PERSON_TOKEN, page_id, (error, result) => {
         if(!error) {
-          debugger;
-          var issue_id = JSON.parse(result).number;
+          //debugger;
+          var issue_id = result.number;
           var comments_url = "https://api.github.com/repos/" + user_name + "/" + repo + "/issues/" + issue_id + "/comments";
           request({
             url: comments_url,
