@@ -6,11 +6,11 @@ import Header from './Header.js';
 import Comments from './Comments.js';
 import Footer from './Footer.js';
 
-class App extends Component {  
+class App extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       init: {
         valid: true,
@@ -22,9 +22,9 @@ class App extends Component {
         create_comment_url: this.props.config.create_comment_url,
         auth_url: this.props.config.auth_url
       },
-      auth: {
-        login: false,
-        login_url: "http://www.baidu.com"
+      login: {
+        auth: false,
+        login_url: ""
       },
       comments: [
         // {
@@ -37,26 +37,60 @@ class App extends Component {
         // }
       ]
     };
-    this.combine_config();
-    this.load_comments();
+    // this.combine_config();
+    // this.load_comments();
   }
 
   combine_config() {
-    
+
   }
 
   load_comments() {
-    this.props.config.comments_url,
+
+    // this.props.config.comments_url,
   }
-  
+
+  componentDidMount() {
+    fetch(this.props.config.comments_url)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            comments: result
+          });
+        },
+        (error) => {
+          alert('error loading comments');
+        }
+      )
+
+    fetch(
+      this.props.config.auth_url,
+      {
+        method: 'POST'
+      }
+      )
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          login: result
+        });
+        // console.log(result);
+      },
+      (error) => {
+        alert('error loading auth');
+      }
+    )
+  }
+
   render() {
     return (
       <div>
-        <h1>{this.props.config.foo}</h1>
         <Header init={this.state.init} />
         <Comments comments={this.state.comments} />
-        <Footer auth={this.state.auth} url={this.state.url}/>
-      </div>      
+        <Footer login={this.state.login} url={this.state.url} />
+      </div>
     );
   }
 }
