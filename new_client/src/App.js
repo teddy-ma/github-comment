@@ -19,8 +19,8 @@ class App extends Component {
       },
       url: {
         comments_url: this.props.config.comments_url,
-        create_comment_url: this.props.config.create_comment_url,
-        auth_url: this.props.config.auth_url
+        auth_url: this.props.config.auth_url,
+        create_comment_url: this.props.config.create_comment_url
       },
       login: {
         auth: false,
@@ -85,7 +85,7 @@ class App extends Component {
       <div>
         <Header init={this.state.init} />
         <Comments comments={this.state.comments} loading={this.state.loading} />
-        <Footer login={this.state.login} url={this.state.url} />
+        <Footer login={this.state.login} url={this.state.url} config={this.props.config} />
       </div>
     );
   }

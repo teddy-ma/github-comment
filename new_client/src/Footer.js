@@ -5,7 +5,7 @@ class Footer extends Component {
   render() {
      if (this.props.login.auth) {
        return (
-           <Form />
+           <Form create_comment_url={this.props.url.create_comment_url} config={this.props.config}/>
        );
      } else {
        return (

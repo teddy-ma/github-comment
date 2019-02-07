@@ -19,12 +19,18 @@ class Form extends Component {
 
   handleClick = (evt) => {
     const data = {
-      content: this.state.current_text,
+      body: this.state.current_text,
+      repo: this.props.config.repo,
+      page_id: this.props.config.page_id,
+      user_name: this.props.config.user_name
     }
     const request_body = JSON.stringify(data);
 
     fetch( this.props.create_comment_url, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: request_body,
       credentials: 'include'
     }).then(res => res.json())
@@ -43,8 +49,10 @@ class Form extends Component {
     return (
       <div>
         <input type="text" value={this.state.current_text} onChange={this.handleInputChange} />
-        <button type="button">Comment</button>
+        <button type="button" onClick={this.handleClick}>Comment</button>
       </div>
     );
   }
 }
+
+export default Form;
