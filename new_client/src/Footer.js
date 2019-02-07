@@ -5,12 +5,12 @@ class Footer extends Component {
   render() {
      if (this.props.login.auth) {
        return (
-        <p>you are authed</p>
+           <p>you are authed</p>
        );
      } else {
-      return (
-        <p>you need login {this.props.login.login_url}</p>
-      );
+       return (
+           <a href={this.props.login.login_url}>login via GitHub</a>
+       );
      }
   }
 }

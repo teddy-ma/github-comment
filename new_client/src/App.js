@@ -12,10 +12,10 @@ class App extends Component {
     super(props);
 
     this.state = {
+      loading: true,
       init: {
         valid: true,
-        error_message: '',
-        loading: true,
+        error_message: ''
       },
       url: {
         comments_url: this.props.config.comments_url,
@@ -42,11 +42,9 @@ class App extends Component {
   }
 
   combine_config() {
-
   }
 
   load_comments() {
-
     // this.props.config.comments_url,
   }
 
@@ -56,39 +54,36 @@ class App extends Component {
       .then(
         (result) => {
           this.setState({
-            comments: result
+            comments: result,
+            loading: false
           });
+
         },
         (error) => {
           alert('error loading comments');
         }
-      )
+      );
 
     fetch(
-      this.props.config.auth_url,
-      {
-        method: 'POST'
-      }
-      )
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          login: result
-        });
-        // console.log(result);
-      },
-      (error) => {
-        alert('error loading auth');
-      }
-    )
+      this.props.config.auth_url, { method: 'POST'})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            login: result
+          });
+        },
+        (error) => {
+          alert('error loading auth');
+        }
+      );
   }
 
   render() {
     return (
       <div>
         <Header init={this.state.init} />
-        <Comments comments={this.state.comments} />
+        <Comments comments={this.state.comments} loading={this.state.loading} />
         <Footer login={this.state.login} url={this.state.url} />
       </div>
     );
