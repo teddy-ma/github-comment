@@ -9,7 +9,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.0",
     "cz-conventional-changelog": "^1.1.5",
-    "debug": "~2.2.0",
+    "debug": "^4.1.1",
     "dotenv": "^2.0.0",
     "ejs": "~2.5.4",
     "express": "^4.16.4",
