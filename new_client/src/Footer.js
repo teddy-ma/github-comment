@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import Form from './Form.js';
 
 class Footer extends Component {
   render() {
      if (this.props.login.auth) {
        return (
-           <p>you are authed</p>
+           <Form />
        );
      } else {
        return (

@@ -51,26 +51,23 @@ class App extends Component {
   componentDidMount() {
     fetch(this.props.config.comments_url, {
       credentials: 'include'
-    })
-      .then(res => res.json())
+    }).then(res => res.json())
       .then(
         (result) => {
           this.setState({
             comments: result,
             loading: false
           });
-
         },
         (error) => {
-          alert('error loading comments');
+          console.log('error loading comments');
         }
       );
 
     fetch( this.props.config.auth_url, {
-          method: 'POST',
-          credentials: 'include'
-        })
-      .then(res => res.json())
+      method: 'POST',
+      credentials: 'include'
+    }).then(res => res.json())
       .then(
         (result) => {
           this.setState({
@@ -78,7 +75,7 @@ class App extends Component {
           });
         },
         (error) => {
-          alert('error loading auth');
+          console.log('error loading auth');
         }
       );
   }
