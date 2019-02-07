@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Avatar from './Avatar';
-import Content from './Content';
+import Avatar from './Avatar.js';
+import Content from './Content.js';
+import InlineItem from '../styles/InlineItem.js';
 
 class Item extends Component {
   render() {
     return (
-      <li>
+      <InlineItem>
         <Avatar user={this.props.user} />
         <Content content={this.props.content} />
-      </li>
+      </InlineItem>
     );
   }
 }

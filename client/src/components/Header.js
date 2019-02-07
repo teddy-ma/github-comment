@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import TopNotification from '../styles/TopNotification.js'
 
 class Header extends Component {
   render() {
@@ -7,11 +7,11 @@ class Header extends Component {
     const error_message = this.props.init.error_message;
     if (valid){
        return (
-           <p>leave you comment here</p>
+           <TopNotification>leave you comment here</TopNotification>
        );
     }else {
       return (
-          <p>error: {error_message}</p>
+          <TopNotification>error: {error_message}</TopNotification>
       );
     }
   };

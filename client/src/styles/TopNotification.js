@@ -1,11 +1,10 @@
-import React from 'react';
 
 import styled from 'styled-components';
 
-const Alert = styled.span`
+const TopNotification = styled.span`
   margin-left: 4em;
   padding-top: 1em;
   display: block;
 `;
 
-export default Alert;
+export default TopNotification;

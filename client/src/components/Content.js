@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import LeftParagraph from '../styles/LeftParagraph.js'
 
 class Content extends Component {
   render() {
     return (
-      <p>
+      <LeftParagraph>
         {this.props.content}
-      </p>
+      </LeftParagraph>
     );
   }
 }

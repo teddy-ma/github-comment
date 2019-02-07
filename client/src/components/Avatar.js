@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import CircleImage from '../styles/CircleImage';
 
 class Avatar extends Component {
   render() {
     return (
-        <img src={this.props.user.avatar_url} />
+        <CircleImage src={this.props.user.avatar_url} />
     );
   }
 }

@@ -19,7 +19,6 @@ router.post('/', function(req, res, next) {
       'Content-Type': 'application/json'
     }
   }, (error, response, body) => {
-
     const issue = JSON.parse(body).filter(c=> c.title === page_id)[0];
 
     if(issue) { // issue exist

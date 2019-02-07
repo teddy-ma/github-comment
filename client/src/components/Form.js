@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import InputArea from '../styles/InputArea.js'
+import SharpButton from '../styles/SharpButton.js'
 
 
 class Form extends Component {
@@ -36,8 +38,8 @@ class Form extends Component {
     }).then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
-          // this.setState({comments:[...this.state.comments, result]});
+          this.props.append_comment(result.body);
+          this.setState({current_text: ''});
         },
         (error) => {
           console.log('create comment error');
@@ -48,8 +50,8 @@ class Form extends Component {
   render() {
     return (
       <div>
-        <input type="text" value={this.state.current_text} onChange={this.handleInputChange} />
-        <button type="button" onClick={this.handleClick}>Comment</button>
+        <InputArea type="text" value={this.state.current_text} onChange={this.handleInputChange} />
+        <SharpButton type="button" onClick={this.handleClick}>Comment</SharpButton>
       </div>
     );
   }
