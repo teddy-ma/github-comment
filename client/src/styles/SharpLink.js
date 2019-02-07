@@ -6,7 +6,7 @@ const SharpLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   color: #fff;
-  background: ${props => props.theme.bgcolor};
+  background: green;
   border: 1px solid #fff;
 `;
 

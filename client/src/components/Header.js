@@ -6,12 +6,12 @@ class Header extends Component {
     const valid = this.props.init.valid;
     const error_message = this.props.init.error_message;
     if (valid){
-       return (
-           <TopNotification>leave you comment here</TopNotification>
-       );
+      return (
+        <TopNotification>leave your comment here</TopNotification>
+      );
     }else {
       return (
-          <TopNotification>error: {error_message}</TopNotification>
+        <TopNotification>error: {error_message}</TopNotification>
       );
     }
   };

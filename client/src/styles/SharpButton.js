@@ -5,7 +5,8 @@ const SharpButton = styled.button`
   padding: 4px 14px;
   text-decoration: none;
   cursor: pointer;
-  background-color: ${props => props.theme.bgcolor};
+  color: #fff;
+  background-color: green;
   border: 1px solid #fff;
 `;
 

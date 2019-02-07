@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form.js';
 import LeftFooter from '../styles/LeftFooter.js';
+import SharpLink from '../styles/SharpLink.js';
 
 class Footer extends Component {
   render() {
@@ -13,7 +14,7 @@ class Footer extends Component {
      } else {
        return (
         <LeftFooter>
-           <a href={this.props.login.login_url}>login via GitHub</a>
+          <SharpLink href={this.props.login.login_url}>login via GitHub</SharpLink>
         </LeftFooter>
        );
      }
