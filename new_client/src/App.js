@@ -49,7 +49,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(this.props.config.comments_url)
+    fetch(this.props.config.comments_url, {
+      credentials: 'include'
+    })
       .then(res => res.json())
       .then(
         (result) => {
@@ -64,8 +66,10 @@ class App extends Component {
         }
       );
 
-    fetch(
-      this.props.config.auth_url, { method: 'POST'})
+    fetch( this.props.config.auth_url, {
+          method: 'POST',
+          credentials: 'include'
+        })
       .then(res => res.json())
       .then(
         (result) => {
