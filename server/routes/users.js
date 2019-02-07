@@ -3,11 +3,6 @@ var request = require('request');
 var encode = require('nodejs-base64-encode');
 var router = express.Router();
 
-// TODO 获取用户是否处于登录状态的信息
-router.get('/', function(req, res, next){
-
-});
-
 /* 用户鉴权 */
 router.post('/auth', function(req, res, next) {
   console.log("in auth session token is: " + req.session.token);

@@ -1,67 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
+import './index.css';
 import App from './App';
-import store from './store';
-import {ThemeProvider} from 'styled-components';
-import {INIT_APP_FAIL, INIT_APP, MESSAGE_SHOW} from './reducers/actionTypes';
+import * as serviceWorker from './serviceWorker';
 
-var theme_name;
+const config = load_config();
 
-// 根据引用的参数, 初始化配置
-var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
-if(script_tag) {
-    // 读取 scrpit tag 中设定的 data 属性
-    const user_name = script_tag.dataset.username;
-    const repo = script_tag.dataset.repo;
-    const page_id = script_tag.dataset.pageId;
-    const server_url = script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
-    const ssl = script_tag.dataset.ssl || false;
-    const wrapper_id = 'github-comments';
-    theme_name = script_tag.dataset.theme || 'blue';
+ReactDOM.render(<App config={config} />, document.getElementById('root'));
 
-    const comments_url = `${ssl ? "https" : "http"}://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`;
-    const auth_url = `${ssl ? "https" : "http"}://${server_url}/users/auth`;
-    const create_comment_url = `${ssl ? "https" : "http"}://${server_url}/comments`;
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();
 
-    const login_status = "detect";
+function load_config(){
+  // 根据引用的参数, 初始化配置
+  var script_tag = document.getElementById("github-comment"); // 用于引用的 js script tag
+  const user_name = script_tag.dataset.username;
+  const repo =  script_tag.dataset.repo;
+  const page_id =  script_tag.dataset.pageId;
+  const server_url =  script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
+  const ssl =  script_tag.dataset.ssl || false;
 
-    // 初始化基础信息
-    store.dispatch(
-      {
-        type: INIT_APP,
-        payload: {
-          user_name,
-          repo,
-          page_id,
-          server_url,
-          ssl,
-          theme,
-          login_status,
-          comments_url,
-          auth_url,
-          create_comment_url
-        }
-      }
-    );
-    // // 开始请求评论列表
-    // store.dispatch(loadComments(comments_url));
-    // // 开始请求登录状态结果
-    // store.dispatch(fetchAuth(auth_url));
-}else{
-    store.dispatch({type: INIT_APP_FAIL}); // -> reducers/messages.js
+  return {
+    user_name: user_name,
+    repo: repo,
+    page_id:  page_id,
+    wrapper_id: 'github-comments',
+    comments_url: `${ssl ? "https" : "http"}://${server_url}/comments?page_id=${page_id}&user_name=${user_name}&repo=${repo}`,
+    auth_url: `${ssl ? "https" : "http"}://${server_url}/users/auth`,
+    create_comment_url: `${ssl ? "https" : "http"}://${server_url}/comments`,
+    login_status: "detect"
+  };
 }
-
-const theme = (theme_name === 'green' ? {
-	bgcolor: 'green'
-} : {
-  bgcolor: '#00A6FF'
-})
-
-ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </Provider>,
-  document.getElementById('github-comments'));

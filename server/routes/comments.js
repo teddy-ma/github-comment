@@ -19,12 +19,11 @@ router.post('/', function(req, res, next) {
       'Content-Type': 'application/json'
     }
   }, (error, response, body) => {
-    // debugger;
     const issue = JSON.parse(body).filter(c=> c.title === page_id)[0];
-    
+
     if(issue) { // issue exist
-      var issue_id = issue.number;     
-      var url = 'https://api.github.com/repos/' + user_name + '/' + repo + '/issues/' + issue_id + '/comments';      
+      var issue_id = issue.number;
+      var url = 'https://api.github.com/repos/' + user_name + '/' + repo + '/issues/' + issue_id + '/comments';
       request.post({
         headers: {
           "Authorization": "token " + req.session.token,
@@ -35,7 +34,7 @@ router.post('/', function(req, res, next) {
         json: {
           body: content
         }
-      }, function(error, response, body) {  
+      }, function(error, response, body) {
         res.json({
           body
         });
@@ -53,7 +52,7 @@ router.post('/', function(req, res, next) {
               'Content-Type': 'application/json'
             }
           }, (error, response, body) => {
-            res.json(JSON.parse(body)); 
+            res.json(JSON.parse(body));
           });
         }
       });
@@ -70,17 +69,17 @@ router.get('/', function(req, res, next) {
         "Authorization": "token " + token,
         'user-agent': 'node.js',
         'Content-Type': 'application/json'
-      },  
+      },
       url: url,
-      json: {              
+      json: {
         title: title,
         body: "comments below"
-      } 
-    }, function(error, response, body) {                
+      }
+    }, function(error, response, body) {
       callback(null, body);
-    }); 
+    });
   };
-  
+
   var user_name = req.query.user_name;
   var repo = req.query.repo;
   var page_id = req.query.page_id; // it's page's uuid (title)
@@ -96,7 +95,7 @@ router.get('/', function(req, res, next) {
     }
   }, (error, response, body) => {
     const issue = JSON.parse(body).filter(c=> c.title === page_id)[0];
-    
+
     if(issue) { // issue exist
       var issue_id = issue.number;
       var comments_url = "https://api.github.com/repos/" + user_name + "/" + repo + "/issues/" + issue_id + "/comments";
@@ -126,12 +125,12 @@ router.get('/', function(req, res, next) {
               'Content-Type': 'application/json'
             }
           }, (error, response, body) => {
-            res.json(JSON.parse(body)); 
+            res.json(JSON.parse(body));
           });
         }
       });
     };
-    
+
   });
 });
 
