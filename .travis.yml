@@ -1,7 +1,20 @@
 language: node_js
 node_js:
-  - "11.9.0"
+- 11.9.0
 script:
-  - npm i -g yarn
-  - npm i -g webpack-cli
-  - cd client && yarn && yarn build:react && yarn build:bundle
+- npm i -g yarn
+- npm i -g webpack-cli
+- cd client && yarn && yarn build:react && yarn build:bundle
+- git config --global user.email "mlc880926@gmail.com"
+- git config --global user.name "Ma Lucheng"
+- git config --global push.default simple
+- git clone --single-branch --branch gh-pages https://${GH_TOKEN}@github.com/teddy-ma/github-comment.git
+  /tmp
+- cp dist/build/static/js/bundle.min.js /tmp/github-comment
+- cd /tmp/github-comment
+- git add -A .
+- git commit -m "update from travis"
+- git push -q upstream HEAD:gh-pages
+env:
+  global:
+    secure: CfuUlDnCigwdxgLU8kUfzdffGZ2SqPA3tXpctYRIohMNRdLcvEHdwPbzw/uUSCG/bXf33jh/FxzWNPrTfjogM81Q3JHbYaknxIg+0ZkIAvFwlHGHh68DR4R2bjC9jGAThNBf/I5YHqj3OQd9hiHz06dL2arcXzu9wZJqABREOn/TM4J+1FX9igorp9IM+mpO5V5tO2g3R5g4Z+oxH5LsWjwCkqUVLx5PLx93vyo7haqwAUZq08I3s/N648nIU3GmJF2GNd7MHkTTBoIh/LEiKTGPYp6xe2Z6PMcOkIRjC1qJgqzBZhGR0DRy8ph3xRySlLkU3cM1HaLB3zYliX6atgMY0jn7SoAjqz4lFpyTgdSZC8dqhoMrvUUIDppSlYHwVfUXSQt40RGyqoaskBQ0obVVrm0ByYdN1KK08N2g3HYREVBaIELw2Yx1gXBxJtvnSzQkq6FnGsOq0BedrNDhn2PZj5uVLne1Ui/T9iqQv+/ZscSSG5zSSKO58P1O8FuyRwlGNSwX2jOhpQPzq53HOqfcdFPL1wLGyaHDr/yngAbh3POSosUzjtFVvc2GLRJlIZUegpImSRWBt35Fhc/3d1txJ3eIK2aJIzvvSrJAcrPNbYErGdW7Avc96aGv4KFqCUUiRIpDDD+Dz0WelIleD4Qw0I//rrqEMt+Lsdbucqw=
