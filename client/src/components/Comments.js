@@ -22,7 +22,7 @@ class Comments extends Component {
           })}
         </ul>
       );
-    };
+    }
   };
 };
 
