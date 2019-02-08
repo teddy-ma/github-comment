@@ -9,11 +9,11 @@ script:
 - git config --global user.name "Ma Lucheng"
 - git config --global push.default simple
 - git clone --single-branch --branch gh-pages https://${GH_TOKEN}@github.com/teddy-ma/github-comment.git
-  /tmp
-- cp dist/build/static/js/bundle.min.js /tmp/github-comment
-- cd /tmp/github-comment
+  /tmp/gh-pages-repo
+- cp dist/build/static/js/bundle.min.js /tmp/gh-pages-repo/latest.js
+- cd /tmp/gh-pages-repo
 - git add -A .
-- git commit -m "update from travis"
+- git commit -m "update latest js from travis"
 - git push -q upstream HEAD:gh-pages
 env:
   global:
