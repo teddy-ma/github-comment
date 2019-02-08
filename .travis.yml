@@ -3,4 +3,4 @@ node_js:
   - "7.0.0"
 script:
   - npm i -g yarn
-  - cd github-comment && yarn && yarn build
+  - cd github-comment/client && yarn && yarn build:react && yarn build:bundle
