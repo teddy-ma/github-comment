@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import Item from './Item.js';
-import ContentLoader, { Facebook } from "react-content-loader";
-
+import ContentLoader from "react-content-loader";
 
 class Comments extends Component {
 
