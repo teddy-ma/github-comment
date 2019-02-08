@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "7.0.0"
+  - "11.9.0"
 script:
   - npm i -g yarn
-  - cd github-comment/client && yarn && yarn build:react && yarn build:bundle
+  - cd client && yarn && yarn build:react && yarn build:bundle
