@@ -1,54 +1,47 @@
 import * as React from 'react';
-import { fetchDogFacts, DogFactType } from './dog-facts';
+import { fetchComments, CommentType } from './comment-hooker';
 
 import { Loading } from './Loading';
 
 
-const Fact = ({ fact }: { fact: string }) => {
+const Comment = ({ comment }: { comment: string }) => {
   return (
-    <article className="dog-fact">
-      <h3>Dog Fact</h3>
-      <p>{fact}</p>
+    <article className="">
+      <p>{comment}</p>
     </article>
   );
 };
 
 const App = () => {
-  const [facts, setFacts] = React.useState<DogFactType[]>([]);
+  const [comments, setComments] = React.useState<CommentType[]>([]);
   const [loading, setLoading] = React.useState(true);
 
 
   React.useEffect(() => {
-    fetchDogFacts(4).then((facts) => {
-
+    fetchComments(2).then((comments) => {
       setTimeout(() => {
-
-        setFacts(facts);
+        setComments(comments);
         setLoading(false);
       }, 5000);
-
     });
-
   }, []);
-
-
 
   if (loading) {
     return <Loading />
   }
   else {
-  return (
-    <main>
-      <section>
+    return (
+      <main>
+        <section>
 
-        {facts.map((fact, index) => (
-          <Fact key={index} fact={fact.fact} />
-        ))}
+          {comments.map((comment, index) => (
+            <Comment key={index} comment={comment.body} />
+          ))}
 
-      </section>
-    </main>
-  );
-        }
+        </section>
+      </main>
+    );
+  }
 };
 
 export default App;
