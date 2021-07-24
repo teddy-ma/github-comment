@@ -1,4 +1,4 @@
-export const data = [
+export const comments = [
   {
     id: 1,
     user_name: "hanmeimei",
@@ -12,3 +12,10 @@ export const data = [
     body: "My name is liqiang"
   }
 ]
+
+export const auth = {
+  auth: false,
+  user_name: "leifeng",
+  avatar_url: "https://placehold.it/150x150",
+  login_url: 'http://www.baidu.com'
+}

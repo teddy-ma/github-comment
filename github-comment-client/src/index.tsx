@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App login_url="ddd" authed={false} />
+    <App  />
   </React.StrictMode>,
   document.getElementById('root')
 );
