@@ -23,12 +23,9 @@ const App = () => {
 
   React.useEffect(() => {
     // fetch comments
-    fetchComments().then((comments) => {
-      setTimeout(() => {
-        setComments(comments);
-        setLoading(false);
-      }, 5000);
-    });
+    const result = fetchComments().then((comments) => setComments(comments));
+    setLoading(false);
+
     // fetch auth
     fetchAuth().then((auth) => {
       setTimeout(() => {

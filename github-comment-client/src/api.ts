@@ -14,8 +14,11 @@ export type AuthType = {
   login_url: string;
 }
 
-export const fetchComments = () => {
-  return Promise.resolve(comments).then((comments) => comments);
+export const fetchComments = (): Promise<CommentType[]> =>{
+  // return Promise.resolve(comments).then((comments) => comments);
+  return fetch("http://localhost:5000/comments?user_name=teddy-ma&repo=github-comment&page_id=v3", {
+    credentials: 'include'
+  }).then(res => res.json())
 };
 
 export const fetchAuth = () => {

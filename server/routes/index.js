@@ -4,7 +4,7 @@ var encode = require('nodejs-base64-encode');
 var router = express.Router();
 
 /* 首页 */
-// 用于判断服务是否可用
+// 用于判断服务是否可用 (it works)
 router.get('/', function(req, res, next) {
   res.render('index');
 });
