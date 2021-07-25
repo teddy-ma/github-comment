@@ -1,10 +1,18 @@
 import * as React from 'react';
+import {createComment} from '../api';
 
 const Form = ({avatar_url}: {avatar_url: string}) => {
   const [content, setContent] = React.useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    createComment({
+      body: content,
+      repo: "github-comment",
+      page_id: "v3",
+      user_name: "teddy-ma"
+    })
+
     alert('submit')
   };
 

@@ -9,6 +9,10 @@ export type CommentType = {
   }
 };
 
+export type CreateCommentType = {
+
+}
+
 export type AuthType = {
   auth: boolean;
   user_name: string;
@@ -22,6 +26,34 @@ export const fetchComments = (): Promise<CommentType[]> =>{
     credentials: 'include'
   }).then(res => res.json())
 };
+
+export const createComment = (data: CreateCommentType):Promise<CreateCommentType> => {
+  console.log("---------------------------")
+  console.log(data);
+  console.log("---------------------------")
+  const request_body = JSON.stringify(data);
+  console.log(request_body);
+  console.log("---------------------------")
+  return fetch('http://localhost:5000/comments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: request_body,
+    credentials: 'include'
+  })
+
+  // .then(res => res.json())
+  //   .then(
+  //     (result) => {
+
+  //     },
+  //     (error) => {
+  //       console.log('create comment error');
+  //     }
+  //   );
+}
+
 
 export const fetchAuth = ():Promise<AuthType> => {
   // return Promise.resolve(auth).then((auth) => auth);
