@@ -39,10 +39,10 @@ const App = () => {
       <main>
         <section>
           {comments.map((comment, index) => (
-            <Comment key={index} comment={comment.body} />
+            <Comment key={index} avatar_url={comment.user.avatar_url} comment={comment.body} />
           ))}
         </section>
-        {auth.auth ? <Form /> : <Login login_url={auth.login_url} />}
+        {auth.auth ? <Form avatar_url={auth.avatar_url} /> : <Login login_url={auth.login_url} />}
       </main>
     );
   }

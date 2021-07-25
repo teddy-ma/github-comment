@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Form = () => {
+const Form = ({avatar_url}: {avatar_url: string}) => {
   const [content, setContent] = React.useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,9 +15,9 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-
-    <input type="text" value={content} onChange={(event) => setContent(event.target.value)} />
-    <input type="submit" value="Comment" />
+      <img src={avatar_url} />
+      <input type="text" value={content} onChange={(event) => setContent(event.target.value)} />
+      <input type="submit" value="Comment" />
     </form>
   );
 };

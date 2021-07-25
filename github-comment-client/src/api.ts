@@ -3,8 +3,10 @@ import { comments, auth } from './data';
 export type CommentType = {
   id: number;
   user_name: string;
-  avatar_url: string;
   body: string;
+  user: {
+    avatar_url: string;
+  }
 };
 
 export type AuthType = {
