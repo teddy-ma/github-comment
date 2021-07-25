@@ -21,8 +21,13 @@ export const fetchComments = (): Promise<CommentType[]> =>{
   }).then(res => res.json())
 };
 
-export const fetchAuth = () => {
-  return Promise.resolve(auth).then((auth) => auth);
+export const fetchAuth = ():Promise<AuthType> => {
+  // return Promise.resolve(auth).then((auth) => auth);
+  // const server_url =  script_tag.dataset.serverUrl || 'github-comment.herokuapp.com';
+  return fetch("http://localhost:5000/users/auth", {
+    method: 'POST',
+    credentials: 'include'
+  }).then(res => res.json())
 };
 
 

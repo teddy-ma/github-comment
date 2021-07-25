@@ -27,14 +27,7 @@ const App = () => {
     setLoading(false);
 
     // fetch auth
-    fetchAuth().then((auth) => {
-      setTimeout(() => {
-        setAuth(auth);
-        // if(auth.auth) {
-        //   set
-        // }
-      }, 5000);
-    });
+    fetchAuth().then((auth) => setAuth(auth))
 
   }, []);
 
