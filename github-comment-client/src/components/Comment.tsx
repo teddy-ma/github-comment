@@ -1,8 +1,10 @@
+import {commentStyle, imageStyle, textStyle} from './CssStyle';
+
 const Comment = ({ comment, avatar_url }: { comment: string, avatar_url:string }) => {
   return (
-    <section className="">
-      {/* TODO react typescript css impl <img src={avatar_url} /> */}
-      <p>{comment}</p>
+    <section style={commentStyle}>
+      <img style={imageStyle} src={avatar_url} />
+      <p style={textStyle}>{comment}</p>
     </section>
   );
 };

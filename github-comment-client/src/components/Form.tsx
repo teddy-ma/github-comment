@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {createComment, fetchComments} from '../api';
+import {commentStyle, imageStyle, textStyle} from './CssStyle';
 
 const Form = ({avatar_url, appendComment}: {avatar_url: string, appendComment: Function}) => {
   const [content, setContent] = React.useState("");
@@ -26,7 +27,7 @@ const Form = ({avatar_url, appendComment}: {avatar_url: string, appendComment: F
 
   return (
     <form onSubmit={handleSubmit}>
-      <img src={avatar_url} />
+      <img style={imageStyle} src={avatar_url} />
       <input type="text" value={content} onChange={(event) => setContent(event.target.value)} />
       <input type="submit" value="Comment" />
     </form>
