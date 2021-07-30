@@ -27,7 +27,7 @@ export const fetchComments = (): Promise<CommentType[]> =>{
   }).then(res => res.json())
 };
 
-export const createComment = (data: CreateCommentType):Promise<CreateCommentType> => {
+export const createComment = (data: CreateCommentType):Promise<Response> => {
   console.log("---------------------------")
   console.log(data);
   console.log("---------------------------")
@@ -41,7 +41,7 @@ export const createComment = (data: CreateCommentType):Promise<CreateCommentType
     },
     body: request_body,
     credentials: 'include'
-  })
+  }).then(res => res.json())
 
   // .then(res => res.json())
   //   .then(

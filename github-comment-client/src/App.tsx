@@ -23,13 +23,20 @@ const App = () => {
 
   React.useEffect(() => {
     // fetch comments
-    const result = fetchComments().then((comments) => setComments(comments));
-    setLoading(false);
+    loadingComments()
 
     // fetch auth
     fetchAuth().then((auth) => setAuth(auth))
-
   }, []);
+
+  const loadingComments = () => {
+    fetchComments().then((comments) => setComments(comments));
+    setLoading(false);
+  }
+
+  const appendComment = (comment: CommentType) => {
+    setComments([...comments, comment]);
+  }
 
   if (loading) {
     return <Loading />
@@ -42,7 +49,7 @@ const App = () => {
             <Comment key={index} avatar_url={comment.user.avatar_url} comment={comment.body} />
           ))}
         </section>
-        {auth.auth ? <Form avatar_url={auth.avatar_url} /> : <Login login_url={auth.login_url} />}
+        {auth.auth ? <Form appendComment={appendComment} avatar_url={auth.avatar_url} /> : <Login login_url={auth.login_url} />}
       </main>
     );
   }

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {createComment} from '../api';
+import {createComment, fetchComments} from '../api';
 
-const Form = ({avatar_url}: {avatar_url: string}) => {
+const Form = ({avatar_url, appendComment}: {avatar_url: string, appendComment: Function}) => {
   const [content, setContent] = React.useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -11,10 +11,13 @@ const Form = ({avatar_url}: {avatar_url: string}) => {
       repo: "github-comment",
       page_id: "v3",
       user_name: "teddy-ma"
-    })
-
-    alert('submit')
+    }).then((newComment) => handleNewComment(newComment))
   };
+
+  const handleNewComment = (newComment: Response) => {
+    appendComment(newComment.body);
+    setContent('');
+  }
 
   // const handleInputChange = (event: React.ChangeEvent<HTMLFormElement>) => {
   //   event.preventDefault();
