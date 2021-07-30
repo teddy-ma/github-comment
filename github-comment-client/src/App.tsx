@@ -5,13 +5,20 @@ import { Loading } from './components/Loading';
 import Form from './components/Form';
 import Login from './components/Login';
 import Comment from './components/Comment';
-
+type CommentConfig = {
+  user_name: string | undefined,
+  repo: string | undefined,
+  page_id: string | undefined,
+  comments_url: string | undefined,
+  auth_url: string | undefined,
+  create_comment_url: string | undefined,
+}
 // data-server-url="localhost:5000"
 // data-username="teddy-ma"
 // data-repo="github-comment"
 // data-page-id="blablablabla">
 // {login_url, authed}: {login_url: string, authed: boolean}
-const App = () => {
+const App = ({config}: {config: CommentConfig}) => {
   const [comments, setComments] = React.useState<CommentType[]>([]);
   const [auth, setAuth] = React.useState<AuthType>({
     auth: false,
